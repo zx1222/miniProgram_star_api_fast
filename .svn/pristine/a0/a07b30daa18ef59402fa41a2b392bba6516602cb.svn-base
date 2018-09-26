@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "report": "../../components/report/report"
-  }
-}

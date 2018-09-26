@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "歌姬人气榜",
-  "enablePullDownRefresh": false,
-  "component": true,
-  "usingComponents": {
-    "tabbar-bottom": "../../../components/tabbar-bottom/tabbar-bottom",
-    "contentSwiper":"./components/content-swiper/content-swiper"
-  }
-}
