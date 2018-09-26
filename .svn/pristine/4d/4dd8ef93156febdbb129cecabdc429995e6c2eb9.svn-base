@@ -1,0 +1,147 @@
+<view class="container {{is_rules_show?'overflow-y-hidden':''}}">
+  <view class="idol-info">
+    <view class='poster-wrp w100'>
+      <!-- <view class='poster-wrp '> -->
+      <!-- video border theme-->
+      <image wx:if="{{idol_index==0}}" class='poster-border w100' src='../../images/idol-brief-inro_border1.png' mode='widthFix'></image>
+      <image wx:if="{{idol_index==1}}" class='poster-border w100' src='../../images/idol-brief-inro_border2.png' mode='widthFix'></image>
+      <image wx:if="{{idol_index==2}}" class='poster-border w100' src='../../images/idol-brief-inro_border3.png' mode='widthFix'></image>
+      <image wx:if="{{idol_index==3}}" class='poster-border w100' src='../../images/idol-brief-inro_border4.png' mode='widthFix'></image>
+      <image wx:if="{{idol_index==4}}" class='poster-border w100' src='../../images/idol-brief-inro_border5.png' mode='widthFix'></image>
+      <!-- video top icon theme---->
+      <image class='poster w100' src='../../images/poster-intro.png' mode='widthFix'></image>
+    </view>
+
+    <view class='count-wrp'>
+      <view class="row flex align-items-center justify-content-between">
+        <view class='r flex align-items-center '>
+          <view class='label text-s bold letter-sp2'>人气值：</view>
+          <view class='bold italic num letter-sp2' style='color:{{idolTheme[idol_index].main}}'>100</view>
+        </view>
+        <view class='btn letter-sp2 text-s' style='color:{{idolTheme[idol_index].main}};border:1px solid {{idolTheme[idol_index].main}}' bindtap='getSuppportRules'>应援规则</view>
+      </view>
+      <view class="row flex align-items-center justify-content-between">
+        <view class='r flex align-items-center'>
+          <view class='label text-s bold'>今日贡献值：</view>
+          <view class='bold italic num letter-sp2' style='color:{{idolTheme[idol_index].main}}'>100</view>
+        </view>
+        <view class='btn  letter-sp2 text-s' style='color:{{idolTheme[idol_index].main}};border:1px solid {{idolTheme[idol_index].main}} ' catchtap='follow'>关注</view>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class='task-list' scroll-y >
+    <view class='text-m letter-sp2 bold'>去应援</view>
+    <view class='item flex align-items-center' wx:for="{{task_list}}">
+      <view class='icon-wrp' style='border:1px solid {{idolTheme[idol_index].main}}'>
+        <text wx:if="{{index==0}}" class='icomoon icon icon-location' style='color:{{idolTheme[idol_index].main}}'></text>
+        <text wx:if="{{index==1}}" class='icomoon icon icon-movie' style='color:{{idolTheme[idol_index].main}}'></text>
+        <text wx:if="{{index==2}}" class='icomoon icon icon-good-light' style='color:{{idolTheme[idol_index].main}}'></text>
+        <text wx:if="{{index==3}}" class='icomoon icon icon-pencil' style='color:{{idolTheme[idol_index].main}}'></text>
+        <text wx:if="{{index==4}}" class='icomoon icon icon-paste' style='color:{{idolTheme[idol_index].main}}'></text>
+        <text wx:if="{{index==5}}" class='icomoon icon icon-draw' style='color:{{idolTheme[idol_index].main}}'></text>
+        <text wx:if="{{index==6}}" class='icomoon icon icon-crown' style='color:{{idolTheme[idol_index].main}}'></text>
+        <text wx:if="{{index==7}}" class='icomoon icon icon-shop' style='color:{{idolTheme[idol_index].main}}'></text>
+      </view>
+      <view class='task-info flex flex-c'>
+        <view class="task-name text-s bold">{{item.task_name}}</view>
+        <view class='flex align-items-center justify-content-between w100'>
+          <view class=' bold text-m italic letter-sp1 point' wx:if="{{item.point!=''&&item.point.length==1}}" style="color:{{idolTheme[idol_index].main}}">+{{item.point}}</view>
+          <view class=' bold text-m italic letter-sp1 point' wx:if="{{item.point!=''&&item.point.length>1}}" style="color:{{idolTheme[idol_index].main}} ">
+            <text wx:for="{{item.point}}"><text wx:if="{{index!=0}}">~</text>+{{item}}</text>
+
+          </view>
+          <view class=' bold text-m italic point' wx:if="{{item.point.length==0}}" style="color:{{idolTheme[idol_index].main}}">{{item.point_content}}</view>
+          <view class='text-s'>完成0/1</view>
+          <view class="btn text-s">去完成</view>
+        </view>
+
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 应援规则popup -->
+<view class="popup support-rules flex align-items-center justify-content-center" wx:if="{{is_rules_show&&tabCurrent==2}}">
+      <view class='poster text-white'>
+            <scroll-view class='poster-inner flex flex-c justify-content-between'>
+                  <view class='header' style='   border-bottom: 1px dashed {{idolTheme[idol_index].main}} '>
+                        <view class='title text-black bold text-center'>应援规则</view>
+                        <view class='text-black text-xs'>欢迎来到《战斗吧！歌姬》的世界，在这里你的各种行为都会为你的偶像获得人气值，并且自己也会获得个人积分的奖励（我才不会告诉你个人值能换取各种神秘的礼物呢）</view>
+                  </view>
+                  <view class='content text-xs'>
+                        <view class='content_title bold'>具体的奖励规则如下</view>
+                        <view class="section">
+                              <view class='bold'>【必修任务-签到】</view>
+                              <view>点击签到按钮，为歌姬增加5点人气值，为你增加5点贡献值，每天限量一次。</view>
+                        </view>
+                        <view class='section'>
+                              <view class='bold'>【必修任务-签到】</view>
+                              <view>点击签到按钮，为歌姬增加5点人气值，为你增加5点贡献值，每天限量一次。</view>
+                        </view>
+                        <view class='section'>
+                              <view class='bold'>【互动任务-评论视频】</view>
+                              <view>评论歌姬动态里面的发布视频内容(每天3个) ，为歌姬增加15点人气值，为你增加15点贡献值，每天限量一次。</view>
+                        </view>
+
+                        <view class='section'>
+                              <view class='bold'>【互动任务-编辑文字分享视频】</view>
+                              <view>分享歌姬动态里面的视频内容加上评论给微信好友/微信群（分享自己喜欢的歌姬的内容），为歌姬增加15点人气值，为你增加15点贡献值，每周限量一次。</view>
+                        </view>
+
+                  </view>
+            </scroll-view>
+      </view>
+      <image bindtap='closePopup' class='btn-close' src='../../images/icon-close.png' mode='widthFix'></image>
+</view>
+<!-- 应援规则popup -->
+<view class="popup support-rules flex align-items-center justify-content-center" wx:if="{{is_rules_show}}">
+      <view class='poster text-white'>
+            <scroll-view class='poster-inner flex flex-c justify-content-between'>
+                  <view class='header' style='   border-bottom: 1px dashed {{idolTheme[idol_index].main}} '>
+                        <view class='title text-black bold text-center'>应援规则</view>
+                        <view class='text-black text-xs'>欢迎来到《战斗吧！歌姬》的世界，在这里你的各种行为都会为你的偶像获得人气值，并且自己也会获得个人积分的奖励（我才不会告诉你个人值能换取各种神秘的礼物呢）</view>
+                  </view>
+                  <view class='content text-xs'>
+                        <view class='content_title bold'>具体的奖励规则如下</view>
+                        <view class="section">
+                              <view class='bold'>【必修任务-签到】</view>
+                              <view>点击签到按钮，为歌姬增加5点人气值，为你增加5点贡献值，每天限量一次。</view>
+                        </view>
+                        <view class='section'>
+                              <view class='bold'>【必修任务-签到】</view>
+                              <view>点击签到按钮，为歌姬增加5点人气值，为你增加5点贡献值，每天限量一次。</view>
+                        </view>
+                        <view class='section'>
+                              <view class='bold'>【互动任务-评论视频】</view>
+                              <view>评论歌姬动态里面的发布视频内容(每天3个) ，为歌姬增加15点人气值，为你增加15点贡献值，每天限量一次。</view>
+                        </view>
+
+                        <view class='section'>
+                              <view class='bold'>【互动任务-编辑文字分享视频】</view>
+                              <view>分享歌姬动态里面的视频内容加上评论给微信好友/微信群（分享自己喜欢的歌姬的内容），为歌姬增加15点人气值，为你增加15点贡献值，每周限量一次。</view>
+                        </view>
+
+                  </view>
+            </scroll-view>
+      </view>
+      <image bindtap='closePopup' class='btn-close' src='../../images/icon-close.png' mode='widthFix'></image>
+</view>
+
+<!-- 关注成功popup -->
+<view class="popup flex align-items-center justify-content-center" wx:if="{{is_show}}">
+      <view class='poster text-white'>
+            <view class='poster-inner flex flex-c justify-content-between' style="background:{{idolTheme[idol_index].main}}">
+                  <view class='header text-center 100 letter-sp1'>
+                        <view>关注成功！</view>
+                        <view>您是第123456位粉丝</view>
+                        <view class='btn-wrp flex justify-content-between'>
+                              <view class='btn-audio'>{{this.data.list[idol_index].name}}对你说的悄悄话</view>
+                              <view class='btn-support letter-sp2' style='color:{{idolTheme[idol_index].main}}' bindtap='turnToSupport'>为他应援</view>
+                        </view>
+                  </view>
+                  <image src='../../images/follow-poster.png' class='poster-img w100' mode='widthFix'></image>
+            </view>
+      </view>
+      <image bindtap='closePopup' class='btn-close' src='../../images/icon-close.png' mode='widthFix'></image>
+</view>

@@ -1,0 +1,94 @@
+@import '../../styles/icon.wxss';
+
+.form-forum {
+  padding: 16rpx 100rpx;
+  background: #fff;
+  color: #000;
+  position: relative;
+}
+
+.text-s {
+  font-size: 24rpx;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.placeholder {
+  font-size: 24rpx;
+  color: #979797;
+  font-weight: bold;
+}
+
+textarea {
+  background: #f4f4f4;
+  border-radius: 8rpx;
+  box-shadow: 0 0 0 1px #d9d9d9;
+  margin-top: 26rpx;
+  padding: 12rpx 14rpx;
+  height: 95rpx;
+  margin-bottom: 12rpx;
+  width: 540rpx;
+}
+
+.img-wrp {
+  /* overflow-x: scroll; */
+  width: 540rpxx;
+  overflow: hidden;
+}
+
+.img-item {
+  width: 116rpx;
+  height: 116rpx;
+  border-radius: 4rpx;
+  box-shadow: 0 0 0 1px #d9d9d9;
+  margin-right: 12rpx;
+  margin-bottom: 10rpx;
+  float: left;
+  background: #f4f4f4;
+}
+
+.btn-add {
+  width: 116rpx;
+  height: 116rpx;
+  border-radius: 4rpx;
+  box-shadow: 0 0 0 1px #d9d9d9;
+  margin-right: 12rpx;
+  /* margin-bottom: 10rpx; */
+  float: left;
+  background: #f4f4f4;
+  color: #979797;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24rpx;
+}
+
+.btn-submit {
+  color: #fff;
+  position: absolute;
+  /* right: -68rpx; */
+  bottom: 24rpx;
+  width: 60rpx;
+  height: 116rpx;
+  text-align: center;
+  font-weight: bold;
+  font-size: 24rpx;
+  right: 40rpx;
+  border-radius: 4rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+.icon-keyboard {
+  position: absolute;
+  top: 38rpx;
+  left: 30rpx;
+  font-size: 38rpx;
+}

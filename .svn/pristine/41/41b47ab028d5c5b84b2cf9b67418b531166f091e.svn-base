@@ -1,0 +1,56 @@
+.container {
+      width: 100%;
+      height: 100%;
+      font-family: 'FZLTHJT';
+      background: url('https://star.t.miinno.net/star_img/bg-genderTheme.jpg');
+      background-size: 100% 100%;
+}
+
+.header {
+      padding-top: 120rpx;
+}
+
+.header .avatar-wrp {
+      width: 258rpx;
+      height: 258rpx;
+      position: relative;
+}
+
+.header .avatar {
+      overflow: hidden;
+      border-radius: 50%;
+}
+
+.header .icon-avatar {
+      position: absolute;
+      right: 0.5%;
+      bottom: 0%;
+      width: 58rpx;
+}
+.header .nickname{
+      padding-top: 36rpx;
+}
+
+.form-wrp{
+      padding: 170rpx 60rpx 0 60rpx;
+}
+.form-wrp .section{
+      padding: 8rpx 0;
+}
+.form-wrp .section .label{
+      width: 156rpx;
+      letter-spacing: 3rpx;
+}
+.form-wrp .section input,.form-wrp .section picker{
+ border:1px solid #000000;
+ height: 50rpx;
+font-size: 24rpx;
+line-height: 50rpx;
+padding-left: 12rpx;
+}
+.form-wrp .btn{
+  width: 180rpx;
+  height: 46rpx;
+  line-height: 42rpx;
+  border-radius: 4rpx;
+}

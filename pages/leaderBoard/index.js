@@ -1,0 +1,246 @@
+// pages/leaderBoard/index.js
+const app = getApp()
+import {
+  wxRequest
+} from '../../utils/promise.js'
+import getSystemInfo from '../../utils/getSystemInfo.js'
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    iphone_type: '',
+    tab_id: 3,
+    tab_top_id: 0,
+    gender: 2,
+    genderTheme: {},
+    tabArr: ['歌姬人气榜', '粉丝贡献榜'],
+    tabCurrent: 0,
+    // 动态tab
+    indicatorArr: ['实时周榜', '月榜', '年榜'],
+    swiperCurrent: 0,
+    idolTheme: [],
+    idol_index: 0,
+    idol_leader_list: [{
+        id: 5,
+        hot_num: 1000,
+      },
+      {
+        id: 1,
+        hot_num: 1000,
+      },
+      {
+        id: 3,
+        hot_num: 1000,
+      },
+      {
+        id: 4,
+        hot_num: 1000,
+      },
+      {
+        id: 2,
+        hot_num: 1000,
+      },
+    ],
+    idol_list: [],
+    idol_index: 0
+
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.setData({
+      iphone_type: app.globalData.iphone_type,
+      idol_index: app.globalData.idol_index,
+      idolTheme: app.globalData.idolTheme,
+      idol_list: app.globalData.idol_list,
+      gender: app.globalData.gender,
+      genderTheme: app.globalData.genderTheme[app.globalData.gender - 1]
+    })
+    const idol_index = this.data.idol_leader_list[0].id - 1
+    this.setData({
+      idol_index: idol_index
+    })
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: this.data.idolTheme[idol_index].main,
+      animation: {
+        duration: 400,
+        timingFunc: 'easeIn'
+      }
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+  tapIndicator(e) {
+    this.setData({
+      'tabCurrent': e.target.dataset.index
+    });
+    const data = this.data.tabCurrent
+    this.triggerEvent('childEvent', data, {
+      bubbles: false
+    });
+    console.log('tabCurrent:'+this.data.tabCurrent)
+    console.log('tab_top_id:' +this.data.tab_top_id)
+    // this.getData();
+  },
+  catchChildSwiper: function(e) {
+    this.setData({
+      tab_top_id: e.detail
+    })
+    console.log('tab_top_id:' + this.data.tab_top_id)
+    if (this.data.tab_top_id == 1) {
+      this.setData({
+        idol_leader_list: [{
+            id: 4,
+            hot_num: 1000,
+          },
+          {
+            id: 3,
+            hot_num: 1000,
+          },
+          {
+            id: 2,
+            hot_num: 1000,
+          },
+          {
+            id: 5,
+            hot_num: 1000,
+          },
+          {
+            id: 1,
+            hot_num: 1000,
+          },
+        ],
+      })
+
+    }
+    if (this.data.tab_top_id == 0) {
+      this.setData({
+        idol_leader_list: [{
+            id: 5,
+            hot_num: 1000,
+          },
+          {
+            id: 1,
+            hot_num: 1000,
+          },
+          {
+            id: 3,
+            hot_num: 1000,
+          },
+          {
+            id: 4,
+            hot_num: 1000,
+          },
+          {
+            id: 3,
+            hot_num: 1000,
+          },
+        ],
+      })
+
+    }
+    if (this.data.tab_top_id == 2) {
+      this.setData({
+        idol_leader_list: [{
+            id: 3,
+            hot_num: 1000,
+          },
+          {
+            id: 5,
+            hot_num: 1000,
+          },
+          {
+            id: 2,
+            hot_num: 1000,
+          },
+          {
+            id: 4,
+            hot_num: 1000,
+          },
+          {
+            id: 1,
+            hot_num: 1000,
+          },
+        ],
+      })
+
+    }
+    const idol_index = this.data.idol_leader_list[0].id - 1
+    console.log(this.data.idolTheme[idol_index])
+    this.setData({
+      idol_index: idol_index
+    })
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: this.data.idolTheme[idol_index].main,
+      animation: {
+        duration: 400,
+        timingFunc: 'easeIn'
+      }
+    })
+  },
+  turnToSupport: function(e) {
+    app.globalData.idol_index = e.currentTarget.dataset.index
+    wx.navigateTo({
+      url: '/pages/task/index',
+    })
+  },
+  turnToFansLeaderBoard: function(e) {
+    const index = e.currentTarget.dataset.index
+    app.globalData.idol_index = index
+    wx.navigateTo({
+      url: `/pages/fansLeaderBoard/index`,
+    })
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

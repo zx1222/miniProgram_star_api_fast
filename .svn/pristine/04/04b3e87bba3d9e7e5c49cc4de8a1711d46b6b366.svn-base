@@ -1,0 +1,82 @@
+@import '../../styles/icon.wxss';
+@import '../../styles/fontawsome.wxss';
+@import '../../styles/style.wxss';
+
+/* forum list */
+
+.forum-wrp {
+      /* padding: 25rpx 0; */
+      font-family: 'FZLTHJT';
+}
+
+.forum-wrp .item-forum:first-child {
+      border-top: none;
+}
+
+.forum-wrp .item-forum:last-child {
+      border-bottom: none;
+}
+
+.item-forum {
+      padding: 24rpx 24rpx 0 24rpx;
+      border-bottom: 1px solid #ececec;
+      border-top: 1px solid #f8f8f8;
+}
+
+.forum-wrp .avatar {
+      width: 64rpx;
+      height: 64rpx;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px #e1e1e2;
+      overflow: hidden;
+      margin-top: 6rpx;
+}
+
+.forum-wrp .content {
+          width: calc(100% - 130rpx);
+      margin-left: 90rpx;
+      padding: 20rpx 0;
+      line-height: 1.6;
+}
+
+.forum-wrp .count-wrp {
+      width: calc(100% - 130rpx);
+      padding-bottom: 20rpx;
+      margin-left: 90rpx;
+      color: #8b8b8b;
+}
+
+.forum-wrp  .hd {
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      width: 100%;
+}
+
+.forum-wrp .hd .hd-r {
+      padding-left: 26rpx;
+      display: flex;
+      flex-direction: column;
+      margin-top: 20rpx;
+}
+
+.forum-wrp .hd .name,  {
+      color: #989898;
+}
+
+.forum-wrp .hd .time {
+      color: #aaa;
+}
+
+.forum-wrp .cover {
+      width: 80%;
+      padding-top: 20rpx;
+}
+
+.forum-wrp .count-wrp .icon {
+      padding-right: 8rpx;
+}
+
+.item-count {
+      padding-right: 14rpx;
+}

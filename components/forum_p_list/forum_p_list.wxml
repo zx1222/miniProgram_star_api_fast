@@ -1,0 +1,36 @@
+<view class='forum-wrp'>
+      <view class='item-forum ' wx:for="{{forum_list}}" bindtap='turnToView'>
+            <view class='hd'>
+                  <view class='avatar'>
+                        <image class='w100' src='{{item.user_avatar}}' mode='widthFix'></image>
+                  </view>
+                  <view class='hd-r flex flex-c justify-content-center'>
+                        <view class=' name text-overflow1 bold'>{{item.user_name}}</view>
+                        <view class='time text-xs '>{{item.create_time}}</view>
+                  </view>
+            </view>
+
+            <view class='content'>
+                    <view class='p-name name text-overflow2'>{{item.content}}</view>
+                    <image src='{{item.cover}}' mode='widthFix' class='cover'></image>
+            </view>
+               <view class='flex align-items-center row justify-content-between count-wrp'>
+                        <view class='flex'>
+                           <view class='item-count flex align-items-center .justify-content-end'>
+                                    <text class='icon-message icomoon text-xs icon'></text>
+                                    <text class='count'>{{item.comment_count}}</text>
+                              </view>
+                              <view class='item-count flex align-items-center'>
+                                    <text class=' icomoon icon-good-light text-s icon'></text>
+                                    <text class='count'>{{item.like_count}}</text>
+                              </view>
+                              <view class='item-count flex align-items-center'>
+                                    <text class='icon-report icomoon  text-s icon'></text>
+                              </view>
+                        </view>
+                        <view>
+                              <text class="fa fa-ellipsis-v text-s"></text>
+                        </view>
+                  </view>
+      </view>
+</view>

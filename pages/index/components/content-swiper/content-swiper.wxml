@@ -1,0 +1,35 @@
+<!--pages/user/component/topic-swiper/topic-swiper.wxml-->
+<view class="swiper-indicator">
+      <text wx:for="{{indicatorArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="_tapIndicator" class="indicator-item" style="color:{{swiperCurrent === index? genderTheme.main : '' }};">{{item}}</text>
+      <view class="slider-line" style="transform: translateX({{swiperCurrent * 100}}%);">
+            <view class='line-inner' style="background:{{genderTheme.main}}"></view>
+      </view>
+</view>
+
+<swiper bindchange="_swipreChange" indicator-dots="{{false}}" class="content-swiper" current="{{swiperCurrent}}">
+
+      <!-- <swiper-item class="swiper-item" wx:for="{{indicatorArr}}">  <view>{{indicatorArr}}</view> 
+            <slot></slot>
+      </swiper-item> -->
+      <swiper-item class="swiper-item">
+            <slot name="recommend"></slot>
+      </swiper-item>
+      <swiper-item class="swiper-item">
+            <slot name="live"></slot>
+      </swiper-item>
+      <swiper-item class="swiper-item">
+            <slot name="comic"></slot>
+      </swiper-item>
+      <swiper-item class="swiper-item">
+            <slot name="pv"></slot>
+      </swiper-item>
+      <swiper-item class="swiper-item">
+            <slot name="mv"></slot>
+      </swiper-item>
+      <swiper-item class="swiper-item">
+            <slot name="shortVideo"></slot>
+      </swiper-item>
+      <swiper-item class="swiper-item">
+            <slot name="news"></slot>
+      </swiper-item>
+</swiper>

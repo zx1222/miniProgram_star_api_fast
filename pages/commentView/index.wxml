@@ -1,0 +1,65 @@
+<view class="container">
+  <view class='p-comment'> 
+    <view class='comment-wrp'>
+    <view class='item-comment-parent flex justify-content-between' >
+      <view class='avatar'>
+        <image class='w100' src='{{item.user_avatar}}' mode='widthFix'></image>
+      </view>
+      <view class='content'>
+        <view class='hd'>
+          <view class='p-name name text-overflow1'>{{item.user_name}}</view>
+          <view class='count-wrp flex  align-items-center justify-content-end  text-xs'>
+            <view class='item-count flex align-items-center .justify-content-end'>
+              <text class='icon-message icomoon text-xs icon'></text>
+              <text class='count'>{{item.comment_count}}</text>
+            </view>
+            <view class='item-count flex align-items-center'>
+              <text class=' icomoon icon-good-light text-s icon'></text>
+              <text class='count'>{{item.like_count}}</text>
+            </view>
+            <view class='item-count flex align-items-center' bindtap='report'>
+              <text class='icon-report icomoon  text-s icon'></text>
+            </view>
+          </view>
+        </view>
+        <view class='comment-content text-m'>{{item.comment_content}}</view>
+       
+        <view class='create_time'>{{item.create_time}}</view>
+      </view>
+    </view>
+  </view>
+  </view>
+
+  <view class='comment-wrp'>
+    <view class='item-comment-parent flex justify-content-between' wx:for="{{comment_list}}" wx:key="{{index}}">
+      <view class='avatar'>
+        <image class='w100' src='{{item.user_avatar}}' mode='widthFix'></image>
+      </view>
+      <view class='content'>
+        <view class='hd'>
+          <view class='p-name name text-overflow1'>{{item.user_name}}</view>
+          <view class='count-wrp flex  align-items-center justify-content-end  text-xs'>
+            <view class='item-count flex align-items-center .justify-content-end'>
+              <text class='icon-message icomoon text-xs icon'></text>
+              <text class='count'>{{item.comment_count}}</text>
+            </view>
+            <view class='item-count flex align-items-center'>
+              <text class=' icomoon icon-good-light text-s icon'></text>
+              <text class='count'>{{item.like_count}}</text>
+            </view>
+            <view class='item-count flex align-items-center' bindtap='report'>
+              <text class='icon-report icomoon  text-s icon'></text>
+            </view>
+          </view>
+        </view>
+        <view class='comment-content text-m'>{{item.comment_content}}</view>
+        <!-- <view wx:if="{{item.has_child==1}}" class='child-comment-tips bg-light-gray text-m'>
+          <text class='text-blue'>{{item.sub_name}}</text>等人
+          <text class='text-blue'>共{{item.child_count}}条回复 <text class="fa fa-angle-right" aria-hidden="true"></text></text>
+        </view> -->
+        <view class='create_time'>{{item.create_time}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

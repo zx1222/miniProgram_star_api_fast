@@ -1,0 +1,7 @@
+<view class="tabbar-bottom-container w100">
+      <navigator open-type='redirect' url='/pages/index/index' hover-class='none' class="item" style="color: {{tab_id==0?genderTheme.main:'#919191'}}"><view class='item'>歌姬动态</view></navigator>
+       <navigator open-type='redirect' url='/pages/idolList/index' hover-class='none'  class="item"  style="color: {{tab_id==1?genderTheme.main:'#919191'}}"><view class='item'>歌姬介绍</view></navigator>
+        <!-- <navigator open-type='redirect' url='/pages/index/index' hover-class='none' class="item  {{tab_id==2?'selected':''}}"><view class='item'>基地介绍</view></navigator> -->
+         <navigator open-type='redirect' url='/pages/leaderBoard/index' hover-class='none' class="item"  style="color: {{tab_id==3?genderTheme.main:'#919191'}}"><view class='item'>排行榜</view></navigator>
+          <navigator open-type='redirect' url='/pages/user/index' hover-class='none'  class="item"  style="color: {{tab_id==4?genderTheme.main:'#919191'}}"><view class='item'>个人中心</view></navigator>
+</view>

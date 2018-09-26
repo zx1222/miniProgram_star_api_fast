@@ -1,0 +1,8 @@
+{
+      "component": true,
+      "usingComponents": {
+            "comment_p_list": "../../components/comment_p_list/comment_p_list",
+            "txv-video": "plugin://tencentvideo/video",
+            "report": "../../components/report/report"
+      }
+}

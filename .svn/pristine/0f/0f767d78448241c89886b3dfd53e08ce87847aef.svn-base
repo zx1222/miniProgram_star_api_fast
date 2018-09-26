@@ -1,0 +1,193 @@
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 65rpx 46rpx;
+}
+
+.idol-info {
+  /* height: 40rpx; */
+}
+
+.idol-info .count-wrp {
+  padding: 30rpx 0;
+  border-bottom: 1px solid #b5b5b5;
+}
+
+.idol-info .count-wrp .label {
+  width: 152rpx;
+}
+
+.idol-info .count-wrp .num {
+  font-size: 36rpx;
+}
+
+.idol-info .count-wrp .btn {
+  width: 136rpx;
+  height: 38rpx;
+  text-align: center;
+  border-radius: 4rpx;
+}
+
+.poster-wrp {
+  position: relative;
+  width: 100%;
+  margin-right: 3%;
+}
+.poster-wrp  .poster {
+  position: absolute;
+  width: 96.5%;
+  margin: 14rpx 12rpx;
+  top: 0;
+  left: 0;
+  -webkit-clip-path: polygon(5.5% 0%, 100% 0%, 100% 90.3%, 94.5% 100%, 0% 100%, 0% 9.3%);
+}
+
+/* 任务列表 */
+
+.task-list {
+  padding: 30rpx 0;
+}
+
+.task-list .icon-wrp {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 74rpx;
+}
+
+.task-list .icon {
+  font-size: 32rpx;
+}
+
+.task-list .task-info {
+  width: calc(100% - 92rpx);
+  margin-left: 26rpx;
+  padding: 16rpx 0;
+  border-bottom: 1px dashed #6c6c6c;
+}
+
+.task-list .point {
+  font-family: 'FZLTCHJT';
+  width: 230rpx;
+}
+
+.task-list .btn {
+  width: 134rpx;
+  height: 40rpx;
+  line-height: 38rpx;
+  border-radius: 4rpx;
+  border: 1px solid #6c6c6c;
+  color: #6c6c6c;
+  text-align: center;
+}
+/* 关注成功popup */
+
+.poster {
+      width: 91.6%;
+      height: 90%;
+      background: url('https://star.t.miinno.net/star_img/follow-poster-border.png');
+      background-size: 100% 100%;
+}
+
+.poster-inner {
+      width: 87%;
+      height: 90%;
+      margin: 7%;
+      padding: 30rpx;
+}
+
+.poster-inner .header {
+      font-size: 45rpx;
+      font-family: 'FZLTHJT';
+      line-height: 1.4;
+}
+
+.poster-inner .header .btn-wrp {
+      padding: 24rpx 0;
+}
+
+.poster-inner .header .btn-audio {
+      width: 334rpx;
+      height: 62rpx;
+      background: #fff;
+      font-size: 24rpx;
+      color: #706f6f;
+      line-height: 62rpx;
+      border-radius: 4rpx;
+      position: relative;
+}
+
+.poster-inner .header .btn-audio::before {
+      content: '';
+      width: 14rpx;
+      height: 14rpx;
+      background-color: inherit;
+      right: -6rpx; /*向左侧外部延伸箭头box的一半宽度*/
+      position: absolute;
+      transform: rotate(45deg); /*旋转45度*/
+      top: 50%; /*箭头在数值方向上居中*/
+      margin-top: -5px;
+}
+
+.poster-inner .header .btn-support {
+      background: #fff;
+      border-radius: 4rpx;
+      font-size: 24rpx;
+      width: 184rpx;
+      height: 62rpx;
+      line-height: 62rpx;
+}
+
+/* 应援规则 */
+.popup .poster {
+      width: 91.6%;
+      height: 90%;
+      background: url('https://star.t.miinno.net/star_img/follow-poster-border.png');
+      background-size: 100% 100%;
+}
+.popup .poster-inner {
+      width: 87%;
+      height: 90%;
+      margin: 7%;
+      padding: 30rpx;
+}
+
+.support-rules .poster-inner {
+      box-sizing: border-box;
+      background: #fff;
+      font-family: 'FZLTCHJT';
+      color: #000;
+}
+
+.support-rules .poster-inner view {
+      line-height: 1.6;
+}
+
+.support-rules .poster-inner .header {
+      padding-bottom: 20rpx;
+}
+
+.support-rules .poster-inner .title {
+      font-size: 36rpx;
+      letter-spacing: 4px;
+      padding-bottom: 14rpx;
+}
+
+.support-rules .poster-inner .content .content_title {
+      width: 52%;
+      border: 1px solid #000;
+      text-align: center;
+      margin: 30rpx 24%;
+}
+
+.support-rules .poster-inner .content .section {
+      padding-bottom: 36rpx;
+}
+
+.btn-close {
+      position: absolute;
+      top: 2%;
+      right: 4%;
+      width: 32rpx;
+}

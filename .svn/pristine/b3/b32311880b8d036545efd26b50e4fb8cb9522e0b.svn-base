@@ -1,0 +1,115 @@
+.container {
+      padding: 28rpx;
+}
+
+.item {
+      margin: 0 6rpx;
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+}
+
+.item .video-poster {
+      position: absolute;
+      width: 95%;
+      margin: 16rpx 22rpx;
+      top: 0;
+      left: 0;
+      -webkit-clip-path: polygon(5.5% 0%, 100% 0%, 100% 90%, 94.5% 100%, 0% 100%, 0% 10%);
+}
+
+.video-info {
+      padding: 20rpx 10rpx 10rpx 10rpx;
+      line-height: 1.6;
+}
+.icon{
+      font-size: 25rpx;
+      color: #787878;
+}
+.video .video-title {
+      font-size: 30rpx;
+      letter-spacing: 1px;
+}
+
+.comment-input-wrp {
+      box-sizing: border-box;
+      padding-bottom: 20rpx;
+      width: 98%;
+      margin: 0 8rpx;
+      border-bottom: 1px solid #787878;
+}
+
+.comment-input-wrp .input-wrp {
+      border-radius: 9%/50%;
+      overflow: hidden;
+      transition: all 0.5s;
+}
+
+.comment-input-wrp .input-wrp.cover {
+      width: 100%;
+      border-radius: 5%/50%;
+}
+
+.comment-input-wrp input {
+      color: #3d3d3d;
+      font-size: 28rpx;
+      padding: 4rpx 0rpx;
+      background: #ebebeb;
+      border-radius: 9%/50%;
+      width: auto;
+      text-align: center;
+      padding-left: -6rpx;
+      transition: all 0.5s;
+      overflow: hidden;
+}
+
+.comment-input-wrp input.cover {
+      width: 100%;
+      border-radius:2%/50%;
+}
+
+.comment-input-wrp input.cover {
+      width: 100%;
+      border-radius: 6%/50%;
+}
+
+.comment-input-wrp .placeholder {
+      padding: 0 20rpx;
+}
+
+.comment-input-wrp .count-wrp {
+      width: auto;
+      transform: translate(0%, 0);
+      transition: all 0.5s;
+}
+
+.comment-input-wrp .count-wrp.hidden {
+      transform: translate(150%, 0);
+      width: 0;
+}
+
+.comment-input-wrp .icon {
+      /* width: 28rpx; */
+      padding-right: 6rpx;
+}
+
+.comment-input-wrp .icon.icon-comment {
+      /* width: 24rpx; */
+}
+
+.comment-input-wrp .item-count {
+      padding-right: 16rpx;
+}
+
+.comment-input-wrp .item-count:last-child {
+      padding-right: 0;
+}
+
+/* 举报 */
+.report-wrp{
+  z-index: 100
+}
+report{
+  position: absolute;
+  bottom:0
+}

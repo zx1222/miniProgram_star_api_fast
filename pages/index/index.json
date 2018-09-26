@@ -1,0 +1,9 @@
+{
+      "component": true,
+      "usingComponents": {
+            "tabbar-bottom": "../../../components/tabbar-bottom/tabbar-bottom",
+            "contentSwiper": "./components/content-swiper/content-swiper",
+            "search-form": "../../../components/search-form/search-form",
+            "list": "../../components/list/list"
+      }
+}

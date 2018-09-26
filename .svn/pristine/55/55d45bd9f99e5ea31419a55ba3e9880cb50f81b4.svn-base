@@ -1,0 +1,17 @@
+<view class='form-report'>
+  <form bindsubmit="formSubmit">
+    <view class="text-s bold">举报原因</view>
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="radio text-s bold" wx:for="{{reportReasonArr}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}" color='#666666' />{{item.value}}
+      </label>
+    </radio-group>
+    <textarea placeholder="请输入举报原因" placeholder-class='placeholder' />
+    
+
+  </form>
+  <view class='btn-wrp'>
+      <button formType="submit" style="color:{{genderTheme.main}};border:1px solid {{genderTheme.main}}" bindtap='report'>提交</button>
+      <button formType="reset" style="color:{{genderTheme.main}};border:1px solid {{genderTheme.main}}" bindtap='cancel'>取消</button>
+    </view>
+</view>

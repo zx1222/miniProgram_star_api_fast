@@ -1,0 +1,11 @@
+<view class="searchForm" style='background:{{bg.sub}}'>
+      <view class='avatar' style='box-shadow:0 0 0 1px {{bg.main}}'>
+            <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class='input-wrp'>
+            <view class='l' style='border-right:1px solid {{bg.main}}'><text class="fa fa-search" aria-hidden="true" style='color:{{bg.main}}'></text></view>
+            <view class='r'>
+            <input type="text" placeholder='战斗吧歌姬' placeholder-style='color:{{bg.main}}' confirm-type="search" bindconfirm="submit" bindinput='bindKeyInput' style='color:{{bg.main}}'></input></view>
+      </view>
+      <view class='btn-submit' catchtap='submit'>搜索</view>
+</view>

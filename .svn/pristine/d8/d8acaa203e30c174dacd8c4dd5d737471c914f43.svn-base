@@ -1,0 +1,76 @@
+@import '../../styles/icon.wxss';
+.container {
+      height: auto;
+      line-height: 1.8;
+      font-family: 'FZLTHJT';
+}
+
+.main-content {
+      padding: 30rpx 24rpx 0 24rpx;
+}
+
+.news-content {
+      padding: 0 20rpx;
+}
+
+.news-content .content {
+      padding-bottom: 20rpx;
+      border-bottom: 1px solid #bbb;
+}
+
+.comment-list-wrp{
+      padding:0 24rpx 86rpx 24rpx;
+}
+/* 评论input */
+
+.comment-input-wrp {
+      position: fixed;
+      bottom: 0;
+      height: 84rpx;
+      background: #f7f7f7;
+      padding: 0 40rpx;
+}
+
+.comment-input-wrp input {
+      transition: all 0.5s;
+}
+
+.comment-input-wrp input.cover {
+      width: 100%;
+      background: #fff;
+}
+
+.comment-input-wrp .count-wrp {
+      width: auto;
+      transform: translate(0%, 0);
+      transition: all 0.5s;
+}
+
+.comment-input-wrp .count-wrp.hidden {
+      transform: translate(150%, 0);
+      width: 0;
+}
+
+.comment-input-wrp .icon {
+      /* width: 28rpx; */
+      padding-right: 6rpx;
+      color: #787878;
+      font-size: 25rpx;
+}
+
+.comment-input-wrp .icon.icon-comment {
+      /* width: 24rpx; */
+}
+
+.comment-input-wrp .item-count {
+      padding-right: 16rpx;
+}
+
+/* 举报 */
+.report-wrp{
+  z-index: 100
+}
+report{
+  position: absolute;
+  bottom:0
+}

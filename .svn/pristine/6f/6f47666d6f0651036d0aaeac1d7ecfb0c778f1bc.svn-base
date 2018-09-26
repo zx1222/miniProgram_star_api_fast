@@ -1,0 +1,48 @@
+<view class="container  {{is_report?'overflow-y-hidden':''}}">
+  <view class='item video-item'>
+    <!-- <view class='poster-wrp w100'>
+      <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
+      <image class='video-poster w100' src='{{item.poster}}' mode='widthFix'></image>
+    </view> -->
+    <txv-video vid="e0354z3cqjp"  playerid="txv1" height="{{'200px'}}" autoplay="{{false}}" bindtimeupdate="catchTimeUpdate" bindstatechange="catchStatusChange"></txv-video>
+    <view class='video-info'>
+      <view class='video-title bold text-m letter-sp2'>{{item.title}}</view>
+      <view class='date text-pink text-xs'>{{item.date}}</view>
+    </view>
+    <view class='comment-input-wrp w100 flex justify-content-between align-items-center'>
+      <view class="input-wrp {{is_focus?'cover':''}}">
+        <input class="{{is_focus?'cover':''}}" placeholder="我也说一句..." placeholder-class='placeholder bold letter-sp1' bindfocus="focusChange" bindblur='blurChange' focus="{{false}}" confirm-type='send' />
+      </view>
+
+      <view class="{{is_focus?'hidden':''}}  count-wrp flex  align-items-center justify-content-end  text-xs">
+        <view class='item-count flex align-items-center justify-content-end'>
+          <text class='icon-message icomoon  icon'></text>
+          <text class='count'>{{item.comment_count}}</text>
+        </view>
+        <view class='item-count flex align-items-center'>
+          <text class=' icon-good-light icomoon  icon'></text>
+          <text class='count'>{{item.like_count}}</text>
+        </view>
+        <view class='item-count flex align-items-center'>
+          <text class='icon-intransit icomoon  icon'></text>
+        </view>
+        <view class='item-count flex align-items-center'>
+          <text class='icon-star icomoon  icon'></text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+  <view class='comment-list-wrp'>
+    <comment_p_list comment_list="{{comment_list}}" bind:report='catchReport'></comment_p_list>
+    <view class="weui-loadmore" wx:if="{{loading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </view>
+
+  <view class="popup report-wrp" wx:if="{{is_report}}">
+    <report genderTheme="{{genderTheme}}" bind:reportCancel='catchReportCancel' bind:reportSubmit='catchReportSubmit'></report>
+  </view>
+
+</view>

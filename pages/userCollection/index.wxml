@@ -1,0 +1,58 @@
+<view class="container">
+  <view class="tab">
+    <text wx:for="{{tabArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="tapIndicator" class="indicator-item" style="color:{{tabCurrent === index? genderTheme.main : '' }};">{{item}}</text>
+    <view class="slider-line" style="transform: translateX({{tabCurrent * 100}}%);">
+      <view class='line-inner' style="background:{{genderTheme.main}}"></view>
+    </view>
+  </view>
+
+  <!-- 视频 -->
+  <view wx:if="{{tabCurrent==0}}" class='list-wrp list-wrp-video'>
+    <view class='item video-item' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToViewVideo'>
+      <view class='poster-wrp w100'>
+        <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
+        <image class='poster w100' src='{{item.poster}}' mode='widthFix'></image>
+      </view>
+      <view class='video-info'>
+        <view class='video-title bold text-overflow1'>{{item.title}}</view>
+        <view class='flex align-items-center row justify-content-between'>
+          <view class='flex'>
+            <view class='tag text-pink'>{{item.tag}}</view>
+            <view class='date text-pink icon-ellipsis'>{{item.date}}</view>
+          </view>
+          <view>
+            <text class="fa fa-ellipsis-v text-s"></text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-loadmore" wx:if="{{loading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </view>
+  <!--文章-->
+  <view wx:if="{{tabCurrent==1}}" class='list-wrp list-wrp-news'>
+    <view class='item news-item flex' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToViewNews'>
+      <view class='news-info flex'>
+        <view class='news-title bold text-overflow2'>{{item.title}}</view>
+        <view class='flex justify-content-between'>
+          <view class='comment-count text-s'>
+            <text class='icon icomoon icon-message'></text>
+            <text>{{item.comment_count}}</text>
+          </view>
+          <view class='date'>{{item.date}}</view>
+        </view>
+      </view>
+      <view class='poster-wrp '>
+        <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
+        <image class='poster w100' src='{{item.poster}}' mode='widthFix'></image>
+      </view>
+    </view>
+    <view class="weui-loadmore" wx:if="{{loading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </view>
+
+</view>

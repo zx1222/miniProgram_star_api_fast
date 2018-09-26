@@ -1,0 +1,112 @@
+<!-- banner -->
+<view class="swiper">
+      <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;" class="{{iphone_type=='iPhone X'?'pt60':''}}">
+            <block wx:for='{{bannerArr}}' wx:key="{{index}}">
+                  <navigator url="{{(tab_id!=6&&p_swiper==1)||(tab_id!=5&&p_swiper==2)?'/pages/videoView/index':'/pages/newsView/index'}}" hover-class='none'>
+                        <swiper-item>
+                              <image src="{{item}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" data-url="{{banner_path[index]}}?index={{index}}" />
+                        </swiper-item>
+                  </navigator>
+            </block>
+      </swiper>
+      <view class="dots">
+            <block wx:for="{{bannerArr}}" wx:key="unique">
+                  <view class="dot{{index == current ? ' active' : ''}}"></view>
+            </block>
+      </view>
+</view>
+
+<!-- 首页列表 -->
+<!-- list video-->
+
+<view wx:if="{{tab_id!=6&&p_swiper==1}}" class='list-wrp list-wrp-video '>
+      <view class='item video-item' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToViewVideo'>
+            <view class='poster-wrp w100'>
+                  <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
+                  <image class='poster w100' src='{{item.poster}}' mode='widthFix'></image>
+            </view>
+            <view class='video-info'>
+                  <view class='video-title bold text-overflow1'>{{item.title}}</view>
+                  <view class='flex align-items-center row justify-content-between'>
+                        <view class='flex'>
+                              <view class='tag text-pink'>{{item.tag}}</view>
+                              <view class='date text-pink icon-ellipsis'>{{item.date}}</view>
+                        </view>
+                        <view>
+                              <text class="fa fa-ellipsis-v text-s"></text>
+                        </view>
+                  </view>
+            </view>
+      </view>
+      <view class="weui-loadmore" wx:if="{{loading}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+</view>
+
+
+<!-- list news -->
+<view wx:if="{{tab_id==6&&p_swiper==1}}" class='list-wrp list-wrp-news '>
+      <view class='item news-item flex' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToViewNews'>
+            <view class='news-info flex'>
+                  <view class='news-title bold text-overflow2'>{{item.title}}</view>
+                  <view class='flex justify-content-between'>
+                        <view class='comment-count text-s'>
+                           <text class='icon icomoon icon-message'></text>
+                              <text>{{item.comment_count}}</text>
+                        </view>
+                        <view class='date'>{{item.date}}</view>
+                  </view>
+            </view>
+            <view class='poster-wrp '>
+                  <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
+                  <image class='poster w100' src='{{item.poster}}' mode='widthFix'></image>
+            </view>
+      </view>
+</view>
+
+
+<!-- 歌姬详情列表 -->
+<!-- list video-->
+
+<view wx:if="{{tab_id!=5&&p_swiper==2}}" class='list-wrp list-wrp-video '>
+      <view class='item video-item' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToViewVideo'>
+            <view class='poster-wrp w100'>
+                  <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
+                  <image class='poster w100' src='{{item.poster}}' mode='widthFix'></image>
+            </view>
+            <view class='flex align-items-center row justify-content-between'>
+                        <view class='flex'>
+                              <view class='date text-pink icon-ellipsis ' style='color:{{idolTheme.main}}'>{{item.date}}</view>
+                        </view>
+                        <view>
+                              <text class="fa fa-ellipsis-v text-xs"></text>
+                        </view>
+                  </view>
+      </view>
+      <view class="weui-loadmore" wx:if="{{loading}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+</view>
+
+
+<!-- list news -->
+<view wx:if="{{tab_id==5&&p_swiper==2}}" class='list-wrp list-wrp-news '>
+      <view class='item news-item flex' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToViewNews'>
+            <view class='news-info flex'>
+                  <view class='news-title bold text-overflow2'>{{item.title}}</view>
+                  <view class='flex justify-content-between'>
+                        <view class='comment-count text-s'>
+                              <image class='icon-comment' src='../../images/icon-comment.png' mode='widthFix'></image>
+                              <text>{{item.comment_count}}</text>
+                        </view>
+                        <view class='date'>{{item.date}}</view>
+                  </view>
+            </view>
+            <view class='poster-wrp '>
+                  <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
+                  <image class='poster w100' src='{{item.poster}}' mode='widthFix'></image>
+            </view>
+      </view>
+</view>

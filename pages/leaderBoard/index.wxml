@@ -1,0 +1,113 @@
+<view class="container {{idol_list[item.id-1]==5?'bg5':''}} {{iphone_type=='iPhone 6'?'is_6':''}} ">
+  <view class="tab" style=" border-bottom: 1px solid {{idolTheme[idol_index].main}};">
+    <text wx:for="{{tabArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="tapIndicator" class="indicator-item" style="color:{{tabCurrent === index? idolTheme[idol_index].main : '' }};">{{item}}</text>
+    <view class="slider-line" style="transform: translateX({{tabCurrent * 100}}%);">
+      <view class='line-inner' style="background:{{idolTheme[idol_index].main}}"></view>
+    </view>
+  </view>
+  <contentSwiper wx:if="{{tabCurrent==0}}" bind:childEvent='catchChildSwiper' indicatorArr="{{indicatorArr}}" color="{{idolTheme[idol_index].main}}" idol_id="{{idol_leader_list[0].id}}" swiperCurrent="{{tab_top_id}}" >
+    <view class='idolBoard' slot="week">
+      <view class='list-wrp'>
+        <view class='item flex align-items-center justify-content-between' wx:for="{{idol_leader_list}}">
+          <view class='l flex align-items-center'>
+            <view class='index bold italic'>{{index+1}}</view>
+            <view class='avatar-wrp'>
+              <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{idolTheme[item.id-1].main}},0 0 0 16rpx {{idolTheme[item.id-1].sub}}">
+                <image src='{{idol_list[item.id-1].avatar}}' mode='widthFix' class='w100'></image>
+              </view>
+            </view>
+            <view class='count-wrp'>
+              <view class='text-m bold letter-sp1' style="color:{{idolTheme[item.id-1].main}}">{{idol_list[item.id-1].short_name}}</view>
+              <view>
+                <text class='text-xs bold'>人气值：</text>
+                <text class='text-s bold' style='color:{{idolTheme[idol_index].main}}'>{{item.hot_num}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='btn-support text-s bold text-white letter-sp2' style="background:{{idolTheme[item.id-1].main}}" data-index="{{item.id-1}}" bindtap='turnToSupport'>应援</view>
+        </view>
+      </view>
+    </view>
+    <view class='idolBoard' slot="month">
+      <view class='list-wrp'>
+        <view class='item flex align-items-center justify-content-between' wx:for="{{idol_leader_list}}">
+          <view class='l flex align-items-center'>
+            <view class='index bold italic'>{{index+1}}</view>
+            <view class='avatar-wrp'>
+              <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{idolTheme[item.id-1].main}},0 0 0 16rpx {{idolTheme[item.id-1].sub}}">
+                <image src='{{idol_list[item.id-1].avatar}}' mode='widthFix' class='w100'></image>
+              </view>
+            </view>
+            <view class='count-wrp'>
+              <view class='text-m bold letter-sp1' style="color:{{idolTheme[item.id-1].main}}">{{idol_list[item.id-1].short_name}}</view>
+              <view>
+                <text class='text-xs bold'>人气值：</text>
+                <text class='text-s bold' style='color:{{idolTheme[idol_index].main}}'>{{item.hot_num}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='btn-support text-s bold text-white letter-sp2' style="background:{{idolTheme[item.id-1].main}}" bindtap='turnToSupport' data-index="{{item.id-1}}">应援</view>
+        </view>
+      </view>
+    </view>
+    <view class='idolBoard' slot="year">
+      <view class='list-wrp'>
+        <view class='item flex align-items-center justify-content-between' wx:for="{{idol_leader_list}}">
+          <view class='l flex align-items-center'>
+            <view class='index bold italic'>{{index+1}}</view>
+            <view class='avatar-wrp'>
+              <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{idolTheme[item.id-1].main}},0 0 0 16rpx {{idolTheme[item.id-1].sub}}">
+                <image src='{{idol_list[item.id-1].avatar}}' mode='widthFix' class='w100'></image>
+              </view>
+            </view>
+            <view class='count-wrp'>
+              <view class='text-m bold letter-sp1' style="color:{{idolTheme[item.id-1].main}}">{{idol_list[item.id-1].short_name}}</view>
+              <view>
+                <text class='text-xs bold'>人气值：</text>
+                <text class='text-s bold' style='color:{{idolTheme[idol_index].main}}'>{{item.hot_num}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='btn-support text-s bold text-white letter-sp2' style="background:{{idolTheme[item.id-1].main}}" bindtap='turnToSupport' data-index="{{item.id-1}}">应援</view>
+        </view>
+      </view>
+    </view>
+  </contentSwiper>
+
+
+  <view class='fansBoard text-black flex  flex-c justify-content-between' wx:if="{{tabCurrent==1}}">
+    <view class='idol-list flex  flex-c justify-content-between'>
+      <view class=' w100 item ' wx:for="{{idol_list}}" wx:key="{{index}}" bindtap='turnToFansLeaderBoard' data-index="{{item.index}}">
+        <image wx:if="{{index==0}}" src='../../images/idol-list-border1.png' class='border'></image>
+        <image wx:if="{{index==1}}" src='../../images/idol-list-border2.png' class='border'></image>
+        <image wx:if="{{index==2}}" src='../../images/idol-list-border3.png' class='border'></image>
+        <image wx:if="{{index==3}}" src='../../images/idol-list-border4.png' class='border'></image>
+        <image wx:if="{{index==4}}" src='../../images/idol-list-border5.png' class='border'></image>
+        <view class='item-content w100 flex justify-content-between align-items-center'>
+          <view class='avatar-wrp'>
+            <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{idolTheme[index].main}},0 0 0 16rpx {{idolTheme[index].sub}}">
+              <image src='{{item.avatar}}' mode='widthFix' class='w100'></image>
+            </view>
+          </view>
+          <view class='idol-info flex flex-c justify-content-between'>
+            <view>
+              <view class='idol-name text-m bold letter-sp2' style="color:{{idolTheme[index].main}}">
+                <text class='icon-arrow-right icomoon icon-right text-xs' style='color:{{idolTheme[index].main}}'></text>{{item.short_name}}</view>
+              <view class='idol-fans'>
+                <text class='text-s bold'>粉丝数量:</text>
+                <text class='fans-count letter-sp1 bold italic' style="color:{{idolTheme[index].main}}">{{item.fans}}</text>
+              </view>
+            </view>
+
+
+            <button class="btn-follow btn text-white" style="background:{{idolTheme[index].main}}" catchtap='follow' data-id="{{index}}" bindtap='turnToFansLeaderBoard'>粉丝贡献榜</button>
+
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+<!-- <tabbar-bottom class="w100" tab_id="{{tab_id}}" genderTheme="{{genderTheme}}"></tabbar-bottom> -->
+</view>

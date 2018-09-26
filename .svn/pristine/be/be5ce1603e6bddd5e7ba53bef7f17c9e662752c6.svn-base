@@ -1,0 +1,38 @@
+{
+  "pages": [
+      
+    "pages/user/index",
+    "pages/index/index",
+    "pages/leaderBoard/index",
+    "pages/task/index",
+    "pages/editUserInfo/index",
+    "pages/genderTheme/index",
+    "pages/idolList/index",
+    "pages/videoView/index",
+    "pages/newsView/index",
+    "pages/replyComment/index",
+    "pages/idolView/index",
+    "pages/fansLeaderBoard/index",
+    "pages/searchResult/index",
+    "pages/forumView/index",
+    "pages/commentView/index",
+    "pages/userFollow/index",
+    "pages/userContribution/index",
+      "pages/userCollection/index"
+
+  ],
+  "window": {
+    "backgroundTextStyle": "#333333",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor": "#e95471",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "歌姬动态",
+    "enablePullDownRefresh": true
+  },
+  "plugins": {
+    "tencentvideo": {
+      "version": "1.1.8",
+      "provider": "wxa75efa648b60994b"
+    }
+  }
+}

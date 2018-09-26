@@ -1,0 +1,26 @@
+<view class="container flex  align-items-center justify-content-center">
+      <view wx:if="{{gender==1}}" class='select-box-male select-box flex flex-c'>
+            <view class='header w100 text-center' style='color:{{genderTheme[0].main}}'>
+                  <view class='hd1 text-m bold letter-sp2'>皮肤选择</view>
+                  <view class='line'></view>
+                  <view class='hd2 text-m bold letter-sp2'>你的选择将决定获得的皮肤喔！</view>
+            </view>
+            <view class='icon-wrp'>
+                  <image src='../../images/icon-male-selected.png' mode='widthFix' class='icon male'></image>
+                  <image src='../../images/icon-female.png' mode='widthFix' class='icon female' bindtap='selectTheme' data-id='2' ></image>
+            </view>
+            <button class='btn-confirm text-xs letter-sp2 text-white' bindtap='confirmGender' style='background:{{genderTheme[0].main}}' data-id='1'>确定</button>
+      </view>
+      <view wx:if="{{gender==2}}" class='select-box-female select-box flex flex-c'>
+            <view class='header w100 text-center' style='color:{{genderTheme[1].main}}'>
+                  <text class='hd1 text-m bold letter-sp2'>皮肤选择</text>
+                  <view class='line'></view>
+                  <text class='hd2 text-m bold letter-sp2'>你的选择将决定获得的皮肤喔！</text>
+            </view>
+            <view class='icon-wrp'>
+                  <image src='../../images/icon-male.png' mode='widthFix' class='icon male' bindtap='selectTheme' data-id='1'></image>
+                  <image src='../../images/icon-female-selected.png' mode='widthFix' class='icon female'></image>
+            </view>
+            <button class='btn-confirm text-xs letter-sp2 text-white' bindtap='confirmGender' style='background:{{genderTheme[1].main}}' data-id='2'>确定</button>
+      </view>
+</view>

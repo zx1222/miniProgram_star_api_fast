@@ -1,0 +1,7 @@
+{
+      "component": true,
+      "usingComponents": {
+            "comment_p_list": "../../components/comment_p_list/comment_p_list",
+            "report": "../../components/report/report"
+      }
+}

@@ -1,0 +1,76 @@
+<view class="container user">
+      <view class='header flex'>
+            <view class='avatar' style='box-shadow:0 0 0 1px  #bfbfc0,0 0 0 10rpx {{genderTheme.main}},0 0 0 18rpx {{genderTheme.sub}}'>
+                  <image class='w100' src='{{userInfo.avatar}}' mode='widthFix'></image>
+            </view>
+            <view class="name-wrp flex flex-c justify-content-center">
+                  <view class='nickname text-m bold letter-sp2' style='color:{{genderTheme.main}}'>{{userInfo.nickname}}</view>
+                  <view class='btn-modify letter-sp1 text-s text-center' style='background:{{genderTheme.main}}' bindtap='turnToEditInfo'>编辑信息</view>
+            </view>
+      </view>
+      <view class='entrance-list'>
+            <view class='item user-focus flex align-item-center justify-content-between' bindtap='turnToMyFollow'>
+                  <view class='l flex align-item-center'>
+                        <text class='icomoon icon-light icon' style='color:{{genderTheme.main}}'></text>
+                        <text class='item-name bold text-s'>我的关注</text>
+                  </view>
+                  <text class='fa fa-angle-right r' style='color:{{genderTheme.main}}'></text>
+            </view>
+            <view class='item user-focus flex align-item-center justify-content-between' bindtap='turnToMyContribution'>
+                  <view class='l flex align-item-center'>
+                        <text class='icomoon icon-good-light icon' style='color:{{genderTheme.main}}'></text>
+                        <text class='item-name bold text-s'>我的贡献</text>
+                  </view>
+                  <text class='fa fa-angle-right r' style='color:{{genderTheme.main}}'></text>
+            </view>
+            <view class='item user-focus flex align-item-center justify-content-between' bindtap='turnToMyCollection'>
+                  <view class='l flex align-item-center'>
+                        <text class='icomoon icon-star icon' style='color:{{genderTheme.main}}'></text>
+                        <text class='item-name bold text-s'>我的收藏</text>
+                  </view>
+                  <text class='fa fa-angle-right r' style='color:{{genderTheme.main}}'></text>
+            </view>
+            <view class='item user-focus flex align-item-center justify-content-between'>
+                  <view class='l flex align-item-center'>
+                        <text class='icomoon icon-page icon' style='color:{{genderTheme.main}}'></text>
+                        <text class='item-name bold text-s'>我的帖子</text>
+                  </view>
+                  <text class='fa fa-angle-right r' style='color:{{genderTheme.main}}'></text>
+            </view>
+            <view class='item user-focus flex align-item-center justify-content-between'>
+                  <view class='l flex align-item-center'>
+                        <text class='icomoon icon-message-plus icon' style='color:{{genderTheme.main}}'></text>
+                        <text class='item-name bold text-s'>我的消息</text>
+                  </view>
+                  <text class='fa fa-angle-right r' style='color:{{genderTheme.main}}'></text>
+            </view>
+      </view>
+</view>
+<tabbar-bottom class="w100" tab_id="{{tab_bottom_id}}" genderTheme="{{genderTheme}}"></tabbar-bottom>
+
+<view class='popup genderTheme flex  align-items-center justify-content-center' wx:if="{{is_seletpopup_show&&is_gender_selected==2}}">
+      <view wx:if="{{gender==1}}" class='select-box-male select-box flex flex-c'>
+            <view class='header w100 text-center' style='color:{{genderThemeArr[0].main}}'>
+                  <view class='hd1 text-m bold letter-sp2'>皮肤选择</view>
+                  <view class='line'></view>
+                  <view class='hd2 text-m bold letter-sp2'>你的选择将决定获得的皮肤喔！</view>
+            </view>
+            <view class='icon-wrp'>
+                  <image src='../../images/icon-male-selected.png' mode='widthFix' class='icon male'></image>
+                  <image src='../../images/icon-female.png' mode='widthFix' class='icon female' bindtap='selectTheme' data-id='2'></image>
+            </view>
+            <button class='btn-confirm text-xs letter-sp2 text-white' bindtap='confirmGender' style='background:{{genderThemeArr[0].main}}' data-id='1'>确定</button>
+      </view>
+      <view wx:if="{{gender==2}}" class='select-box-female select-box flex flex-c'>
+            <view class='header w100 text-center' style='color:{{genderThemeArr[1].main}}'>
+                  <view class='hd1 text-m bold letter-sp2'>皮肤选择</view>
+                  <view class='line'></view>
+                  <view class='hd2 text-m bold letter-sp2'>你的选择将决定获得的皮肤喔！</view>
+            </view>
+            <view class='icon-wrp'>
+                  <image src='../../images/icon-male.png' mode='widthFix' class='icon male' bindtap='selectTheme' data-id='1'></image>
+                  <image src='../../images/icon-female-selected.png' mode='widthFix' class='icon female'></image>
+            </view>
+            <button class='btn-confirm text-xs letter-sp2 text-white' bindtap='confirmGender' style='background:{{genderThemeArr[1].main}}' data-id='2'>确定</button>
+      </view>
+</view>

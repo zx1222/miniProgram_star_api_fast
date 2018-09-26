@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "search-form": "../../../components/search-form/search-form"
+  }
+}

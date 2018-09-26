@@ -1,0 +1,35 @@
+<view class="container">
+  <view class='follow-list flex  flex-c justify-content-between'>
+    <view class=' w100 item ' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToView' data-index="{{item.index}}">
+      <image wx:if="{{index==0}}" src='../../images/idol-list-border1.png' class='border'></image>
+      <image wx:if="{{index==1}}" src='../../images/idol-list-border2.png' class='border'></image>
+      <image wx:if="{{index==2}}" src='../../images/idol-list-border3.png' class='border'></image>
+      <image wx:if="{{index==3}}" src='../../images/idol-list-border4.png' class='border'></image>
+      <image wx:if="{{index==4}}" src='../../images/idol-list-border5.png' class='border'></image>
+      <view class='item-content w100 flex justify-content-between align-items-center'>
+        <view class='avatar-wrp'>
+          <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{idolTheme[index].main}},0 0 0 16rpx {{idolTheme[index].sub}}">
+            <image src='{{item.avatar}}' mode='widthFix' class='w100'></image>
+          </view>
+        </view>
+        <view class='idol-info flex flex-c justify-content-between'>
+          <view>
+            <view class='idol-name text-m bold letter-sp2' style="color:{{idolTheme[index].main}}">
+              <text class='icon-arrow-right icomoon icon-right text-xs' style='color:{{idolTheme[index].main}}'></text>{{item.name}}</view>
+            <view class='count-wrp'>
+              <view class='row'>
+                <text class='text-s bold label'>贡献值:</text>
+                <text class=' bold text-l italic count-value ' style='color:{{idolTheme[item.index].main}}'>{{item.contribution}}</text>
+              </view>
+            </view>
+          </view>
+
+          <view class='idol-desc'>
+            <text>{{item.desc}}</text>
+          </view>
+          <button class="btn-support btn text-white text-xs" style="background:{{idolTheme[index].main}}" catchtap='turnToLeaderBoard' data-id="{{index}}">我的贡献排名</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

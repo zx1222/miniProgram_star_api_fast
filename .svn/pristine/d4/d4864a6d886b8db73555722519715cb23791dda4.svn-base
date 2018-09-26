@@ -1,0 +1,71 @@
+@import '../../styles/icon.wxss';
+@import '../../styles/fontawsome.wxss';
+
+@import '../../styles/style.wxss';
+/* comment list */
+.comment-wrp {
+      padding: 25rpx 0;
+}
+
+.comment-wrp .avatar {
+      width: 78rpx;
+      height: 78rpx;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px #e1e1e2;
+      overflow: hidden;
+      margin-top: 20rpx;
+}
+
+.comment-wrp .content {
+      width: calc(100% - 102rpx);
+      border-bottom: 1px solid #eee;
+      padding: 20rpx 0;
+}
+
+.comment-wrp .content .hd {
+      /* padding-left: 24rpx; */
+      overflow: hidden;
+}
+
+.comment-wrp .content .hd .name {
+      width: 58%;
+      color: #696969;
+      font-size: 26rpx;
+      float: left;
+}
+
+.comment-wrp .content .hd .count-wrp {
+      color: #585858;
+      float: right;
+      width: 40%;
+}
+
+.comment-wrp .content .hd .count-wrp .item-count {
+      float: right;
+}
+
+.comment-wrp .content .hd .item-count {
+      padding-right: 14rpx;
+}
+
+.comment-wrp .content .hd .icon {
+      padding-right: 6rpx;
+}
+
+.comment-wrp .content .hd .icon-like, .comment-wrp .content .hd .icon-report {
+}
+
+.comment-wrp .content .child-comment-tips {
+      padding:14rpx 18rpx;
+      margin: 12rpx 0;
+}
+.comment-content {
+      color: #050505;
+      padding-top: 4rpx;
+}
+
+.create_time {
+      font-size: 24rpx;
+      color: #585858;
+      padding-top: 8rpx;
+}

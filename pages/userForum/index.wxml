@@ -1,0 +1,50 @@
+<view class="container">
+  <view class="tab">
+    <text wx:for="{{tabArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="tapIndicator" class="indicator-item" style="color:{{tabCurrent === index? genderTheme.main : '' }};">{{item}}</text>
+    <view class="slider-line" style="transform: translateX({{tabCurrent * 100}}%);">
+      <view class='line-inner' style="background:{{genderTheme.main}}"></view>
+    </view>
+  </view>
+
+  <!-- 主贴 -->
+  <view class="tabCurrent==0">
+  
+  
+  </view>
+  <!-- 回复 -->
+  <view class="tabCurrent==1">
+    <view class='list-wrp list-wrp-reply'>
+      <view class='item' wx:for="{{list}}">
+        <view class='hd'>
+          <view class='avatar'>
+            <image class='w100' src='{{item.user.avatar}}' mode='widthFix'></image>
+          </view>
+          <view class='hd-r flex flex-c justify-content-center '>
+            <view class=' name text-overflow1  text-m'>{{item.user.name}}</view>
+            <view class='time text-xs '>{{item.create_time}}</view>
+          </view>
+        </view>
+        <view class='reply-content'>
+          <text class='text-m letter-sp1'>回复: {{item.reply_content}}</text>
+          <view class='time text-xs '>{{item.create_time}}</view>
+        </view>
+        <view class='forum-content  '>
+          <text class=' letter-sp1 bold text-m text-black'>原贴: {{item.forum_title}}</text>
+        </view>
+        <view class='count-wrp flex  align-items-center justify-content-end  text-xs'>
+          <view class='item-count flex align-items-center .justify-content-end'>
+            <text class='icon-message icomoon  icon'></text>
+            <text class='count text-xs'>{{item.comment_count}}</text>
+          </view>
+          <view class='item-count flex align-items-center'>
+            <text class=' icomoon icon-good-light  icon'></text>
+            <text class='count text-xs'>{{item.like_count}}</text>
+          </view>
+          <view class='item-count flex align-items-center' bindtap='report'>
+            <text class='fa fa-trash-o icon'></text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

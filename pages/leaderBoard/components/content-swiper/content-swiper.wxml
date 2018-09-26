@@ -1,0 +1,19 @@
+<!--pages/user/component/topic-swiper/topic-swiper.wxml-->
+<view class="swiper-indicator" style=" border-bottom: 1px solid {{color}}">
+      <text wx:for="{{indicatorArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="_tapIndicator" class="indicator-item" >{{item}}</text>
+      <view class="slider-line" style="transform: translateX({{swiperCurrent * 100}}%);">
+            <view class='line-inner' style="background:{{color}}"></view>
+      </view>
+</view>
+
+<swiper bindchange="_swipreChange" indicator-dots="{{false}}" class="content-swiper     {{idol_id==1?'bg1':''}} {{idol_id==2?'bg2':''}} {{idol_id==3?'bg3':''}} {{idol_id==4?'bg4':''}} {{idol_id==5?'bg5':''}}  {{idol_id==5?'bg-color5':''}} {{idol_id==4?'bg-color4':''}} {{idol_id==3?'bg-color3':''}} {{idol_id==2?'bg-color2':''}} {{idol_id==1?'bg-color1':''}}"  current="{{swiperCurrent}}" >
+      <swiper-item class="swiper-item {{idol_id==1?'bg1':''}} {{idol_id==2?'bg2':''}} {{idol_id==3?'bg3':''}} {{idol_id==4?'bg4':''}} {{idol_id==5?'bg5':''}}">
+            <slot name="week"></slot>
+      </swiper-item>
+      <swiper-item class="swiper-item {{idol_id==1?'bg1':''}} {{idol_id==2?'bg2':''}} {{idol_id==3?'bg3':''}} {{idol_id==4?'bg4':''}} {{idol_id==5?'bg5':''}}">
+            <slot name="month"></slot>
+      </swiper-item>
+      <swiper-item class="swiper-item {{idol_id==1?'bg1':''}} {{idol_id==2?'bg2':''}} {{idol_id==3?'bg3':''}} {{idol_id==4?'bg4':''}} {{idol_id==5?'bg5':''}}">
+            <slot name="year"></slot>
+      </swiper-item>
+</swiper>

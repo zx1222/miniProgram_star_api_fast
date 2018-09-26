@@ -1,0 +1,21 @@
+<view class='form-forum'>
+  <form bindsubmit="formSubmit">
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="radio text-s bold" wx:for="{{reportReasonArr}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}" color='#666666' />{{item.value}}
+      </label>
+    </radio-group>
+    <textarea placeholder="发帖子" placeholder-class='placeholder' />
+    <view class='img-wrp'>
+      <image class='img-item' wx:for="{{imgArr}}" src="{{item}}" mode='widthFix'></image>
+      <view class='btn-add'>
+        <text>添加\n图片</text>
+      </view>
+      
+    </view>
+
+  </form>
+  <button class="btn-submit" formType="submit" style="background:{{idolTheme.main}}" bindtap='post'><text>发</text><text>表</text></button>
+  <text class='icomoon icon icon-keyboard' bindtap="close"></text>
+
+</view>

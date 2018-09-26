@@ -1,0 +1,232 @@
+<!--pages/idolView/index.wxml-->
+<view class="container {{is_post_show&&tabCurrent==2?'overflow-y-hidden':''}}">
+      <view class="tab" style=" border-bottom: 1px solid {{idolTheme[idol_index].main}};">
+            <text wx:for="{{tabArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="tapIndicator" class="indicator-item" style="color:{{tabCurrent === index? idolTheme[idol_index].main : '' }};">{{item}}</text>
+            <view class="slider-line" style="transform: translateX({{tabCurrent * 100}}%);">
+                  <view class='line-inner' style="background:{{idolTheme[idol_index].main}}"></view>
+            </view>
+      </view>
+
+      <!--自我介绍 -->
+      <view wx:if="{{tabCurrent==0}}" class='idol-intro flex  flex-c justify-content-betweem'>
+            <!-- 自我介绍header -->
+            <view class="header" style='border-bottom:1px dashed {{idolTheme[idol_index].main}};'>
+                  <view class='desc-hd bold w100  italic' style="color:{{idolTheme[idol_index].main}}">{{idolInfo[idol_index].hd_desc}}</view>
+                  <view class='flex jsutify-content-between'>
+                        <view class='poster-wrp w100'>
+                              <!-- video border theme-->
+                              <image wx:if="{{idol_index==0}}" class='poster-border w100' src='../../images/idol-brief-inro_border1.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==1}}" class='poster-border w100' src='../../images/idol-brief-inro_border2.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==2}}" class='poster-border w100' src='../../images/idol-brief-inro_border3.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==3}}" class='poster-border w100' src='../../images/idol-brief-inro_border4.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==4}}" class='poster-border w100' src='../../images/idol-brief-inro_border5.png' mode='widthFix'></image>
+                              <!-- video top icon theme---->
+                              <image class='poster w100' src='../../images/poster-intro.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==0}}" src='../../images/idol-brief-inro_icon1.png' mode='widthFix' class='icon'></image>
+                              <image wx:if="{{idol_index==1}}" src='../../images/idol-brief-inro_icon2.png' mode='widthFix' class='icon'></image>
+                              <image wx:if="{{idol_index==2}}" src='../../images/idol-brief-inro_icon3.png' mode='widthFix' class='icon'></image>
+                              <image wx:if="{{idol_index==3}}" src='../../images/idol-brief-inro_icon4.png' mode='widthFix' class='icon icon4'></image>
+                              <image wx:if="{{idol_index==4}}" src='../../images/idol-brief-inro_icon5.png' mode='widthFix' class='icon'></image>
+                        </view>
+                        <view class='count-wrp'>
+                              <view class='row w100'>
+                                    <text class='label text-xs   bold'>人气值:</text>
+                                    <text class='count italic bold' style="color:{{idolTheme[idol_index].main}}">{{idolInfo[idol_index].hot}}</text>
+                              </view>
+                              <view class='row w100'>
+                                    <text class='label text-xs   bold'>粉丝数量:</text>
+                                    <text class='count italic bold' style="color:{{idolTheme[idol_index].main}}">{{idolInfo[idol_index].fans}}</text>
+                              </view>
+                              <view class='row w100'>
+                                    <text class='label text-xs   bold'>人气排名:</text>
+                                    <text class='count italic bold' style="color:{{idolTheme[idol_index].main}}">{{idolInfo[idol_index].rank}}</text>
+                              </view>
+
+                              <view class='btn-wrp'>
+                                    <button wx:if="{{idolInfo[idol_index].is_follow==2}}" class='btn-follow' style="box-shadow:0 0 1px {{idolTheme[idol_index].main}} inset;color:{{idolTheme[idol_index].main}}" catchtap='follow'>关注</button>
+                                    <button wx:if="{{idolInfo[idol_index].is_follow==1}}" style="box-shadow:0 0 0 1px {{idolTheme[idol_index].main}} inset;color:{{idolTheme[idol_index].main}}" class='btn-follow'>已关注</button>
+                                    <button class='btn-support text-white' style="background:{{idolTheme[idol_index].main}}" bindtap='turnToSupport'>应援</button>
+                              </view>
+                        </view>
+                  </view>
+            </view>
+            <!-- 自我介绍形象 -->
+            <view class="desc-image">
+                  <image wx:if="{{idol_index==0}}" src='../../images/idol-brief-inro_bg1.png' class='bg' mode='widthFix'></image>
+                  <image wx:if="{{idol_index==1}}" src='../../images/idol-brief-inro_bg2.png' class='bg' mode='widthFix'></image>
+                  <image wx:if="{{idol_index==2}}" src='../../images/idol-brief-inro_bg3.png' class='bg' mode='widthFix'></image>
+                  <image wx:if="{{idol_index==3}}" src='../../images/idol-brief-inro_bg4.png' class='bg' mode='widthFix'></image>
+                  <image wx:if="{{idol_index==4}}" src='../../images/idol-brief-inro_bg5.png' class='bg' mode='widthFix'></image>
+
+                  <image class='country' src='{{idolInfo[idol_index].country}}' mode='widthFix'></image>
+                  <image class='idol w100' mode='widthFix' src='{{idolInfo[idol_index].image}}'></image>
+                  <view class='info-list'>
+                        <view class='item'>
+                              <view class='l text-white' style='background:{{idolTheme[idol_index].main}}'>姓名</view>
+                              <view class='r bold letter-sp2' style='color:{{idolTheme[idol_index].main}};box-shadow:0 0 0 1px  {{idolTheme[idol_index].main}} inset'>{{idolInfo[idol_index].short_name}}</view>
+                        </view>
+                        <view class='item'>
+                              <view class='l text-white' style='background:{{idolTheme[idol_index].main}}'>生日</view>
+                              <view class='r bold letter-sp2' style='color:{{idolTheme[idol_index].main}};box-shadow:0 0 0 1px  {{idolTheme[idol_index].main}} inset'>{{idolInfo[idol_index].birthdaty}}</view>
+                        </view>
+                        <view class='item'>
+                              <view class='l text-white' style='background:{{idolTheme[idol_index].main}}'>年龄</view>
+                              <view class='r bold letter-sp2' style='color:{{idolTheme[idol_index].main}};box-shadow:0 0 0 1px  {{idolTheme[idol_index].main}} inset'>{{idolInfo[idol_index].age}}</view>
+                        </view>
+                        <view class='item'>
+                              <view class='l text-white' style='background:{{idolTheme[idol_index].main}}'>代表花</view>
+                              <view class='r bold ' style='color:{{idolTheme[idol_index].main}} ;box-shadow:0 0 0 1px  {{idolTheme[idol_index].main}} inset'>{{idolInfo[idol_index].flower}}</view>
+                        </view>
+                  </view>
+                  <view class='sub-desc text-s  letter-sp1 bold'>{{idolInfo[idol_index].sub_desc}}</view>
+            </view>
+      </view>
+
+      <!--动态-->
+      <contentSwiper wx:if="{{tabCurrent==1}}" bind:childEvent='catchChildSwiper' indicatorArr="{{indicatorArr}}" color="{{idolTheme[idol_index].main}}">
+            <list slot="recommend" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" loading="{{loading}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
+            <list slot="live" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
+            <list slot="comic" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
+            <list slot="pv" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
+            <list slot="mv" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
+            <list slot="shortVideo" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
+            <list slot="news" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
+      </contentSwiper>
+
+      <!-- 后援会 -->
+      <view wx:if="{{tabCurrent==2}}" class='fnasClub'>
+            <!-- 自我介绍header -->
+            <view class="header" style='border-bottom:1px dashed {{idolTheme[idol_index].main}};'>
+                  <view class='desc-hd bold w100  italic' style="color:{{idolTheme[idol_index].main}}">{{idolInfo[idol_index].hd_desc}}</view>
+                  <view class='flex jsutify-content-between'>
+                        <view class='poster-wrp w100'>
+                              <!-- video border theme-->
+                              <image wx:if="{{idol_index==0}}" class='poster-border w100' src='../../images/idol-brief-inro_border1.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==1}}" class='poster-border w100' src='../../images/idol-brief-inro_border2.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==2}}" class='poster-border w100' src='../../images/idol-brief-inro_border3.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==3}}" class='poster-border w100' src='../../images/idol-brief-inro_border4.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==4}}" class='poster-border w100' src='../../images/idol-brief-inro_border5.png' mode='widthFix'></image>
+                              <!-- video top icon theme---->
+                              <image class='poster w100' src='../../images/poster-intro.png' mode='widthFix'></image>
+                              <image wx:if="{{idol_index==0}}" src='../../images/idol-brief-inro_icon1.png' mode='widthFix' class='icon'></image>
+                              <image wx:if="{{idol_index==1}}" src='../../images/idol-brief-inro_icon2.png' mode='widthFix' class='icon'></image>
+                              <image wx:if="{{idol_index==2}}" src='../../images/idol-brief-inro_icon3.png' mode='widthFix' class='icon'></image>
+                              <image wx:if="{{idol_index==3}}" src='../../images/idol-brief-inro_icon4.png' mode='widthFix' class='icon icon4'></image>
+                              <image wx:if="{{idol_index==4}}" src='../../images/idol-brief-inro_icon5.png' mode='widthFix' class='icon'></image>
+                        </view>
+                        <view class='count-wrp'>
+                              <view class='row w100'>
+                                    <text class='label text-xs  text-black bold'>人气值:</text>
+                                    <text class='count italic bold' style="color:{{idolTheme[idol_index].main}}">{{idolInfo[idol_index].hot}}</text>
+                              </view>
+                              <view class='row w100'>
+                                    <text class='label text-xs  text-black bold'>粉丝数量:</text>
+                                    <text class='count italic bold' style="color:{{idolTheme[idol_index].main}}">{{idolInfo[idol_index].fans}}</text>
+                              </view>
+                              <view class='row w100'>
+                                    <text class='label text-xs  text-black bold'>人气排名:</text>
+                                    <text class='count italic bold' style="color:{{idolTheme[idol_index].main}}">{{idolInfo[idol_index].rank}}</text>
+                              </view>
+
+                              <view class='btn-wrp'>
+                                    <button wx:if="{{idolInfo[idol_index].is_follow==2}}" class='btn-follow' style="box-shadow:0 0 1px {{idolTheme[idol_index].main}} inset;color:{{idolTheme[idol_index].main}}" catchtap='follow'>关注</button>
+                                    <button wx:if="{{idolInfo[idol_index].is_follow==1}}" style="box-shadow:0 0 0 1px {{idolTheme[idol_index].main}} inset;color:{{idolTheme[idol_index].main}}" class='btn-follow'>已关注</button>
+                                    <button class='btn-support text-white' style="background:{{idolTheme[idol_index].main}}" bindtap='turnToSupport'>应援</button>
+                              </view>
+                        </view>
+                  </view>
+            </view>
+            <!-- 帖子列表 -->
+            <view class='forum-list-wrp w100'>
+                  <forum-p-list forum_list="{{forum_list}}"></forum-p-list>
+                  <view class="weui-loadmore" wx:if="{{loading}}">
+                        <view class="weui-loading"></view>
+                        <view class="weui-loadmore__tips">正在加载</view>
+                  </view>
+            </view>
+            <text class='btn-add fa fa-plus-circle' bindtap='choosePostType'></text>
+      </view>
+</view>
+
+
+<!-- 关注成功popup -->
+<view class="popup flex align-items-center justify-content-center" wx:if="{{is_show}}">
+      <view class='poster text-white'>
+            <view class='poster-inner flex flex-c justify-content-between' style="background:{{idolTheme[idol_index].main}}">
+                  <view class='header text-center 100 letter-sp1'>
+                        <view>关注成功！</view>
+                        <view>您是第123456位粉丝</view>
+                        <view class='btn-wrp flex justify-content-between'>
+                              <view class='btn-audio'>{{this.data.list[idol_index].name}}对你说的悄悄话</view>
+                              <view class='btn-support letter-sp2' style='color:{{idolTheme[idol_index].main}}' catchtap='turnToSupport'>为他应援</view>
+                        </view>
+                  </view>
+                  <image src='../../images/follow-poster.png' class='poster-img w100' mode='widthFix'></image>
+            </view>
+      </view>
+      <text class='text-s text-white tips'>长按图片进行保存，分享到朋友圈</text>
+      <image bindtap='closePopup' class='btn-close' src='../../images/icon-close.png' mode='widthFix'></image>
+</view>
+
+
+
+<!-- 应援规则popup -->
+<view class="popup support-rules flex align-items-center justify-content-center" wx:if="{{is_rules_show&&tabCurrent==2}}">
+      <view class='poster text-white'>
+            <scroll-view class='poster-inner flex flex-c justify-content-between' >
+                  <view class='header' style='   border-bottom: 1px dashed {{idolTheme[idol_index].main}} '>
+                        <view class='title text-black bold text-center'>应援规则</view>
+                        <view class='text-black text-xs'>欢迎来到《战斗吧！歌姬》的世界，在这里你的各种行为都会为你的偶像获得人气值，并且自己也会获得个人积分的奖励（我才不会告诉你个人值能换取各种神秘的礼物呢）</view>
+                  </view>
+                  <view class='content text-xs'>
+                        <view class='content_title bold'>具体的奖励规则如下</view>
+                        <view class="section">
+                              <view class='bold'>【必修任务-签到】</view>
+                              <view>点击签到按钮，为歌姬增加5点人气值，为你增加5点贡献值，每天限量一次。</view>
+                        </view>
+                        <view class='section'>
+                              <view class='bold'>【必修任务-签到】</view>
+                              <view>点击签到按钮，为歌姬增加5点人气值，为你增加5点贡献值，每天限量一次。</view>
+                        </view>
+                        <view class='section'>
+                              <view class='bold'>【互动任务-评论视频】</view>
+                              <view>评论歌姬动态里面的发布视频内容(每天3个) ，为歌姬增加15点人气值，为你增加15点贡献值，每天限量一次。</view>
+                        </view>
+
+                        <view class='section'>
+                              <view class='bold'>【互动任务-编辑文字分享视频】</view>
+                              <view>分享歌姬动态里面的视频内容加上评论给微信好友/微信群（分享自己喜欢的歌姬的内容），为歌姬增加15点人气值，为你增加15点贡献值，每周限量一次。</view>
+                        </view>
+                           <view class='section'>
+                              <view class='bold'>【互动任务-编辑文字分享视频】</view>
+                              <view>分享歌姬动态里面的视频内容加上评论给微信好友/微信群（分享自己喜欢的歌姬的内容），为歌姬增加15点人气值，为你增加15点贡献值，每周限量一次。</view>
+                        </view>
+                           <view class='section'>
+                              <view class='bold'>【互动任务-编辑文字分享视频】</view>
+                              <view>分享歌姬动态里面的视频内容加上评论给微信好友/微信群（分享自己喜欢的歌姬的内容），为歌姬增加15点人气值，为你增加15点贡献值，每周限量一次。</view>
+                        </view>
+
+                  </view>
+            </scroll-view>
+      </view>
+      <image bindtap='closePopup' class='btn-close' src='../../images/icon-close.png' mode='widthFix'></image>
+</view>
+
+<!-- 发布类型选择popup -->
+<view class="popup post-type flex align-items-center justify-content-center" wx:if="{{false}}">
+<view class='flex align-items-center'>
+      <view class='btn-wrp'>
+            <image class='icon' src='../../images/icon-text.png' mode='widthFix' bindtap='turnToPost' data-id='1'></image>
+            <view class='text-white label bold'>文字</view>
+      </view>
+        <view class='btn-wrp'>
+            <image class='icon'  src='../../images/icon-picture.png' mode='widthFix' bindtap='turnToPost' data-id='2'></image>
+               <view class='text-white label bold'>相册</view>
+      </view>
+</view>
+
+      <image bindtap='closePopup' class='btn-close' src='../../images/icon-close.png' mode='widthFix'></image>
+
+</view>
+
+<forum wx:if="{{is_post_show}}" bind:submitForum='catchForumSubmit' bind:closeForum='catchForumClose' idolTheme="{{idolTheme[idol_index]}}"></forum>

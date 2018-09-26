@@ -1,0 +1,71 @@
+{
+  "pages": [
+      "pages/leaderBoard/index",
+    "pages/index/index",
+
+    "pages/user/index",
+    "pages/userForum/index",
+    "pages/task/index",
+    "pages/editUserInfo/index",
+    "pages/genderTheme/index",
+    "pages/idolList/index",
+    "pages/videoView/index",
+    "pages/newsView/index",
+    "pages/replyComment/index",
+    "pages/idolView/index",
+    "pages/fansLeaderBoard/index",
+    "pages/searchResult/index",
+    "pages/forumView/index",
+    "pages/commentView/index",
+    "pages/userFollow/index",
+    "pages/userContribution/index",
+    "pages/userCollection/index",
+    "pages/userNotice/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "#333333",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor": "#e95471",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "歌姬动态",
+    "enablePullDownRefresh": true
+  },
+  "plugins": {
+    "tencentvideo": {
+      "version": "1.1.8",
+      "provider": "wxa75efa648b60994b"
+    }
+  },
+    "tabBar": {
+      "color": "#a0a0a0",
+      "selectedColor": "#e96465",
+      "borderStyle": "white",
+      "backgroundColor": "#fafafa",
+      "list": [
+        {
+          "selectedIconPath": "./images/icon-female-selected.png",
+          "iconPath": "./images/icon-female.png",
+          "pagePath": "pages/index/index",
+          "text": "歌姬动态"
+        },
+        {
+          "selectedIconPath": "./images/icon-female-selected.png",
+          "iconPath": "./images/icon-female.png",
+          "pagePath": "pages/idolList/index",
+          "text": "歌姬介绍"
+        },
+        {
+          "selectedIconPath": "./images/icon-female-selected.png",
+          "iconPath": "./images/icon-female.png",
+          "pagePath": "pages/leaderBoard/index",
+          "text": "排行榜"
+        },
+        {
+          "selectedIconPath": "./images/icon-female-selected.png",
+          "iconPath": "./images/icon-female.png",
+          "pagePath": "pages/user/index",
+          "text": "个人中心"
+        }
+      ]
+    }
+}

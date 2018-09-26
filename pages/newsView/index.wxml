@@ -1,0 +1,57 @@
+<view class="container  {{is_report?'overflow-y-hidden':''}}">
+  <view class='swiper'>
+    <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;" class="{{iphone_type=='iPhone X'?'pt60':''}}">
+      <block wx:for='{{banners}}' wx:key="{{index}}">
+        <navigator url="{{banner_path[index]}}?index={{index}}" hover-class='none'>
+          <swiper-item>
+            <image src="{{item}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" data-url="{{banner_path[index]}}?index={{index}}" />
+          </swiper-item>
+        </navigator>
+      </block>
+    </swiper>
+    <view class="dots">
+      <block wx:for="{{banners}}" wx:key="unique">
+        <view class="dot{{index == current ? ' active' : ''}}"></view>
+      </block>
+    </view>
+  </view>
+
+  <view class='main-content'>
+    <view class='news-content'>
+      <view class='title text-m bold letter-sp2'>{{item.title}}</view>
+      <view class='date text-s text-pink'>{{item.date}}</view>
+      <view class='content text-s letter-sp1 bold'>{{item.content}}</view>
+    </view>
+  </view>
+  <view class='comment-list-wrp'>
+    <comment_p_list comment_list="{{comment_list}}" bind:report='catchReport'></comment_p_list>
+    <view class="weui-loadmore" wx:if="{{loading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </view>
+
+
+  <view class='comment-input-wrp w100 flex justify-content-between align-items-center'>
+    <input class="{{is_focus?'cover':''}}" placeholder="我也说一句..." placeholder-class=' text-s text-blue bold letter-sp2' bindfocus="focusChange" bindblur='blurChange' focus="{{false}}" confirm-type='send' />
+    <view class="{{is_focus?'hidden':''}}  count-wrp flex  align-items-center justify-content-end  text-s">
+      <view class='item-count flex align-items-center justify-content-end'>
+        <text class='icon icomoon icon-message'></text>
+        <text class='count'>{{item.comment_count}}</text>
+      </view>
+      <view class='item-count flex align-items-center'>
+        <text class='icon icomoon icon-good-light'></text>
+        <text class='count'>{{item.like_count}}</text>
+      </view>
+      <view class='item-count flex align-items-center'>
+        <text class='icon icomoon icon-intransit'></text>
+      </view>
+      <view class='item-count flex align-items-center'>
+        <text class='icon icomoon icon-star'></text>
+      </view>
+    </view>
+  </view>
+  <view class="popup report-wrp" wx:if="{{is_report}}">
+    <report genderTheme="{{genderTheme}}" bind:reportCancel='catchReportCancel' bind:reportSubmit='catchReportSubmit'></report>
+  </view>
+</view>

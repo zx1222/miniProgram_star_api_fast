@@ -1,0 +1,142 @@
+@import './styles/fontawsome.wxss';
+@import './styles/icon.wxss';
+@import './styles/style.wxss';
+
+page {
+      width: 100%;
+      height: 100%;
+}
+
+view {
+      box-sizing: border-box;
+}
+
+/* * {
+      box-sizing: border-box;
+} */
+
+.container {
+      width: 100%;
+      /* display: flex;
+  flex-direction: column;
+   align-items: center; 
+  justify-content: space-between; */
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 16px;
+      height: 100%;
+      /* background-size: 100% 100%;
+      background-color: hsl(340, 80%, 84%);
+      background-color: rgba(355, 155, 155, 0.6);
+      background-blend-mode: multiply; */
+      color: #585858;
+      font-family: 'FZLTHJT';
+}
+
+::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      color: transparent;
+}
+
+button {
+      padding: 0;
+}
+
+button::after {
+      display: none;
+}
+
+/* 搜索框 */
+
+.weui-search-bar {
+      padding: 40rpx 0;
+      background: transparent;
+      border: none;
+}
+
+.weui-search-bar__form {
+      border: 4rpx solid #000;
+}
+
+/*  加载更多  start */
+
+.weui-loading {
+      margin: 0 5px;
+      width: 20px;
+      height: 20px;
+      color: #fff;
+      display: inline-block;
+      vertical-align: middle;
+      -webkit-animation: weuiLoading 1s steps(12, end) infinite;
+      animation: weuiLoading 1s steps(12, end) infinite;
+      background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgxMDB2MTAwSDB6Ii8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTlFOUU5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTMwKSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iIzk4OTY5NyIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAxMDUuOTggNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjOUI5OTlBIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDc1Ljk4IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0EzQTFBMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCA2NSA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNBQkE5QUEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDU4LjY2IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0IyQjJCMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjQkFCOEI5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA1MCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDMkMwQzEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1MCA0NS45OCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDQkNCQ0IiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTEyMCA0MS4zNCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNEMkQyRDIiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDM1IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0RBREFEQSIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgtNjAgMjQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTJFMkUyIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKC0zMCAtNS45OCA2NSkiLz48L3N2Zz4=) no-repeat;
+      background-size: 100%;
+}
+
+.weui-loadmore {
+      width: 65%;
+      margin: 1.5em auto;
+      line-height: 1.6em;
+      font-size: 14px;
+      text-align: center;
+}
+
+.weui-loadmore__tips {
+      display: inline-block;
+      vertical-align: middle;
+}
+
+.loadmore-end {
+      width: 100%;
+      margin: 1.2em auto;
+      line-height: 1.6em;
+      font-size: 14px;
+      text-align: center;
+}
+
+/*  加载更多  end */
+
+/* swiper */
+
+.swiper image {
+      width: 100%;
+}
+
+.swiper {
+      position: relative;
+}
+
+.swiper .dots {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 20rpx;
+      display: flex;
+      justify-content: center;
+}
+
+.swiper .dots .dot {
+      margin: 0 8rpx;
+      width: 14rpx;
+      height: 14rpx;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      /* transition: all 0.6s; */
+}
+
+.swiper .dots .dot.active {
+      width: 16rpx;
+      height: 16rpx;
+      background: #fff;
+      padding: 2px;
+      background-clip: content-box;
+      box-shadow: 0 0 0 0.5px #fff;
+      /* box-shadow: 0 0 0 2px rgba(15,15,15,.6), 0 0 0 3px #ffffff; */
+}
+
+/* 底部导航 */
+tabbar-bottom{
+      position: fixed;
+      bottom: 0;
+}

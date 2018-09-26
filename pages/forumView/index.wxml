@@ -1,0 +1,68 @@
+<view class="container">
+  <view class='forum-wrp flex justify-content-between'>
+    <view class='avatar'>
+      <image class='w100' src='{{item.user_avatar}}' mode='widthFix'></image>
+    </view>
+    <view class='content'>
+      <view class='hd flex justify-content-between align-items-center'>
+        <view class='flex flex-c' style='width:50%;color:#939393'>
+          <view class='p-name name text-overflow1 text-gray text-s'>{{item.user_name}}</view>
+          <view class='create_time text-xs text-graay'>{{item.create_time}}</view>
+        </view>
+        <view class='count-wrp flex  align-items-center justify-content-end  text-xs'>
+          <view class='item-count flex align-items-center .justify-content-end'>
+            <text class='icon-message icomoon text-xs icon'></text>
+            <text class='count'>{{item.comment_count}}</text>
+          </view>
+          <view class='item-count flex align-items-center'>
+            <text class=' icomoon icon-good-light text-s icon'></text>
+            <text class='count'>{{item.like_count}}</text>
+          </view>
+          <view class='item-count flex align-items-center' bindtap='report'>
+            <text class='icon-report icomoon  text-s icon'></text>
+          </view>
+        </view>
+      </view>
+      <view class='main-content'>
+        <view class='forum-content'> {{item.content}}</view>
+        <view class='imgs w100'>
+          <view class='img-wrp' wx:for="{{item.imgs}}">
+            <image src='{{item}}' mode='widthFix'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='comment-list-wrp'>
+    <comment_p_list comment_list="{{comment_list}}" bind:report='catchReport'></comment_p_list>
+    <view class="weui-loadmore" wx:if="{{loading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </view>
+
+
+
+  <view class="popup report-wrp" wx:if="{{is_report}}">
+    <report genderTheme="{{genderTheme}}" bind:reportCancel='catchReportCancel' bind:reportSubmit='catchReportSubmit'></report>
+  </view>
+</view>
+  <view class='comment-input-wrp w100 flex justify-content-between align-items-center'>
+    <input class="{{is_focus?'cover':''}}" placeholder="我也说一句..." placeholder-class=' text-s text-blue bold letter-sp2' bindfocus="focusChange" bindblur='blurChange' focus="{{false}}" confirm-type='send' />
+    <view class="{{is_focus?'hidden':''}}  count-wrp flex  align-items-center justify-content-end  text-s">
+      <view class='item-count flex align-items-center justify-content-end'>
+        <text class='icon icomoon icon-message'></text>
+        <text class='count'>{{item.comment_count}}</text>
+      </view>
+      <view class='item-count flex align-items-center'>
+        <text class='icon icomoon icon-good-light'></text>
+        <text class='count'>{{item.like_count}}</text>
+      </view>
+      <view class='item-count flex align-items-center'>
+        <text class='icon icomoon icon-intransit'></text>
+      </view>
+      <view class='item-count flex align-items-center'>
+        <text class='icon icomoon icon-star'></text>
+      </view>
+    </view>
+  </view>

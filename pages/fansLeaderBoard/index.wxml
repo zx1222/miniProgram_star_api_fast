@@ -1,0 +1,42 @@
+<view class="container">
+  <view class='flex flex-c justify-content-center '>
+    <view class='flex align-items-center justify-content-between item' wx:for="{{list}}">
+      <view class='flex align-items-center'>
+        <image wx:if="{{index==0}}" src='../../images/icon-gold.png' mode='widthFix' class='' class='icon'></image>
+        <image wx:if="{{index==1}}" src='../../images/icon-silver.png' mode='widthFix' class='' class='icon'></image>
+        <image wx:if="{{index==2}}" src='../../images/icon-bronze.png' mode='widthFix' class='' class='icon'></image>
+        <view wx:if="{{index!=0&&index!=1&&index!=2}}" class="ranking bold italic">{{index+1}}</view>
+        <view class="avatar-wrp {{item.gender==1?'bg1':'bg2'}} " >
+          <image src='{{item.avatar}}' mode='widthFix' class="avatar {{item.gender==1?'border1':'border2'}}"></image>
+        </view>
+        <view class='name bold' style='color:{{genderTheme[item.gender-1].main}}'>{{item.name}}</view>
+      </view>
+
+      <view class='text-black'>
+        <text class='text-xs bold'>贡献值：</text>
+        <text class="text-s">{{item.point}}</text>
+      </view>
+    </view>
+  </view>
+
+  
+</view>
+<view class='myRankings'>
+    <view class='flex align-items-center justify-content-between item'>
+      <view class='flex align-items-center'>
+        <image wx:if="{{myRankings.level==1}}" src='../../images/icon-gold.png' mode='widthFix' class='' class='icon'></image>
+        <image wx:if="{{myRankings.level==2}}" src='../../images/icon-silver.png' mode='widthFix' class='' class='icon'></image>
+        <image wx:if="{{myRankings.level==3}}" src='../../images/icon-bronze.png' mode='widthFix' class='' class='icon'></image>
+        <view wx:if="{{myRankings.level!=1&&myRankings.level!=2&&myRankings.level!=3}}" class="ranking bold italic" style="color:#e95471">{{myRankings.level}}</view>
+        <view class="avatar-wrp {{myRankings.gender==1?'bg1':'bg2'}}">
+          <image src='{{myRankings.avatar}}' mode='widthFix' class="avatar {{myRankings.gender==1?'border1':'border2'}}"></image>
+        </view>
+        <view class='name bold' style='color:{{genderTheme[myRankings.gender-1].main}}'>{{myRankings.name}}</view>
+      </view>
+
+      <view class='text-black'>
+        <text class='text-xs bold'>贡献值：</text>
+        <text class="text-s">{{myRankings.point}}</text>
+      </view>
+    </view>
+  </view>

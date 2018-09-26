@@ -1,0 +1,10 @@
+<view class="popup-toast popup">
+      <view class='title'>{{title}}</view>
+      <view class='content'>{{content}}</view>
+
+      <view wx:if="{{is_delete}}" class='btn-wrp'>
+            <view class='btn-delete btn ' bindtap='confirm'>删除</view>
+            <view wx:if="{{gender==1}}" class='btn-cancel btn' style="color:{{genderTheme[0].main}}" bindtap='cancel'>取消</view>
+             <view wx:if="{{gender==2}}" class='btn-cancel btn' style="color:{{genderTheme[1].main}}" bindtap='cancel'>取消</view>
+      </view>
+</view>

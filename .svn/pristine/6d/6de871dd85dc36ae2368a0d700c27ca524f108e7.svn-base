@@ -1,0 +1,52 @@
+<view class="container">
+  <view class='header flex w100 flex-c align-items-center'>
+    <view class='avatar-wrp'>
+      <view class='avatar w100' style='box-shadow:0 0 0 1px  #bfbfc0,0 0 0 12rpx {{genderTheme.main}},0 0 0 22rpx {{genderTheme.sub}}'>
+        <open-data wx:if="{{userInfo.avatar==''}}" type="userAvatarUrl" class='w100'></open-data>
+        <image wx:if="{{userInfo.avatar!=''}}" src='{{userInfo.avatar}}' mode='widthFix' class='w100'></image>
+      </view>
+      <image wx:if="{{gender==2}}" class='avatar-female icon-avatar' src='../../images/avatar-female.png' mode='widthFix'></image>
+      <image wx:if="{{gender==1}}" class='avatar-male icon-avatar' src='../../images/avatar-male.png' mode='widthFix'></image>
+      <view wx:if="{{userInfo.nickname!=''}}" class='nickname text-m letter-sp2  text-center flex align-items-center justify-content-center bold w100' style='color:{{genderTheme.main}}'>{{userInfo.nickname}}</view>
+      <view class='nickname text-m text-center letter-sp2 bold w100'>
+        <open-data wx:if="{{userInfo.nickname==''}}" class=' ' type="userNickName" style='color:{{genderTheme.main}}'></open-data>
+      </view>
+    </view>
+  </view>
+
+  <view class='form-wrp'>
+    <view class="section flex align-items-center ">
+      <text class='label text-s bold'>昵称:</text>
+      <input placeholder="" focus="{{focus}}" class='w100' />
+    </view>
+    <view class="section flex align-items-center ">
+      <text class='label text-s bold'>性别:</text>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{genderArr}}">
+          <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+        </label>
+      </radio-group>
+    </view>
+    <view class="section flex align-items-center ">
+      <text class='label text-s bold'>出生日期:</text>
+      <picker mode="date" value="{{birthday.value}}" start="1970-01-01" end="2018-08-10" name="birthday" bindchange="bindBirthdayChange" class='w100'>
+        <view class="picker">
+          <view wx:if="{{!birthday.selected&&birthday.valid}}">请选择出生日期</view>
+          <view wx:if="{{birthday.selected&&birthday.valid}}"> {{birthday.value}}</view>
+        </view>
+      </picker>
+    </view>
+    <view class="section flex align-items-center ">
+      <text class='label text-s bold'>联系方式</text>
+      <input placeholder="" focus="{{focus}}" class='w100' />
+    </view>
+    <view class="section flex align-items-center ">
+      <text class='label text-s bold'>邮寄地址</text>
+      <input placeholder="" focus="{{focus}}" class='w100' />
+    </view>
+    <view class='flex flex-c justify-content-center align-items-center' style='margin-top:50rpx'>
+      <view class='btn  text-white text-center letter-sp2 bold text-s' style="background:{{genderTheme.main}}" bindtap='saveChange'>保存</view>
+      <view class='btn  text-white text-center letter-sp2 bold text-s' style="background:{{genderTheme.main}};margin-top:24rpx" bindtap='dropChange'>跳过</view>
+    </view>
+  </view>
+</view>

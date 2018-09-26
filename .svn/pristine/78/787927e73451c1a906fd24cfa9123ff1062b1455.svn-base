@@ -1,0 +1,17 @@
+<view class='container'>
+      <search-form bg="{{genderTheme}}" bind:search='search'></search-form>
+      <view class="tabbar-top">
+            <contentSwiper bind:swiperChange='catchChildSwiper' indicatorArr="{{indicatorArr}}" genderTheme="{{genderTheme}}">
+                  <list topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" loading="{{loading}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}"></list>
+                  <list slot="recommend" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" loading="{{loading}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}"></list>
+                  <list slot="live" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}"></list>
+                  <list slot="comic" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}"></list>
+                  <list slot="pv" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}"></list>
+                  <list slot="mv" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}"></list>
+                  <list slot="shortVideo" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}"></list>
+                  <list slot="news" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}"></list>
+            </contentSwiper>
+      </view>
+
+      <tabbar-bottom class="w100" tab_id="{{tab_bottom_id}}" genderTheme="{{genderTheme}}"></tabbar-bottom>
+</view>

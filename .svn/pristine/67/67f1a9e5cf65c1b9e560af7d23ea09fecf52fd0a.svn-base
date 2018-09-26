@@ -1,0 +1,477 @@
+.container {
+      height: 100%;
+}
+
+.tab {
+      width: 100%;
+      height: 60rpx;
+      line-height: 60rpx;
+      background: #fff;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'FZLTHJT';
+}
+
+.tab .indicator-item {
+      flex: 1;
+      color: #919191;
+      text-align: center;
+      font-size: 24rpx;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: 0.6s;
+      -webkit-transition: 0.6s;
+}
+
+.swiper-item {
+      width: 100%;
+      background: #fff;
+      overflow: auto;
+}
+
+.slider-line {
+      position: absolute;
+      bottom: 0;
+      width: 33.3%;
+      height: 6rpx;
+      transition: transform 0.6s;
+      -webkit-transition: transform 0.6s;
+}
+
+.slider-line .line-inner {
+      width: 50%;
+      background: #f66a94;
+      height: 6rpx;
+      margin-left: 25%;
+}
+
+/* 歌姬介绍 */
+
+.idol-intro {
+      width: 100%;
+      /* height: 100%; */
+      height: calc(100% - 60rpx);
+}
+
+.idol-intro .header, .fnasClub .header {
+      margin: 0 40rpx;
+      padding: 40rpx 0;
+}
+
+.header  .desc-hd {
+      font-family: 'FZLTCHJT';
+      margin-bottom: 20rpx;
+      padding-left: 30rpx;
+      font-size: 29rpx;
+}
+
+/* poster */
+
+.header  .poster-wrp {
+      position: relative;
+      width: 69%;
+      margin-right: 3%;
+}
+
+.header  .poster-wrp  .poster {
+      position: absolute;
+      width: 95%;
+      margin: 10rpx 12rpx;
+      top: 0;
+      left: 0;
+      -webkit-clip-path: polygon(5.5% 0%, 100% 0%, 100% 90%, 94.5% 100%, 0% 100%, 0% 10%);
+}
+
+.header  .poster-wrp .icon {
+      position: absolute;
+      left: -4rpx;
+      top: -25rpx;
+      width: 48rpx;
+}
+
+.header  .poster-wrp .icon4 {
+      width: 28rpx;
+}
+
+/* poster end*/
+
+.header  .count-wrp {
+      width: 28%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+}
+
+.header  .count-wrp .row {
+      display: flex;
+      align-items: flex-end;
+}
+
+.header  .count-wrp .row .label {
+      width: 55%;
+      text-align: justify;
+      text-align-last: justify;
+      margin-bottom: 7rpx;
+      color: #585858;
+}
+
+.header  .count-wrp .row  label::after {
+      width: 100%;
+      display: inline-block;
+      content: '';
+}
+
+.header  .count-wrp .row .count {
+      font-size: 36rpx;
+      letter-spacing: 2px;
+      font-family: 'FZLTCHJT';
+      padding-left: 8rpx;
+}
+
+.header  .count-wrp .btn-follow {
+      border-radius: 4rpx;
+      font-size: 24rpx;
+      letter-spacing: 4px;
+      background: #fff;
+      width: 160rpx;
+      height: 40rpx;
+      line-height: 40rpx;
+      margin-top: 20rpx;
+      margin-bottom: 26rpx;
+}
+
+.header .count-wrp .btn-support {
+      width: 160rpx;
+      height: 40rpx;
+      border-radius: 4rpx;
+      line-height: 40rpx;
+      font-size: 24rpx;
+}
+
+/* 形象 */
+
+.desc-image {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 59%;
+      background-size: 100% auto;
+      background-position: 0 100%;
+}
+
+@keyframes fadeInDown {
+      from {
+            transform: translate3d(-100%, -45%, 0);
+            opacity: 0;
+      }
+
+      to {
+            transform: translate3d(0%, 0%, 0);
+            opacity: 1;
+      }
+}
+
+.desc-image .bg {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      opacity: 0;
+      animation: fadeInDown 0.4s 0.2s ease-in 1;
+      animation-fill-mode: forwards;
+}
+
+.desc-image .idol {
+      position: absolute;
+      top: 40rpx;
+      opacity: 0;
+      animation: fadeInLeft 0.5s 0.45s ease-in 1;
+      animation-fill-mode: forwards;
+}
+
+.desc-image .country {
+      width: 62rpx;
+      height: 40rpx;
+      position: absolute;
+      left: 40rpx;
+      top: 50rpx;
+}
+
+.desc-image .info-list {
+      position: absolute;
+      right: 0;
+      top: 50rpx;
+}
+
+@keyframes slideInRightSkew {
+      from {
+            transform: skew(-15deg) translate3d(100%, 0, 0);
+            visibility: visible;
+      }
+
+      to {
+            transform: skew(-15deg) translate3d(0%, 0, 0);
+      }
+}
+
+@keyframes slideInRightNormal {
+      from {
+            transform: translate3d(100%, 0, 0);
+            visibility: visible;
+      }
+
+      to {
+            transform: translate3d(0%, 0, 0);
+      }
+}
+
+.desc-image .info-list .item {
+      width: 340rpx;
+      height: 48rpx;
+      line-height: 48rpx;
+      margin-bottom: 24rpx;
+      margin-right: -8rpx;
+      transform: skew(-15deg) translate3d(100%, 0, 0);
+}
+
+.desc-image .info-list .item:nth-child(1) {
+      animation: slideInRightSkew 0.2s 1s linear 1;
+      animation-fill-mode: forwards;
+}
+
+.desc-image .info-list .item:nth-child(2) {
+      animation: slideInRightSkew 0.2s 1.2s linear 1;
+      animation-fill-mode: forwards;
+}
+
+.desc-image .info-list .item:nth-child(3) {
+      animation: slideInRightSkew 0.2s 1.4s linear 1;
+      animation-fill-mode: forwards;
+}
+
+.desc-image .info-list .item:nth-child(4) {
+      animation: slideInRightSkew 0.2s 1.6s linear 1;
+      animation-fill-mode: forwards;
+}
+
+.desc-image .info-list .item .l {
+      width: 34%;
+      box-sizing: border-box;
+      padding: 0 28rpx;
+      font-size: 24rpx;
+      letter-spacing: 2px;
+      text-align: justify;
+      text-align-last: justify;
+      float: left;
+}
+.desc-image .info-list .item:last-child .l{
+      padding: 0 14rpx;
+}
+
+.desc-image .info-list .item .l::after {
+      float: left;
+      width: 100%;
+      display: inline-block;
+      content: '';
+}
+
+.desc-image .info-list .item .r {
+      /* display: inline-block; */
+      width: 66%;
+      font-size: 30rpx;
+      padding-left: 14rpx;
+      font-family: 'FZLTCHJT';
+      float: right;
+}
+
+.desc-image  .sub-desc {
+      width: 304rpx;
+      height: auto;
+      position: absolute;
+      right: 40rpx;
+      top: 350rpx;
+      font-family: 'FZLTHJT';
+      line-height: 1.7;
+      transform: translate3d(150%, 0, 0);
+      animation: slideInRightNormal 0.2s 1.8s linear 1;
+      animation-fill-mode: forwards;
+}
+
+/* 关注成功popup */
+
+.poster {
+      width: 91.6%;
+      height: 90%;
+      background: url('https://star.t.miinno.net/star_img/follow-poster-border.png');
+      background-size: 100% 100%;
+}
+
+.poster-inner {
+      width: 87%;
+      height: 90%;
+      margin: 7%;
+      padding: 30rpx;
+}
+
+.poster-inner .header {
+      font-size: 45rpx;
+      font-family: 'FZLTHJT';
+      line-height: 1.4;
+}
+
+.poster-inner .header .btn-wrp {
+      padding: 24rpx 0;
+}
+
+.poster-inner .header .btn-audio {
+      width: 334rpx;
+      height: 62rpx;
+      background: #fff;
+      font-size: 24rpx;
+      color: #706f6f;
+      line-height: 62rpx;
+      border-radius: 4rpx;
+      position: relative;
+}
+
+.poster-inner .header .btn-audio::before {
+      content: '';
+      width: 14rpx;
+      height: 14rpx;
+      background-color: inherit;
+      right: -6rpx; /*向左侧外部延伸箭头box的一半宽度*/
+      position: absolute;
+      transform: rotate(45deg); /*旋转45度*/
+      top: 50%; /*箭头在数值方向上居中*/
+      margin-top: -5px;
+}
+
+.poster-inner .header .btn-support {
+      background: #fff;
+      border-radius: 4rpx;
+      font-size: 24rpx;
+      width: 184rpx;
+      height: 62rpx;
+      line-height: 62rpx;
+}
+
+.btn-close {
+      position: absolute;
+      top: 2%;
+      right: 4%;
+      width: 32rpx;
+}
+.tips{
+  position: absolute;
+  width: 100% ;
+  text-align: center;
+  bottom:2%
+}
+
+/* 应援规则 */
+
+.support-rules .poster-inner {
+      box-sizing: border-box;
+      background: #fff;
+      font-family: 'FZLTCHJT';
+      color: #000;
+}
+
+.support-rules .poster-inner view {
+      line-height: 1.6;
+}
+
+.support-rules .poster-inner .header {
+      padding-bottom: 20rpx;
+}
+
+.support-rules .poster-inner .title {
+      font-size: 36rpx;
+      letter-spacing: 4px;
+      padding-bottom: 14rpx;
+}
+
+.support-rules .poster-inner .content .content_title {
+      width: 52%;
+      border: 1px solid #000;
+      text-align: center;
+      margin: 30rpx 24%;
+}
+
+.support-rules .poster-inner .content .section {
+      padding-bottom: 36rpx;
+}
+
+/* 帖子列表 */
+
+.forum-list-wrp {
+      padding-bottom: 86rpx;
+}
+
+.fnasClub .btn-add {
+      color: #919191;
+      font-size: 70rpx;
+      position: fixed;
+      bottom: 36rpx;
+      left: calc(50% - 35rpx);
+}
+
+/* 发布类型弹窗 */
+
+@keyframes bounce1 {
+      from {
+            transform: translate3d(70%, 200%, 0);
+            opacity: 0;
+      }
+
+      to {
+            transform: translate3d(0%, 0%, 0);
+            opacity: 1;
+      }
+}
+
+@keyframes bounce2 {
+      from {
+            transform: translate3d(-70%, 200%, 0);
+            opacity: 0;
+      }
+
+      to {
+            transform: translate3d(0%, 0%, 0);
+            opacity: 1;
+      }
+}
+
+.popup.post-type .btn-wrp {
+      width: 128rpx;
+      margin: 0 94rpx;
+      text-align: center;
+      opacity: 0;
+}
+
+.popup.post-type .btn-wrp:first-child {
+      animation: bounce1 0.2s 0.1s linear 1;
+      animation-fill-mode: forwards;
+}
+
+.popup.post-type .btn-wrp:last-child {
+      animation: bounce2 0.2s 0.3s linear 1;
+         animation-fill-mode: forwards;
+}
+
+.popup.post-type .icon {
+      width: 128rpx;
+}
+
+.popup.post-type .label {
+      font-size: 36rpx;
+      padding-top: 36rpx;
+      letter-spacing: 2px;
+}
+
+/* 编辑帖子 */
+forum{
+  position: fixed;
+  bottom: 0;
+}

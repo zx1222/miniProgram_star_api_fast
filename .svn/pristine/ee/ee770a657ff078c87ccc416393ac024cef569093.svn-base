@@ -1,0 +1,9 @@
+{
+      "navigationBarTitleText": "歌姬列表",
+      "enablePullDownRefresh": false,
+      "component": true,
+      "usingComponents": {
+            "tabbar-bottom": "../../../components/tabbar-bottom/tabbar-bottom",
+            "popup": "../../../components/popup/popup"
+      }
+}

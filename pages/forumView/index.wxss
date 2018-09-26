@@ -1,0 +1,124 @@
+.container {
+  padding: 15rpx 20rpx;
+}
+
+.avatar {
+  width: 78rpx;
+  height: 78rpx;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #e1e1e2;
+  overflow: hidden;
+  margin-top: 20rpx;
+}
+
+.forum-wrp .content {
+  width: calc(100% - 102rpx);
+  border-bottom: 1px solid #eee;
+  padding: 20rpx 0;
+}
+
+.forum-wrp .content .hd {
+  /* padding-left: 24rpx; */
+  overflow: hidden;
+}
+
+.forum-wrp .content .hd .name {
+  width: 58%;
+  color: #696969;
+  font-size: 26rpx;
+  float: left;
+}
+
+.forum-wrp .content .hd .count-wrp {
+  color: #585858;
+  float: right;
+  width: 40%;
+}
+
+.forum-wrp .content .hd .count-wrp .item-count {
+  float: right;
+}
+
+.forum-wrp .content .hd .item-count {
+  padding-right: 14rpx;
+}
+
+.forum-wrp .content .hd .item-count .count {
+  padding-left: 6rpx;
+}
+
+.forum-wrp .main-content {
+  padding: 10rpx 30rpx 10rpx 0;
+}
+
+.forum-content {
+  line-height: 1.5;
+  font-size: 28rpx;
+}
+.imgs{
+  padding-top: 20rpx
+}
+.forum-wrp .img-wrp {
+  width: 32.2%;
+  margin-left: 1.1%;
+  float: left;
+  margin-bottom: 10rpx;
+}
+
+.forum-wrp .img-wrp image {
+  width: 100%;
+}
+
+/* 举报 */
+.report-wrp{
+  z-index: 100
+}
+report{
+  position: absolute;
+  bottom:0
+}
+
+/* 评论 input */
+
+.comment-input-wrp {
+      position: fixed;
+      bottom: 0;
+      height: 84rpx;
+      background: #f7f7f7;
+      padding: 0 40rpx;
+}
+
+.comment-input-wrp input {
+      transition: all 0.5s;
+}
+
+.comment-input-wrp input.cover {
+      width: 100%;
+      background: #fff;
+}
+
+.comment-input-wrp .count-wrp {
+      width: auto;
+      transform: translate(0%, 0);
+      transition: all 0.5s;
+}
+
+.comment-input-wrp .count-wrp.hidden {
+      transform: translate(150%, 0);
+      width: 0;
+}
+
+.comment-input-wrp .icon {
+      /* width: 28rpx; */
+      padding-right: 6rpx;
+      color: #787878;
+      font-size: 25rpx;
+}
+
+.comment-input-wrp .icon.icon-comment {
+      /* width: 24rpx; */
+}
+
+.comment-input-wrp .item-count {
+      padding-right: 16rpx;
+}

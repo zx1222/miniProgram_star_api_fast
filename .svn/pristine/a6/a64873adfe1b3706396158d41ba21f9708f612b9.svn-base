@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="tab">
+    <text wx:for="{{tabArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="tapIndicator" class="indicator-item" style="color:{{tabCurrent === index? genderTheme.main : '' }};">{{item}}</text>
+    <view class="slider-line" style="transform: translateX({{tabCurrent * 100}}%);">
+      <view class='line-inner' style="background:{{genderTheme.main}}"></view>
+    </view>
+  </view>
+
+
+  <view class='list-wrp list-wrp-reply'>
+    <view class='item' wx:for="{{list}}">
+      <view class='hd flex align-items-center justify-content-between'>
+        <view class='flex align-items-center'>
+          <view class='avatar'>
+            <image class='w100' src='{{item.user.avatar}}' mode='widthFix'></image>
+          </view>
+          <view class=' name text-overflow1'>{{item.user.name}}</view>
+        </view>
+        <view class='time text-xs '>{{item.create_time}}</view>
+      </view>
+      <view class='reply-content'>{{item.reply_content}}</view>
+    </view>
+  </view>
+</view>
+
+<!-- <view class='popup'>
+  <view class='picker'></view>
+</view> -->

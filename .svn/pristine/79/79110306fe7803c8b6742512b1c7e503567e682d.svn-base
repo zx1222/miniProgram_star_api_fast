@@ -1,0 +1,55 @@
+.container{
+  width: calc(100% - 112rpx);
+  height: calc(100% - 116rpx);
+  margin: 56rpx 58rpx;
+  overflow-y: scroll;
+
+}
+.item{
+  padding: 12rpx 0;
+}
+.item .ranking{
+  font-size: 36rpx;
+  color: #ababab;
+  font-family: 'FZLTCHJT';
+  width: 84rpx;
+  
+}
+.item .icon{
+  width: 44rpx;
+  padding-right: 40rpx
+}
+
+.item .avatar-wrp.bg1{
+  background: url('https://star.t.miinno.net/star_img/avatar-border-male.png');
+  background-size: 100% 100% ;
+}
+.item .avatar-wrp.bg2{
+  background: url('https://star.t.miinno.net/star_img/avatar-border-female.png');
+  background-size: 100% 100% ;
+}
+.item .avatar-wrp .avatar{
+  width: 66rpx;
+  height: 66rpx;
+  margin: 6rpx;
+}
+.item .avatar-wrp .avatar.border1{
+  border:1px solid #8d9acd;
+}
+.item .avatar-wrp .avatar.border2{
+  border:1px solid #e95471;
+}
+.item .name{
+  font-size: 37.5rpx;
+  padding-left: 20rpx;
+}
+
+.myRankings{
+  width: 100%;
+  position: fixed;
+  bottom: 56rpx;
+  padding: 0 56rpx;
+  /* left: -56rpx; */
+  background: #f0f0f0;
+
+}
