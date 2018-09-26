@@ -7,7 +7,10 @@ import {
   formatDate2,
   formatDate3
 } from '../../utils/formatDate.js'
-Page({
+const { ajax, util, common, apiUrl,gets } = getApp()
+
+Page(Object.assign({}, common, apiUrl, gets,{
+
 
   /**
    * 页面的初始数据
@@ -32,46 +35,7 @@ Page({
     circular: true,
     //图片宽度 
     imgwidth: 750,
-    item: {
-      poster: '../../images/video-poster-default.png',
-      title: '卡缇娅视频',
-      date: 1537088018,
-      comment_count: 100,
-      like_count: 12,
-      content: '这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这里是文字内容简介这'
-    },
-    comment_list: [{
-        id: 1,
-        user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-        user_name: '小丸子',
-        comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-        like_count: 100,
-        comment_count: 20,
-        create_time: 1537088018,
-        has_child: 1,
-        sub_name: 'sss',
-        child_count: 10,
-
-      },
-      {
-        id: 1,
-        user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-        user_name: '小丸子',
-        comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-        like_count: 100,
-        comment_count: 20,
-        create_time: 1537088018,
-      },
-      {
-        id: 1,
-        user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-        user_name: '小丸子',
-        comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-        like_count: 100,
-        comment_count: 20,
-        create_time: 1537088018,
-      }
-    ],
+    
     is_report: false
   },
 
@@ -79,14 +43,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let item = this.data.item;
-    item.date = formatDate2(item.date)
-    let comment_list = this.data.comment_list;
+    
+    
+    // let comment_list = this.data.comment_list;
 
     this.setData({
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
-      comment_list: this.formatCommentData(this.data.comment_list)
+      // comment_list: this.formatCommentData(this.data.comment_list),
+      id: options.id
     })
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
@@ -98,16 +63,16 @@ Page({
     })
 
   },
-  formatCommentData: function(data) {
-    let list = data;
-    list.forEach((item) => {
-      item.create_time = formatDate3(item.create_time)
-      // item.child_comment_list.forEach((item)=>{
-      //       item.create_time = formatDate3(item.create_time)
-      // })
-    })
-    return list
-  },
+  // formatCommentData: function(data) {
+  //   let list = data;
+  //   list.forEach((item) => {
+  //     item.create_time = formatDate3(item.create_time)
+  //     // item.child_comment_list.forEach((item)=>{
+  //     //       item.create_time = formatDate3(item.create_time)
+  //     // })
+  //   })
+  //   return list
+  // },
   focusChange: function() {
     this.setData({
       is_focus: true
@@ -147,7 +112,50 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // var that = this
+    // wx.request({
+    //   url: apiUrl.mediaDetail, //仅为示例，并非真实的接口地址
+    //   data: {
+    //     id: this.data.id,
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success(res) {
+    //     that.setData({
+    //       detail: res.data
+    //     })
+    //     console.log(res)
+    //   }
+    // })
 
+    var param = {
+      id: 10,
+    }
+
+    gets.mediaDetail(param).then(res => {
+      console.log(res)
+      this.setData({
+        detail: res
+      })
+
+    })
+
+    gets.comment(param).then(result => {
+      console.log(result)
+      this.setData({
+        comment: result.items,
+        current_page: result._meta.currentPage,
+        count_page: result._meta.pageCount,
+      })
+
+      if (parseInt(this.data.current_page) > parseInt(this.data.count_page)) {
+        this.setData({
+          isLoading: true,
+        })
+      }
+    })
   },
 
   /**
@@ -195,7 +203,42 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
+    console.log(this.data.isLoading)
+    if (this.data.isLoading) {
+      return;
+    }
+    this.data.isLoading = true;
+    if (this.data.count_page < this.data.current_page) return;
+    this.setData({
+      isLoading: true
+    })
+
+    var params = {
+      type: this.data.type,
+      page: ++this.data.current_page,
+      id:this.data.id
+
+    }
+    var that = this
+    gets.comment(params).then(res => {
+      console.log(res)
+      that.setData({
+        list: that.data.comment.concat(res.items),
+        current_page: res._meta.currentPage,
+        count_page: res._meta.pageCount,
+      })
+
+      console.log(parseInt(that.data.current_page))
+      console.log(parseInt(that.data.count_page))
+      if (parseInt(that.data.current_page) >= parseInt(that.data.count_page)) {
+        that.setData({
+          isLoading: true,
+        })
+      }
+
+      console.log(this.data.isLoading)
+    })
 
   },
 
@@ -205,4 +248,4 @@ Page({
   onShareAppMessage: function() {
 
   }
-})
+}))

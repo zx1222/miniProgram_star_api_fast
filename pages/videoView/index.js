@@ -8,7 +8,9 @@ import {
   formatDate3
 } from '../../utils/formatDate.js'
 
-Page({
+const { ajax, util, common, apiUrl, gets} = getApp()
+
+Page(Object.assign({}, common, apiUrl, gets,{
 
   /**
    * 页面的初始数据
@@ -21,52 +23,12 @@ Page({
     // 是否获得焦点
     is_focus: false,
 
-    // 是否获得焦点
-    is_focus: false,
     // 分页
     loading: false,
     noData: false,
     currentPage: 1,
     pageSize: 10,
-    item: {
-      poster: '../../images/video-poster-default.png',
-      title: '卡缇娅视频',
-      date: 1537088018,
-      comment_count: 100,
-      like_count: 12,
-    },
-    comment_list: [{
-        id: 1,
-        user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-        user_name: '小丸子',
-        comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-        comment_count: 100,
-        like_count: 12,
-        create_time: 1537088018,
-        has_child: 1,
-        sub_name: 'sss',
-        child_count: 10,
 
-      },
-      {
-        id: 1,
-        user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-        user_name: '小丸子',
-        comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-        like_count: 100,
-        comment_count: 20,
-        create_time: 1537088018,
-      },
-      {
-        id: 1,
-        user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-        user_name: '小丸子',
-        comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-        like_count: 100,
-        comment_count: 20,
-        create_time: 1537088018,
-      }
-    ],
     is_report: false,
     // 首页1 歌姬2
     from: 1
@@ -80,14 +42,15 @@ Page({
 
     console.log(options)
     if (options)
-      item.date = formatDate2(item.date)
+      // item.date = formatDate2(item.date)
     this.setData({
       from: options.from,
-      item: item,
+      // item: item,
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
       idol_index: app.globalData.idol_index,
       idolTheme: app.globalData.idolTheme,
+      id: options.id
     })
     if (this.data.from == 1) {
       wx.setNavigationBarColor({
@@ -129,6 +92,12 @@ Page({
     console.log(e.detail)
   },
 
+// 发布评论
+  comment:function(e){
+    console.log(e)
+    const data=e.detail.value
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -140,7 +109,87 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    var param = {
+      id:this.data.id,
+    }
+    
+    
+    gets.mediaDetail(param).then(res => {
+      console.log()
+      this.setData({
+          detail: res,
+          
+        })
 
+    })
+
+    var params = {
+      id: 10,
+      page:1
+    }
+
+    gets.comment(params).then(result => {
+      console.log(result)
+      this.setData({
+        comment: result.items,
+        current_page: result._meta.currentPage,
+        count_page: result._meta.pageCount,
+      })
+      if (parseInt(this.data.current_page) + 1 > this.data.count_page) {
+        this.setData({
+          isLoading: true,
+        })
+      }
+    })
+    // var that = this
+    // wx.request({
+    //   url: apiUrl.mediaDetail, //仅为示例，并非真实的接口地址
+    //   data: {
+    //     id: this.data.id,
+    //   },
+    //   method:'GET',
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success(res) {
+    //     that.setData({
+    //       detail: res.data
+    //     })
+    //     console.log(res)
+    //   }
+    // })
+
+    // console.log(ajax)
+  },
+
+  // 取消收藏
+  clear:function(){
+    var param = {
+      id:this.data.id,
+      status:2,
+      type:3,
+    }
+
+
+    
+    ajax.favorite(param).then(res =>{
+      console.log('取消收藏')
+      this.onShow()
+    })
+  },
+  like: function () {
+    var param = {
+      id: this.data.id,
+      status: 1,
+      type: 3,
+    }
+
+
+
+    ajax.favorite(param).then(res => {
+      console.log('收藏成功')
+      this.onShow()
+    })
   },
 
   /**
@@ -165,15 +214,50 @@ Page({
   },
 
   /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
+  * 页面上拉触底事件的处理函数
+  */
+  onReachBottom: function () {
+    console.log(this.data.isLoading)
+    if (this.data.isLoading) {
+      return;
+    }
+    this.data.isLoading = true;
+    if (this.data.count_page < this.data.current_page) return;
+    this.setData({
+      isLoading: true
+    })
+
+    var params = {
+      type: this.data.type,
+      page: ++this.data.current_page
+
+    }
+    var that = this
+    ajax.comment(params).then(res => {
+      console.log(res)
+      that.setData({
+        list: that.data.comment.concat(res.items),
+        current_page: res._meta.currentPage,
+        count_page: res._meta.pageCount,
+      })
+
+      console.log(parseInt(that.data.current_page))
+      console.log(parseInt(that.data.count_page))
+      if (parseInt(that.data.current_page) >= parseInt(that.data.count_page)) {
+        that.setData({
+          isLoading: true,
+        })
+      }
+
+      console.log(this.data.isLoading)
+    })
 
   },
   focusChange: function() {
     this.setData({
       is_focus: true
     })
+    console.log(this.data.is_focus)
   },
   blurChange: function() {
     this.setData({
@@ -194,4 +278,4 @@ Page({
   onShareAppMessage: function() {
 
   }
-})
+}))

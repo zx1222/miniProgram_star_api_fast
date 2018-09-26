@@ -9,24 +9,24 @@
       <view class='item-content w100 flex justify-content-between align-items-center'>
         <view class='avatar-wrp'>
           <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{idolTheme[index].main}},0 0 0 16rpx {{idolTheme[index].sub}}">
-            <image src='{{item.avatar}}' mode='widthFix' class='w100'></image>
+            <image src='{{item.headimg}}' mode='widthFix' class='w100'></image>
           </view>
         </view>
         <view class='idol-info flex flex-c justify-content-between'>
           <view>
             <view class='idol-name text-m bold letter-sp2' style="color:{{idolTheme[index].main}}">
-              <text class='icon-arrow-right icomoon icon-right text-xs' style='color:{{idolTheme[index].main}}'></text>{{item.name}}</view>
+              <text class='icon-arrow-right icomoon icon-right text-xs' style='color:{{idolTheme[index].main}}'></text>{{item.nickname}}</view>
             <view class='idol-fans'>
               <text class='text-s bold'>粉丝数量:</text>
-              <text class='fans-count letter-sp1 bold italic' style="color:{{idolTheme[index].main}}">{{item.fans}}</text>
+              <text class='fans-count letter-sp1 bold italic' style="color:{{idolTheme[index].main}}">{{item.fans_num}}</text>
             </view>
           </view>
 
           <view class='idol-desc'>
             <text>{{item.desc}}</text>
           </view>
-          <button wx:if="{{item.is_follow==2}}" class="btn-follow btn text-white" style="background:{{idolTheme[index].main}}" catchtap='follow' data-id="{{index}}">关注</button>
-          <button wx:if="{{item.is_follow==1}}" class="btn-follow-yet btn text-white" style="border:1px solid {{idolTheme[index].main}};color:{{idolTheme[index].main}}" data-id="{{index}}" catchtap='unfollow'>已关注</button>
+          <button wx:if="{{item.isattention==2}}" class="btn-follow btn text-white" style="background:{{idolTheme[index].main}}" catchtap='follow' data-id="{{item.id}}">关注</button>
+          <button wx:if="{{item.isattention==1}}" class="btn-follow-yet btn text-white" style="border:1px solid {{idolTheme[index].main}};color:{{idolTheme[index].main}}"  data-id="{{item.id}}" catchtap='followCancel'>已关注</button>
         </view>
       </view>
     </view>
@@ -58,14 +58,14 @@
       </view> -->
 </view>
 
-<!-- <view class='popup unfflow flex align-items-center justify-content-center' wx:if="is_unfollow_show">
-  <image class='bg-toast'></image>
+<view class='popup unfollow flex align-items-center justify-content-center' wx:if="{{is_followcancel_show}}">
+  <view class="toast-content {{gender==1?'popup-bg1':'popup-bg2'}}">
+    <view class='title  text-center'>不再关注{{list[idol_index].nickname}}了么</view>
+    <view class='btn-wrp flex align-items-center justify-content-center'>
+      <view class='btn-confirm btn text-s' catchtap='catchConfirm'>是</view>
+      <view class='btn-cancel btn text-s' style="color:{{genderTheme.main}}" catchtap='catchCancel'>否</view>
+    </view>
 
-  <view class='toast-content'>
-    <view class='title'>不在关注清歌了么</view>
-    <view class=' btn ' bindtap='confirm'>删除</view>
-    <view class='btn-confirm btn' style="color:{{genderTheme[0].main}}" bindtap='confirm'>是</view>
-    <view class='btn-cancel btn' style="color:{{genderTheme[1].main}}" bindtap='cancel'>否</view>
   </view>
 
-</view> -->
+</view>

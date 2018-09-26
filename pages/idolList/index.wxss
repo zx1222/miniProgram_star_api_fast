@@ -1,165 +1,204 @@
 @import '../../styles/icon.wxss';
 
 .container {
-      width: 100%;
-      height: 100%;
-      font-family: 'FZLTHJT';
-      background: url('https://star.t.miinno.net/star_img/bg-idol-list.jpg');
-      background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+  font-family: 'FZLTHJT';
+  background: url('https://star.t.miinno.net/star_img/bg-idol-list.jpg');
+  background-size: 100% 100%;
 }
 
 .idol-list {
-      padding: 20rpx 30rpx 20rpx 34rpx;
-      /* height: calc(100% - 80rpx); */
-      height: 100%;
+  padding: 20rpx 30rpx 20rpx 34rpx;
+  /* height: calc(100% - 80rpx); */
+  height: 100%;
 }
 
 .item {
-      position: relative;
+  position: relative;
 }
 
 .item-content {
-      padding: 14rpx 30rpx;
-      position: relative;
+  padding: 14rpx 30rpx;
+  position: relative;
 }
 
 .item .border {
-      position: absolute;
-      width: 100%;
-      height: 100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .item .avatar-wrp {
-      width: 33%;
-      margin-right: 2%;
+  width: 33%;
+  margin-right: 2%;
 }
 
 .item .idol-avatar {
-      width: 146rpx;
-      border-radius: 50%;
-      margin: 16rpx;
+  width: 146rpx;
+  border-radius: 50%;
+  margin: 16rpx;
 }
 
 .item .idol-name {
-      position: relative;
+  position: relative;
 }
 
 .item .idol-name .icon-right {
-      font-size: 16rpx;
-      position: absolute;
-      left: -20rpx;
-      top: 14rpx;
+  font-size: 16rpx;
+  position: absolute;
+  left: -20rpx;
+  top: 14rpx;
 }
 
 .item .idol-info {
-      width: 65%;
-      height: 164rpx;
-      position: relative;
+  width: 65%;
+  height: 164rpx;
+  position: relative;
 }
 
 .item .idol-info .fans-count {
-      font-size: 36rpx;
-      font-family: 'FZLTCHJT';
+  font-size: 36rpx;
+  font-family: 'FZLTCHJT';
 }
 
 .item .idol-info .idol-desc {
-      font-size: 26rpx;
-      font-family: 'FZZCHJT';
-      line-height: 1.3;
+  font-size: 26rpx;
+  font-family: 'FZZCHJT';
+  line-height: 1.3;
 }
 
 .item .btn {
-      position: absolute;
-      top: 0rpx;
-      right: 14rpx;
-      width: 118rpx;
-      height: 48rpx;
-      border-radius: 4rpx;
-      font-size: 24rpx;
-      line-height: 48rpx;
-      border: none;
+  position: absolute;
+  top: 0rpx;
+  right: 14rpx;
+  width: 118rpx;
+  height: 48rpx;
+  border-radius: 4rpx;
+  font-size: 24rpx;
+  line-height: 48rpx;
+  border: none;
 }
 
 .item .btn.btn-follow-yet {
-      width: 114rpx;
-      height: 44rpx;
-      background: #fff;
-      line-height: 40rpx;
+  width: 114rpx;
+  height: 44rpx;
+  background: #fff;
+  line-height: 40rpx;
 }
 
 .follow-poster {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
 .poster {
-      width: 91.6%;
-      height: 90%;
-      background: url('https://star.t.miinno.net/star_img/follow-poster-border.png');
-      background-size: 100% 100%;
+  width: 91.6%;
+  height: 90%;
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border.png');
+  background-size: 100% 100%;
 }
 
 .poster-inner {
-      width: 87%;
-      height: 90%;
-      margin: 7%;
-      padding: 30rpx;
+  width: 87%;
+  height: 90%;
+  margin: 7%;
+  padding: 30rpx;
 }
 
 .poster-inner .header {
-      font-size: 45rpx;
-      font-family: 'FZLTHJT';
-      line-height: 1.4;
+  font-size: 45rpx;
+  font-family: 'FZLTHJT';
+  line-height: 1.4;
 }
 
 .poster-inner .header .btn-wrp {
-      padding: 24rpx 0;
+  padding: 24rpx 0;
 }
 
 .poster-inner .header .btn-audio {
-      width: 334rpx;
-      height: 62rpx;
-      background: #fff;
-      font-size: 24rpx;
-      color: #706f6f;
-      line-height: 62rpx;
-      border-radius: 4rpx;
-      position: relative;
+  width: 334rpx;
+  height: 62rpx;
+  background: #fff;
+  font-size: 24rpx;
+  color: #706f6f;
+  line-height: 62rpx;
+  border-radius: 4rpx;
+  position: relative;
 }
 
 .poster-inner .header .btn-audio::before {
-      content: '';
-      width: 14rpx;
-      height: 14rpx;
-      background-color: inherit;
-      right: -6rpx; /*向左侧外部延伸箭头box的一半宽度*/
-      position: absolute;
-      transform: rotate(45deg); /*旋转45度*/
-      top: 50%; /*箭头在数值方向上居中*/
-      margin-top: -5px;
+  content: '';
+  width: 14rpx;
+  height: 14rpx;
+  background-color: inherit;
+  right: -6rpx; /*向左侧外部延伸箭头box的一半宽度*/
+  position: absolute;
+  transform: rotate(45deg); /*旋转45度*/
+  top: 50%; /*箭头在数值方向上居中*/
+  margin-top: -5px;
 }
 
 .poster-inner .header .btn-support {
-      background: #fff;
-      border-radius: 4rpx;
-      font-size: 24rpx;
-      width: 184rpx;
-      height: 62rpx;
-      line-height: 62rpx;
+  background: #fff;
+  border-radius: 4rpx;
+  font-size: 24rpx;
+  width: 184rpx;
+  height: 62rpx;
+  line-height: 62rpx;
 }
 
 .btn-close {
-      position: absolute;
-      top: 2%;
-      right: 4%;
-      width: 32rpx;
-}
-.tips{
   position: absolute;
-  width: 100% ;
+  top: 2%;
+  right: 4%;
+  width: 32rpx;
+}
+
+.tips {
+  position: absolute;
+  width: 100%;
   text-align: center;
-  bottom:2%
+  bottom: 2%;
+}
+
+/* 取关 */
+
+.popup .toast-content {
+  width: 596rpx;
+  height: 392rpx;
+  color: #fff;
+  padding: 120rpx 0;
+}
+
+.popup-bg1 {
+  background: url('https://star.t.miinno.net/star_img/popup-male-bg.png');
+  background-size: 100% 100%;
+}
+
+.popup-bg2 {
+  background: url('https://star.t.miinno.net/star_img/popup-female-bg.png');
+  background-size: 100% 100%;
+}
+
+.popup .toast-content .title {
+  font-size: 52rpx;
+  letter-spacing: 2px;
+}
+
+.popup .toast-content .btn {
+  width: 160rpx;
+  height: 40rpx;
+  text-align: center;
+  border-radius: 4rpx;
+  box-shadow: 0 0 0 1px #fff;
+  line-height: 40rpx;
+  margin: 30rpx 20rpx 0 20rpx;
+}
+
+.popup .toast-content .btn-cancel {
+  background: #fff;
 }

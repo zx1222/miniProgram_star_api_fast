@@ -27,13 +27,30 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "0-5详情",
+					"pathName": "pages/videoVIew/index",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "我的收藏",
+					"pathName": "pages/userCollection/index",
+					"query": ""
+				}
+			]
 		}
 	}
 }

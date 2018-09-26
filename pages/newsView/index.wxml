@@ -1,5 +1,5 @@
 <view class="container  {{is_report?'overflow-y-hidden':''}}">
-  <view class='swiper'>
+  <!-- <view class='swiper'>
     <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;" class="{{iphone_type=='iPhone X'?'pt60':''}}">
       <block wx:for='{{banners}}' wx:key="{{index}}">
         <navigator url="{{banner_path[index]}}?index={{index}}" hover-class='none'>
@@ -14,17 +14,21 @@
         <view class="dot{{index == current ? ' active' : ''}}"></view>
       </block>
     </view>
-  </view>
+  </view> -->
 
-  <view class='main-content'>
+  <!-- <view class='main-content'>
     <view class='news-content'>
       <view class='title text-m bold letter-sp2'>{{item.title}}</view>
       <view class='date text-s text-pink'>{{item.date}}</view>
       <view class='content text-s letter-sp1 bold'>{{item.content}}</view>
     </view>
+  </view> -->
+  <view style='padding:20rpx'>
+  <rich-text nodes='{{detail.content}}'></rich-text>
   </view>
+  
   <view class='comment-list-wrp'>
-    <comment_p_list comment_list="{{comment_list}}" bind:report='catchReport'></comment_p_list>
+    <comment_p_list comment_list="{{comment}}" bind:report='catchReport'></comment_p_list>
     <view class="weui-loadmore" wx:if="{{loading}}">
       <view class="weui-loading"></view>
       <view class="weui-loadmore__tips">正在加载</view>

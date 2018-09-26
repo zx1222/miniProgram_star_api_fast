@@ -1,29 +1,29 @@
 <view class="container">
   <view class='follow-list flex  flex-c '>
-    <view class=' w100 item ' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToView' data-index="{{item.index}}">
-      <image wx:if="{{index==0}}" src='../../images/idol-list-border1.png' class='border'></image>
-      <image wx:if="{{index==1}}" src='../../images/idol-list-border2.png' class='border'></image>
-      <image wx:if="{{index==2}}" src='../../images/idol-list-border3.png' class='border'></image>
-      <image wx:if="{{index==3}}" src='../../images/idol-list-border4.png' class='border'></image>
-      <image wx:if="{{index==4}}" src='../../images/idol-list-border5.png' class='border'></image>
+    <view class=' w100 item ' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToView' data-index="{{ item.id}}">
+      <image wx:if="{{item.idol_id=='1'}}" src='../../images/idol-list-border1.png' class='border'></image>
+      <image wx:if="{{item.idol_id=='2'}}" src='../../images/idol-list-border2.png' class='border'></image>
+      <image wx:if="{{item.idol_id=='3'}}" src='../../images/idol-list-border3.png' class='border'></image>
+      <image wx:if="{{item.idol_id=='4'}}" src='../../images/idol-list-border4.png' class='border'></image>
+      <image wx:if="{{item.idol_id=='5'}}" src='../../images/idol-list-border5.png' class='border'></image>
       <view class='item-content w100 flex justify-content-between align-items-center'>
         <view class='avatar-wrp'>
-          <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{idolTheme[index].main}},0 0 0 16rpx {{idolTheme[index].sub}}">
-            <image src='{{item.avatar}}' mode='widthFix' class='w100'></image>
+          <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{item.idol.dark_skin}},0 0 0 16rpx {{item.idol.light_skin}}">
+            <image src='{{item.idol.headimg}}' mode='widthFix' class='w100'></image>
           </view>
         </view>
         <view class='idol-info flex flex-c justify-content-between'>
           <view>
-            <view class='idol-name text-m bold letter-sp2' style="color:{{idolTheme[index].main}}">
-              <text class='icon-arrow-right icomoon icon-right text-xs' style='color:{{idolTheme[index].main}}'></text>{{item.name}}</view>
+            <view class='idol-name text-m bold letter-sp2' style="color:{{item.idol.dark_skin}}">
+              <text class='icon-arrow-right icomoon icon-right text-xs' style='color:{{item.idol.dark_skin}}'></text>{{item.idol.nickname}}</view>
             <view class='count-wrp'>
               <view class='row'>
                 <text class='text-xs bold label'>人气值:</text>
-                <text class=' bold text-l italic count-value ' style='color:{{idolTheme[item.index].main}}'>{{item.hot_num}}</text>
+                <text class=' bold text-l italic count-value ' style='color:{{item.idol.dark_skin}}'>{{item.idol.popular_num}}</text>
               </view>
               <view class='row'>
                 <text class='text-xs bold label'>粉丝数量:</text>
-                <text class=' bold text-l italic count-value ' style='color:{{idolTheme[item.index].main}}'>{{item.fans_count}}</text>
+                <text class=' bold text-l italic count-value ' style='color:{{item.idol.dark_skin}}'>{{item.idol.fans_num}}</text>
               </view>
             </view>
           </view>
@@ -31,7 +31,7 @@
           <view class='idol-desc'>
             <text>{{item.desc}}</text>
           </view>
-          <button class="btn-support btn text-white text-xs" style="background:{{idolTheme[index].main}}" catchtap='turnToSupport' data-index="{{index}}">应援</button>
+          <button class="btn-support btn text-white text-xs" style="background:{{item.idol.dark_skin}}" catchtap='turnToSupport' data-index="{{item.idol_id}}">应援</button>
         </view>
       </view>
     </view>

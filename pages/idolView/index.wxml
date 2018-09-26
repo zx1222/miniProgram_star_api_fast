@@ -2,7 +2,7 @@
 <view class="container {{is_post_show&&tabCurrent==2?'overflow-y-hidden':''}}">
       <view class="tab" style=" border-bottom: 1px solid {{idolTheme[idol_index].main}};">
             <text wx:for="{{tabArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="tapIndicator" class="indicator-item" style="color:{{tabCurrent === index? idolTheme[idol_index].main : '' }};">{{item}}</text>
-            <view class="slider-line" style="transform: translateX({{tabCurrent * 100}}%);">
+            <view class="slider-line" style="transform: translateX({{tabCurrent * 100}}%);width:33.3%">
                   <view class='line-inner' style="background:{{idolTheme[idol_index].main}}"></view>
             </view>
       </view>
@@ -83,15 +83,78 @@
       </view>
 
       <!--动态-->
-      <contentSwiper wx:if="{{tabCurrent==1}}" bind:childEvent='catchChildSwiper' indicatorArr="{{indicatorArr}}" color="{{idolTheme[idol_index].main}}">
-            <list slot="recommend" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" loading="{{loading}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
-            <list slot="live" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
-            <list slot="comic" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
-            <list slot="pv" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
-            <list slot="mv" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
-            <list slot="shortVideo" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
-            <list slot="news" topicsArr="{{resultData.items}}" bannerArr="{{resultData.banners}}" list="{{list}}" tab_id="{{tab_top_id}}" p_swiper="{{p_swiper}}" idolTheme="{{idolTheme[idol_index]}}"></list>
-      </contentSwiper>
+      <view class="swiper-indicator">
+      <text wx:for="{{indicatorArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="_tapIndicator" class="indicator-item" style="color:{{swiperCurrent === index? genderTheme.main : '' }};">{{item}}</text>
+      <view class="slider-line" style="transform: translateX({{swiperCurrent * 100}}%);">
+            <view class='line-inner' style="background:{{genderTheme.main}}"></view>
+      </view>
+</view>
+      <view class="swiper">
+  <swiper indicator-dots="false" vertical="{{vertical}}" autoplay="true" duration="500" interval='2000'  circular="{{circular}}" style="height:{{imgheights[current]}}rpx;" class="{{iphone_type=='iPhone X'?'pt60':''}}">
+    <block wx:for='{{banner}}' wx:key="{{index}}">
+      <navigator url="{{(tab_id!=6&&p_swiper==1)||(tab_id!=5&&p_swiper==2)?'/pages/videoView/index':'/pages/newsView/index'}}" hover-class='none'>
+        <swiper-item>
+          <image src="{{item.banner_url}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" data-url="{{banner_path[index]}}?index={{index}}" />
+        </swiper-item>
+      </navigator>
+    </block>
+  </swiper>
+  <view class="dots">
+    <block wx:for="{{bannerArr}}" wx:key="unique">
+      <view class="dot{{index == current ? ' active' : ''}}"></view>
+    </block>
+  </view>
+</view>
+
+<view wx:if="{{tab_id!=5&&p_swiper==1}}" class='list-wrp list-wrp-video '>
+<block wx:for="{{list}}" wx:key="{{index}}" >
+  <view class='item video-item' data-from='1'  data-id='{{item.id}}' bindtap='turnToViewVideo'>
+    <view class='poster-wrp w100'>
+      <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
+      <image class='poster w100' src='{{item.cover_picture}}' mode='widthFix'></image>
+    </view>
+    <view class='video-info'>
+      <view class='video-title bold text-overflow1'>{{item.title}}</view>
+      <view class='flex align-items-center row justify-content-between'>
+        <view class='flex'>
+          <view wx:if="{{tab_id==0}}" class='tag text-pink'>{{mediaType[item.type-1]}}</view>
+          <view class='date text-pink icon-ellipsis'>{{item.list_time}}</view>
+        </view>
+        <!-- <view>
+          <text class="fa fa-ellipsis-v text-s"></text>
+        </view> -->
+      </view>
+    </view>
+  </view>
+</block>
+  <view class="weui-loadmore" wx:if="{{loading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+
+</view>
+
+
+<!-- list news -->
+<view wx:if="{{tab_id==5&&p_swiper==1}}" class='list-wrp list-wrp-news '>
+  <view class='item news-item flex' wx:for="{{list}}" wx:key="{{index}}"  data-id='{{item.id}}'bindtap='todetail'>
+    <view class='news-info flex'>
+      <view class='news-title bold text-overflow2'>{{item.title}}</view>
+      <view class='flex justify-content-between'>
+        <view class='comment-count text-s'>
+          <text class='icon icomoon icon-message'></text>
+          <text>{{item.comment_count}}</text>
+        </view>
+        <view class='date'>{{item.list_time}}</view>
+      </view>
+    </view>
+    <view class='poster-wrp '>
+      <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
+      <image class='poster w100' src='{{item.cover_picture}}' mode='widthFix'></image>
+    </view>
+  </view>
+</view>
+
 
       <!-- 后援会 -->
       <view wx:if="{{tabCurrent==2}}" class='fnasClub'>
@@ -226,6 +289,17 @@
 </view>
 
       <image bindtap='closePopup' class='btn-close' src='../../images/icon-close.png' mode='widthFix'></image>
+</view>
+
+<view class='popup unfollow flex align-items-center justify-content-center' wx:if="{{is_followcancel_show}}">
+  <view class="toast-content {{gender==1?'popup-bg1':'popup-bg2'}}">
+    <view class='title  text-center'>不再关注{{list[idol_index].nickname}}了么</view>
+    <view class='btn-wrp flex align-items-center justify-content-center'>
+      <view class='btn-confirm btn text-s' catchtap='catchConfirm'>是</view>
+      <view class='btn-cancel btn text-s' style="color:{{genderTheme.main}}" catchtap='catchCancel'>否</view>
+    </view>
+
+  </view>
 
 </view>
 

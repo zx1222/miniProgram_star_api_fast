@@ -1,1 +1,1 @@
-# miniProgram_star_api_fast
+# miniprogram_star

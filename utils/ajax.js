@@ -4,9 +4,9 @@ const ajaxData = (url, type = 'GET') => {
   var defaultHeader = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  return ((params = {}, header = defaultHeader, method = 'post') => {
+  return ((params = {}, header = defaultHeader, method = 'GET') => {
     return new Promise((resolve, reject) => {
-      const userSession = wx.getStorageSync('userSession');
+      // const userSession = wx.getStorageSync('userSession');
       const userData = {
         // appId: apiUrl.appId,
         // userSession: userSession,
@@ -18,7 +18,7 @@ const ajaxData = (url, type = 'GET') => {
         url: url,
         data: newdata,
         header: header,
-        method: method === 'POST' ? 'POST' : method,
+        method: method === 'GET' ? 'GET' : method,
         success(res) {
           if (res.data.code === 0 && res.statusCode === 200) {
             resolve(res.data)
@@ -44,7 +44,7 @@ var method
 const exportApi = {}
 for (let obj in apiUrl) {
   if (apiUrl[obj].indexOf('http') !== -1) {
-    exportApi[obj] = ajaxData(apiUrl[obj], 'get')
+    exportApi[obj] = ajaxData(apiUrl[obj], 'GET')
   }
 }
 

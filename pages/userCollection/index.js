@@ -7,7 +7,9 @@ import {
   formatDate1,
   formatDate2
 } from '../../utils/formatDate.js'
-Page({
+const { ajax, util, common, apiUrl, gets} = getApp()
+
+Page(Object.assign({}, common, apiUrl, gets, {
 
   /**
    * 页面的初始数据
@@ -17,33 +19,13 @@ Page({
     tabCurrent: 0,
     gender: 2,
     genderTheme: {},
+    mediaType: ['直播', '动画', 'PV', 'MV', '短视频', '事件'],
     idol_index: 2,
     idolTheme: [],
-    list: [{
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        tag: '直播',
-        date: 1537088018
-      },
-      {
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        tag: '直播',
-        date: 1537088018
-      },
-      {
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        tag: '直播',
-        date: 1537088018
-      },
-      {
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        tag: '直播',
-        date: 1537088018
-      }
-    ],
+    current_page:1,
+    count_page:1,
+    isLoading: false
+    
   },
 
   /**
@@ -54,7 +36,6 @@ Page({
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
       idolTheme: app.globalData.idolTheme,
-      list: this.formatlist1(this.data.list)
     })
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
@@ -78,83 +59,49 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.getData(1)
+  },
 
+  getData:function(types){
+    var param = {
+      page: 1,
+      type: types
+    }
+
+    gets.myFavorite(param).then(res => {
+      this.setData({
+        list: res.items
+      })
+
+      if (parseInt(this.data.current_page) >= parseInt(this.data.count_page)) {
+        this.setData({
+          isLoading: true,
+        })
+      }
+
+    })
   },
   tapIndicator(e) {
     this.setData({
-      tabCurrent: e.target.dataset.index
+      tabCurrent: e.target.dataset.index,
+      page:1,
+      list:[]
     });
-    const data = this.data.tabCurrent
-    if (this.data.tabCurrent == 0) {
-      this.setData({
-        list: [{
-            poster: '../../images/video-poster-default.png',
-            title: '卡缇娅视频',
-            tag: '直播',
-            date: 1537088018
-          },
-          {
-            poster: '../../images/video-poster-default.png',
-            title: '卡缇娅视频',
-            tag: '直播',
-            date: 1537088018
-          },
-          {
-            poster: '../../images/video-poster-default.png',
-            title: '卡缇娅视频',
-            tag: '直播',
-            date: 1537088018
-          },
-          {
-            poster: '../../images/video-poster-default.png',
-            title: '卡缇娅视频',
-            tag: '直播',
-            date: 1537088018
-          }
-        ],
-      })
-    }
-    if (this.data.tabCurrent == 1) {
-      console.log('aa')
-      const data = [{
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        comment_count: 77,
-        date: 1537088018
-      }, {
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        comment_count: 77,
-        date: 1537088018
-      }]
-      this.setData({
-        list: this.formatlist2(data)
-      })
-    }
+    const data = parseInt(this.data.tabCurrent)  
+    this.getData(data+1)
   },
-  formatlist1: function(list) {
-    const data = list
-    data.forEach((item) => {
-      item.date = formatDate1(item.date)
-    })
-    return data
-  },
-  formatlist2: function(list) {
-    const data = list
-    data.forEach((item) => {
-      item.date = formatDate2(item.date)
-      console.log(item)
-    })
-    return data
-  },
-  turnToViewVideo: function () {
+  
+  turnToViewVideo: function (e) {
+    var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `/pages/videoView/index?${this.data.id}`,
+      url: `/pages/videoVIew/index?id=${id}&from=${1}`,
     })
   },
-  turnToViewNews: function () {
+  turnToViewNews: function (e) {
+
+    var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `/pages/newsView/index`,
+      url: `/pages/newsView/index?id=${id}`,
     })
   },
 
@@ -179,17 +126,47 @@ Page({
 
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
+  onReachBottom: function () {
+    console.log(this.data.isLoading)
+    if (this.data.isLoading) {
+      return;
+    }
+    this.data.isLoading = true;
+    if (this.data.count_page < this.data.current_page) return;
+    this.setData({
+      isLoading: true
+    })
+
+    var params = {
+      type: parseInt(this.data.tabCurrent)+1  ,
+      page: ++this.data.current_page
+
+    }
+    var that = this
+    gets.myFavorite(params).then(res => {
+      console.log(res)
+      that.setData({
+        list: that.data.list.concat(res.items),
+        current_page: res._meta.currentPage,
+        count_page: res._meta.pageCount,
+      })
+
+      console.log(parseInt(that.data.current_page))
+      console.log(parseInt(that.data.count_page))
+      if (parseInt(that.data.current_page) >= parseInt(that.data.count_page)) {
+        that.setData({
+          isLoading: true,
+        })
+      }
+
+      console.log(this.data.isLoading)
+    })
 
   },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
 
   }
-})
+}))

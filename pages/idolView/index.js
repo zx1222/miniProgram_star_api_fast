@@ -7,6 +7,11 @@ import {
   formatDate1,
   formatDate2
 } from '../../utils/formatDate.js'
+const {
+  ajax,
+  util,
+  common
+} = getApp()
 Page({
 
   /**
@@ -17,12 +22,15 @@ Page({
     tabCurrent: 0,
     // 动态tab
     indicatorArr: ['直播', '动画', 'PV', 'MV', '短视频', '事件'],
+    
     swiperCurrent: 0,
     // 判断是首页还是歌姬详情
-    p_swiper: 2,
+    p_swiper: 1,
 
     // 关注成功popup显示
     is_show: false,
+    // 取关弹窗
+    is_followcancel_show:false,
     idolTheme: [],
     idol_index: 0,
     idolInfo: [{
@@ -200,8 +208,101 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.getIndex(1)
+    this.banner(1)
+  },
+  _tapIndicator: function (e) {
+    console.log(e)
+    var types = e.currentTarget.dataset.index
+    this.setData({
+      swiperCurrent: types,
+      banner: [],
+      list: [],
+      tab_id: parseInt(types)+1,
+      page: 1
+    })
+    // this.getIndex(types)
+    // this.banner(types)
 
   },
+  // 请求首页内容**********
+  getIndex: function (type) {
+    var params = {
+      type: type,
+      page: 1
+
+    }
+
+    ajax.getIndex(params).then(res => {
+      console.log(res)
+      this.setData({
+        list: res.items,
+        current_page: res._meta.currentPage,
+        count_page: res._meta.pageCount,
+        type: type
+      })
+
+      if (parseInt(this.data.current_page) + 1 > this.data.count_page) {
+        this.setData({
+          isLoading: true,
+        })
+      }
+      console.log(this.data.isLoading)
+    })
+  },
+
+  // 请求轮播图
+  banner: function (type) {
+    var params = {
+      type: type,
+      page: 1
+
+    }
+    ajax.banner(params).then(res => {
+      console.log(res)
+      this.setData({
+        banner: res,
+        type: type
+      })
+    })
+  },
+  // tab切换  数据变化*************
+  _tapIndicator: function (e) {
+    console.log(e.currentTarget.dataset.index)
+    var types = e.currentTarget.dataset.index  
+    this.setData({
+      swiperCurrent: types,
+      banner: [],
+      list: [],
+      tab_id: types,
+      page: 1
+    })
+    this.getIndex(parseInt(types)+1  )
+    this.banner(parseInt(types) + 1 )
+
+  },
+
+  // 去详情
+  turnToViewVideo: function (e) {
+    console.log(e)
+    var id = e.currentTarget.dataset.id
+    var from = e.currentTarget.dataset.from
+
+    wx.navigateTo({
+      url: `/pages/videoVIew/index?id=${id}&from=${from}`,
+    })
+  },
+
+  todetail: function (e) {
+    console.log(e)
+    var id = e.currentTarget.dataset.id
+
+
+    wx.navigateTo({
+      url: `/pages/newsView/index?id=${id}`,
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面隐藏

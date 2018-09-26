@@ -44,7 +44,7 @@
   padding-left: 20rpx;
 }
 
-.myRankings{
+.selfRank{
   width: 100%;
   position: fixed;
   bottom: 56rpx;

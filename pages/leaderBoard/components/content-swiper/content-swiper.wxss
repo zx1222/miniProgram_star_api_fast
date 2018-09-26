@@ -50,8 +50,8 @@ page, .user-container, .footer, .content-swiper {
 }
 
 .content-swiper {
-height: 100%;
-  /* height: calc(100% - 60rpx); */
+/* height: 100%; */
+  height: calc(100% - 60rpx);
   /* overflow-y: scroll; */
 }
 

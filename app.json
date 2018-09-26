@@ -1,13 +1,17 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/leaderBoard/index",
+        "pages/leaderBoard/index",
+        "pages/index/index",
+        "pages/idolList/index",
+
+    "pages/userFollow/index",
+
+
     "pages/user/index",
     "pages/userForum/index",
     "pages/task/index",
     "pages/editUserInfo/index",
     "pages/genderTheme/index",
-    "pages/idolList/index",
     "pages/videoView/index",
     "pages/newsView/index",
     "pages/replyComment/index",
@@ -16,7 +20,6 @@
     "pages/searchResult/index",
     "pages/forumView/index",
     "pages/commentView/index",
-    "pages/userFollow/index",
     "pages/userContribution/index",
     "pages/userCollection/index",
     "pages/userNotice/index"

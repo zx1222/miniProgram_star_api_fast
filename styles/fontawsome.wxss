@@ -41,3 +41,6 @@
 .fa-trash-o:before {
   content: "\f014";
 }
+.fa-angle-down:before {
+  content: "\f107";
+}

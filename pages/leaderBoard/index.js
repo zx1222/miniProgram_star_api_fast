@@ -4,6 +4,14 @@ import {
   wxRequest
 } from '../../utils/promise.js'
 import getSystemInfo from '../../utils/getSystemInfo.js'
+
+const {
+  ajax,
+  util,
+  common,
+  apiUrl,
+  gets
+} = getApp()
 Page({
 
   /**
@@ -22,30 +30,14 @@ Page({
     swiperCurrent: 0,
     idolTheme: [],
     idol_index: 0,
-    idol_leader_list: [{
-        id: 5,
-        hot_num: 1000,
-      },
-      {
-        id: 1,
-        hot_num: 1000,
-      },
-      {
-        id: 3,
-        hot_num: 1000,
-      },
-      {
-        id: 4,
-        hot_num: 1000,
-      },
-      {
-        id: 2,
-        hot_num: 1000,
-      },
-    ],
+    idol_leader_list: [],
+    idol_index: 0,
     idol_list: [],
-    idol_index: 0
 
+    // 周榜期数
+    dateRange: [],
+    dateRange_index: 0,
+    batch: 0,
   },
 
   /**
@@ -53,25 +45,19 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
+      tabCurrent:0,
       iphone_type: app.globalData.iphone_type,
       idol_index: app.globalData.idol_index,
       idolTheme: app.globalData.idolTheme,
-      idol_list: app.globalData.idol_list,
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1]
     })
-    const idol_index = this.data.idol_leader_list[0].id - 1
-    this.setData({
-      idol_index: idol_index
-    })
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: this.data.idolTheme[idol_index].main,
-      animation: {
-        duration: 400,
-        timingFunc: 'easeIn'
-      }
-    })
+    this.getWeekDateRange();
+
+
+    if (this.data.tab_top_id == 0) {
+
+    }
   },
 
   /**
@@ -101,19 +87,116 @@ Page({
   onUnload: function() {
 
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
+  bindPickerChange: function(e) {
+    this.setData({ //给变量赋值
+      dateRange_index: e.detail.value,
+      batch: this.data.dateRange[e.detail.value].batch
+    })
+    if (this.data.tab_top_id == 0) {
+      if (this.data.tab_top_id == 0) {
+        this.getWeekRankList(this.data.batch);
+      }
+      if (this.data.tab_top_id == 1) {
+        this.getMonthRankList(this.data.batch);
+      }
+      if (this.data.tab_top_id == 2) {
+        this.getYearRankList(this.data.batch);
+      }
+    }
 
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
+  // 获取周榜期数
+  getWeekDateRange: function() {
+    gets.getWeekDateRange('').then(res => {
+      this.setData({
+        dateRange: res,
+        batch: res[0].batch
+      })
+      this.getWeekRankList(this.data.batch);
+    })
+  },
+    // 获取月榜期数
+  getMonthDateRange: function() {
+    gets.getMonthDateRange('').then(res => {
+      this.setData({
+        dateRange: res,
+        batch: res[0].batch
+      })
+      this.getMonthRankList(this.data.batch);
+    })
+  },
+    // 获取年榜期数
+  getYearDateRange: function() {
+    gets.getYearDateRange('').then(res => {
+      this.setData({
+        dateRange: res,
+        batch: res[0].batch
+      })
+      this.getYearRankList(this.data.batch);
+    })
+  },
+    // 获取周榜
+  getWeekRankList: function(batch) {
+    const params = {
+      batch: batch
+    }
+    gets.getWeekRankList(params).then(res => {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: res[0].idol.dark_skin,
+        animation: {
+          duration: 400,
+          timingFunc: 'easeIn'
+        }
+      })
+      this.setData({
+        idol_leader_list: res,
+        idol_index: parseInt(res[0].idol_id) - 1
+      })
+      console.log(this.data.idol_index)
+    })
+  },
+     // 获取月榜
+  getMonthRankList: function(batch) {
+    const params = {
+      batch: batch
+    }
+    gets.getMonthRankList(params).then(res => {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: res[0].idol.dark_skin,
+        animation: {
+          duration: 400,
+          timingFunc: 'easeIn'
+        }
+      })
+      this.setData({
+        idol_leader_list: res,
+        idol_index: parseInt(res[0].idol_id) - 1
+      })
+      console.log(this.data.idol_leader_list)
+    })
+  },
+     // 获取年榜
+  getYearRankList: function(batch) {
+    const params = {
+      batch: batch
+    }
+    gets.getYearRankList(params).then(res => {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: res[0].idol.dark_skin,
+        animation: {
+          duration: 400,
+          timingFunc: 'easeIn'
+        }
+      })
+      this.setData({
+        idol_leader_list: res,
+        idol_index: parseInt(res[0].idol_id) - 1
+      })
+      console.log(this.data.idol_index)
+    })
   },
   tapIndicator(e) {
     this.setData({
@@ -123,118 +206,69 @@ Page({
     this.triggerEvent('childEvent', data, {
       bubbles: false
     });
-    console.log('tabCurrent:'+this.data.tabCurrent)
-    console.log('tab_top_id:' +this.data.tab_top_id)
-    // this.getData();
+    if (this.data.tabCurrent == 0) {
+      if (this.data.tab_top_id == 0) {
+        this.getWeekRankList(this.data.batch);
+      }
+      if (this.data.tab_top_id == 1) {
+        this.getMonthRankList(this.data.batch);
+      }
+      if (this.data.tab_top_id == 2) {
+        this.getYearRankList(this.data.batch);
+      }
+    }
+    if (this.data.tabCurrent == 1) {
+      this.getIdolList();
+    }
   },
   catchChildSwiper: function(e) {
     this.setData({
       tab_top_id: e.detail
     })
-    console.log('tab_top_id:' + this.data.tab_top_id)
-    if (this.data.tab_top_id == 1) {
-      this.setData({
-        idol_leader_list: [{
-            id: 4,
-            hot_num: 1000,
-          },
-          {
-            id: 3,
-            hot_num: 1000,
-          },
-          {
-            id: 2,
-            hot_num: 1000,
-          },
-          {
-            id: 5,
-            hot_num: 1000,
-          },
-          {
-            id: 1,
-            hot_num: 1000,
-          },
-        ],
-      })
-
-    }
     if (this.data.tab_top_id == 0) {
-      this.setData({
-        idol_leader_list: [{
-            id: 5,
-            hot_num: 1000,
-          },
-          {
-            id: 1,
-            hot_num: 1000,
-          },
-          {
-            id: 3,
-            hot_num: 1000,
-          },
-          {
-            id: 4,
-            hot_num: 1000,
-          },
-          {
-            id: 3,
-            hot_num: 1000,
-          },
-        ],
-      })
-
+      this.getWeekDateRange();
+    }
+    if (this.data.tab_top_id == 1) {
+      this.getMonthDateRange();
     }
     if (this.data.tab_top_id == 2) {
-      this.setData({
-        idol_leader_list: [{
-            id: 3,
-            hot_num: 1000,
-          },
-          {
-            id: 5,
-            hot_num: 1000,
-          },
-          {
-            id: 2,
-            hot_num: 1000,
-          },
-          {
-            id: 4,
-            hot_num: 1000,
-          },
-          {
-            id: 1,
-            hot_num: 1000,
-          },
-        ],
-      })
-
+      this.getYearDateRange();
     }
-    const idol_index = this.data.idol_leader_list[0].id - 1
-    console.log(this.data.idolTheme[idol_index])
-    this.setData({
-      idol_index: idol_index
-    })
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: this.data.idolTheme[idol_index].main,
-      animation: {
-        duration: 400,
-        timingFunc: 'easeIn'
-      }
+  },
+  getIdolList: function() {
+    gets.getIdolList('').then(res => {
+      this.setData({
+        idol_list: res
+      })
     })
   },
   turnToSupport: function(e) {
-    app.globalData.idol_index = e.currentTarget.dataset.index
+    app.globalData.idol_index = parseInt(e.currentTarget.dataset.id) - 1
+    this.setData({
+      idol_index: app.globalData.idol_index
+    })
     wx.navigateTo({
       url: '/pages/task/index',
     })
   },
   turnToFansLeaderBoard: function(e) {
-    const index = e.currentTarget.dataset.index
+    console.log(e)
+    const index =parseInt(e.currentTarget.dataset.id)-1
+    console.log(e.currentTarget.dataset.id)
     app.globalData.idol_index = index
+    console.log(app.globalData.idol_index)
     wx.navigateTo({
       url: `/pages/fansLeaderBoard/index`,
+    })
+  },
+  turnToIdolView:function(e){
+    console.log(e)
+    const index = parseInt(e.currentTarget.dataset.id) - 1
+    console.log(e.currentTarget.dataset.id)
+    app.globalData.idol_index = index
+    console.log(app.globalData.idol_index)
+    wx.navigateTo({
+      url: `/pages/idolView/index`,
     })
   },
   /**

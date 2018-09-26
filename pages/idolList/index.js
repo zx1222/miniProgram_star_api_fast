@@ -3,7 +3,10 @@ const app = getApp()
 import {
   wxRequest
 } from '../../utils/promise.js'
-Page({
+
+const { ajax, util, common, apiUrl, gets } = getApp()
+
+Page(Object.assign({}, common, gets, {
 
   /**
    * 页面的初始数据
@@ -14,49 +17,9 @@ Page({
     tab_id: 1,
     idol_index: 2,
     idolTheme: [],
-    list: [{
-        index: 0,
-        avatar: '../../images/idol-avatar1.png',
-        fans: 100,
-        name: '卡缇娅',
-        desc: '除了祖国的命令，\n只有游戏才能让她动起来的萝莉',
-        is_follow: 2,
-      },
-      {
-        index: 1,
-        avatar: '../../images/idol-avatar2.png',
-        fans: 100,
-        name: '罗兹',
-        desc: '认真努力的摇滚少女',
-        is_follow: 2
-      },
-      {
-        index: 2,
-        avatar: '../../images/idol-avatar3.png',
-        fans: 100,
-        name: '清歌',
-        desc: '神秘优雅的大家闺秀',
-        is_follow: 2
-      },
-      {
-        index: 3,
-        avatar: '../../images/idol-avatar4.png',
-        fans: 100,
-        name: '伊莎贝拉',
-        desc: '青春活泼的超级乐天派',
-        is_follow: 1
-      },
-      {
-        index: 4,
-        avatar: '../../images/idol-avatar5.png',
-        fans: 100,
-        name: '玉藻',
-        desc: '自称妖狐转世的中二少女',
-        is_follow: 1
-      }
-    ],
+    list: [],
     is_show: false,
-    is_unfollow_show: false,
+    is_followcancel_show: false,
     toast_title: '浏览视频成功',
     toast_content: '你为清歌增加了10点人气值',
     is_toast_show: true
@@ -79,6 +42,7 @@ Page({
         timingFunc: 'easeIn'
       }
     })
+    this.getData();
   },
 
   /**
@@ -109,30 +73,34 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-  follow: function(e) {
-    app.globalData.idol_index = e.currentTarget.dataset.id
-    this.setData({
-      idol_index: e.currentTarget.dataset.id,
-      is_show: true
+  getData: function() {
+    gets.getIdolList('').then(res => {
+      this.setData({
+        list: res
+      })
+      app.globalData.idol_list = res
     })
   },
-  unfollow: function(e) {
+  follow: function(e) {
+    const params = {
+      idol_id: parseInt(e.currentTarget.dataset.id),
+    }
+    const idol_index = parseInt(e.currentTarget.dataset.id)-1;
+    const idol_list=this.data.list;
+    idol_list[idol_index].isattention=1
+    gets.follow(params).then(res => {
+      this.setData({
+        idol_index: idol_index,
+        list: idol_list,
+        is_show: true
+      })
+    })
+  
+  },
+  followCancel: function(e) {
     this.setData({
-      idol_index: e.currentTarget.dataset.id,
-      is_unfollow_show: true
+      idol_index: parseInt(e.currentTarget.dataset.id)-1,
+      is_followcancel_show: true
     })
   },
   turnToSupport: function() {
@@ -153,13 +121,30 @@ Page({
     })
   },
   catchCancel: function(e) {
-    console.log(e)
     this.setData({
-      is_toast_show: false
+      is_followcancel_show: false
     })
   },
   catchConfirm: function(e) {
-    console.log(e)
+    const params = {
+      idol_id: this.data.idol_index+1
+    }
+    const idol_index =this.data.idol_index;
+    const idol_list = this.data.list;
+    console.log(idol_list)
+    idol_list[idol_index].isattention = 2
+    gets.followCancel(params).then(res => {
+      this.setData({
+        is_followcancel_show: false,
+        list: idol_list
+      })
+      console.log(res)
+      // this.setData({
+      //   list: res
+      // })
+      // app.globalData.idol_list = res
+
+    })
   },
 
   /**
@@ -168,4 +153,4 @@ Page({
   onShareAppMessage: function() {
 
   }
-})
+}))

@@ -3,7 +3,9 @@ const app = getApp()
 import {
   wxRequest
 } from '../../utils/promise.js'
-Page({
+const { ajax, util, common } = getApp()
+
+Page(Object.assign({}, common, {
 
   /**
    * 页面的初始数据
@@ -156,4 +158,4 @@ Page({
   onShareAppMessage: function() {
 
   }
-})
+}))
