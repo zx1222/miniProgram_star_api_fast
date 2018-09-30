@@ -60,12 +60,12 @@
 
 /* 回帖 */
 
-.list-wrp-reply .item {
+ .item {
   padding: 36rpx 0;
   border-bottom: 1px solid #c8c8c8;
 }
 
-.list-wrp-reply  .hd {
+  .hd {
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -73,36 +73,36 @@
   padding: 14rpx 20rpx 0 20rpx;
 }
 
-.list-wrp-reply  .hd .avatar {
+ .hd .avatar {
   width: 62rpx;
   height: 62rpx;
   border-radius: 50%;
   overflow: hidden;
 }
 
-.list-wrp-reply  .hd .name {
+  .hd .name {
   font-size: 28rpx;
   padding-left: 30rpx;
   color: #cdcdcd;
 }
 
-.list-wrp-reply .hd .hd-r {
+ .hd .hd-r {
   padding-left: 26rpx;
   display: flex;
   flex-direction: column;
   /* margin-top: 20rpx; */
 }
 
-.list-wrp-reply .hd .name, .list-wrp-reply .hd .time {
+ .hd .name, .list-wrp-reply .hd .time {
   color: #959595;
 }
 
-.list-wrp-reply .reply-content {
+.reply-content {
   color: #1e1e1e;
   padding: 20rpx 0rpx 0rpx 110rpx;
 }
 
-.list-wrp-reply .forum-content {
+ .forum-content {
   background: #f5f5f5;
   padding: 20rpx 12rpx;
   border-top: 1px solid #cdcdcd;

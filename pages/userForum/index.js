@@ -7,51 +7,28 @@ import {
   formatDate4,
 
 } from '../../utils/formatDate.js'
-Page({
+const {
+  ajax,
+  util,
+  common,
+  gets
+} = getApp()
+
+Page(Object.assign({}, common, gets, {
 
   /**
    * 页面的初始数据
    */
   data: {
-    tabArr: ['主贴', '回帖'],
-    tabCurrent: 1,
+    tabArr: ['主帖', '回帖'],
+    tabCurrent: 0,
     gender: 2,
     genderTheme: {},
     idol_index: 2,
     idolTheme: [],
-
-    list: [{
-        user: {
-          avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-          name: 'zx'
-        },
-        create_time: '1537088018',
-        reply_content: '这是我回复的内容',
-        forum_title: '这是原贴的标题',
-        comment_count: 100,
-        like_count: 100,
-        is_delete: 2
-      },
-      {
-        user: {
-          avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-          name: 'zx'
-        },
-        create_time: '1537088018',
-        reply_content: '这是我回复的内容',
-        forum_title: '这是原贴的标题',
-        comment_count: 100,
-        like_count: 100,
-        is_delete: 2
-      }
-    ]
-    // list:[
-    //   {
-
-    //   }
-    // ]
-
-    
+    isLoading: false,
+    current_page: 1,
+    count_page: 1,
   },
 
   /**
@@ -62,7 +39,6 @@ Page({
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
       idolTheme: app.globalData.idolTheme,
-      list: this.formatlist(this.data.list)
     })
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
@@ -85,55 +61,92 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    gets.userforums().then(res => {
+      this.setData({
+        list: res
+      })
+    })
+  },
+
+  // 主贴详情
+  todetail: function(e) {
+    console.log(e)
+    var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/forumView/index?id=${id}`,
+    })
+  },
+
+  // 点赞
+  praise: function(e) {
+    var status = e.currentTarget.dataset.status
+    var type = e.currentTarget.dataset.type
+    var id = e.currentTarget.dataset.id
+    var param = {
+      type: type,
+      id: id,
+      status: status
+    }
+    ajax.praise(param).then(res => {
+      console.log(res)
+      this.onShow()
+    })
+  },
+
+  // 删除
+  delete: function(e) {
+    const params = {
+      id: e.currentTarget.dataset.id
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确认删除回贴子',
+      success: res=> {
+        if (res.confirm) {
+          ajax.deleteReply(params).then(res => {
+            wx.showToast({
+              title: '删除成功',
+            })
+            this.getReply();
+          })
+        } else if (res.cancel) {}
+      }
+    })
 
   },
+
   tapIndicator(e) {
     this.setData({
       tabCurrent: e.target.dataset.index
     });
     const data = this.data.tabCurrent
     if (this.data.tabCurrent == 0) {
-
+      gets.userforums().then(res => {
+        this.setData({
+          list: res
+        })
+      })
     }
     if (this.data.tabCurrent == 1) {
-      const list = [{
-        user: {
-          avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-          name: 'zx'
-        },
-        create_time: '1537088018',
-        reply_content: '这是我回复的内容',
-        forum_title: '这是原贴的标题',
-        comment_count: 100,
-        like_count: 100,
-        is_delete: 2
-      },
-      {
-        user: {
-          avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-          name: 'zx'
-        },
-        create_time: '1537088018',
-        reply_content: '这是我回复的内容',
-        forum_title: '这是原贴的标题',
-        comment_count: 100,
-        like_count: 100,
-        is_delete: 2
-      }
-      ]
-        this.setData({
-          list: this.formatlist(list)
-        })
+      this.getReply();
     }
   },
-  formatlist: function(list) {
-    const data = list
-    data.forEach((item) => {
-      item.create_time = formatDate4(item.create_time)
-    })
-    return data
-  },
+  getReply: function() {
+    var param = {
+      page: 1
+    }
+    ajax.replyList(param).then(res => {
+      this.setData({
+        list: res.items
+      })
 
+      if (parseInt(this.data.current_page) + 1 > this.data.count_page) {
+        this.setData({
+          isLoading: true,
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -159,6 +172,39 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    console.log(this.data.isLoading)
+    if (this.data.isLoading) {
+      return;
+    }
+    this.data.isLoading = true;
+    if (this.data.count_page < this.data.current_page) return;
+    this.setData({
+      isLoading: true
+    })
+
+    var params = {
+      page: ++this.data.current_page
+
+    }
+    var that = this
+    ajax.replyList(params).then(res => {
+      console.log(res)
+      that.setData({
+        list: that.data.list.concat(res.items),
+        current_page: res._meta.currentPage,
+        count_page: res._meta.pageCount,
+      })
+
+      console.log(parseInt(that.data.current_page))
+      console.log(parseInt(that.data.count_page))
+      if (parseInt(that.data.current_page) >= parseInt(that.data.count_page)) {
+        that.setData({
+          isLoading: true,
+        })
+      }
+
+      console.log(this.data.isLoading)
+    })
 
   },
 
@@ -168,4 +214,4 @@ Page({
   onShareAppMessage: function() {
 
   }
-})
+}))

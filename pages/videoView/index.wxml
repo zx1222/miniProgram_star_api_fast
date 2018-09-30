@@ -1,52 +1,106 @@
-<view class="container  {{is_report?'overflow-y-hidden':''}}">
+ <video id="myVideo"   style='width:750rpx;height:426rpx' src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" danmu-list="{{danmuList}}"   controls poster="https://star.t.miinno.net/media/media-banner4.jpg"></video>
+<view class="container  {{bubbles?'overflow-y-hidden':''}}">
   <view class='item video-item'>
     <!-- <view class='poster-wrp w100'>
       <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
       <image class='video-poster w100' src='{{item.poster}}' mode='widthFix'></image>
     </view> -->
-    <txv-video vid="{{detail.media_url}}"  playerid="txv1" height="{{'200px'}}" autoplay="{{false}}" bindtimeupdate="catchTimeUpdate" bindstatechange="catchStatusChange"></txv-video>
+    <!-- <txv-video vid="{{detail.media_url}}"  playerid="txv1" height="{{'200px'}}" autoplay="{{false}}" bindtimeupdate="catchTimeUpdate" bindstatechange="catchStatusChange"></txv-video> -->
+    
     <view class='video-info'>
       <view class='video-title bold text-m letter-sp2'>{{detail.title}}</view>
-      <view class='date text-pink text-xs'>{{detail.detail_time}}</view>
+      <view class='date text-pink '>{{detail.detail_time}}</view>
     </view>
-    <view class='comment-input-wrp w100 flex justify-content-between align-items-center'>
+    <view class='comment-input-wrp w100 flex justify-content-between align-items-center' style='margin:0'>
       <view class="input-wrp {{is_focus?'cover':''}}">
-        <input class="{{is_focus?'cover':''}}" placeholder="我也说一句..." placeholder-class='placeholder bold letter-sp1' bindfocus="focusChange" bindblur='blurChange' focus="{{false}}" confirm-type='send' bindconfirm="comment"/>
+        <input class="{{is_focus?'cover':''}}" value='{{value}}'  placeholder="{{placeholder}}" placeholder-class='placeholder bold letter-sp1' bindfocus="focusChange" bindinput='bindTextChange' bindblur='blurChange' focus="{{false}}" confirm-type='send'  data-type='{{1}}'  data-id='{{detail.id}}' data-pid='{{0}}' bindconfirm="comment"/>
       </view>
 
-      <view class="{{is_focus?'hidden':''}}  count-wrp flex  align-items-center justify-content-end  text-xs">
-        <view class='item-count flex align-items-center justify-content-end'>
+      <view class="{{is_focus?'hidden':''}}  count-wrp flex  align-items-center justify-content-end  ">
+        <view class='item-count flex align-items-center justify-content-end' >
           <text class='icon-message icomoon  icon'></text>
           <text class='count'>{{detail.comments_counts}}</text>
         </view>
         <view class='item-count flex align-items-center'>
-          <text class=' icon-good-light icomoon  icon'></text>
+          <text class=' icon-good-light icomoon  icon' data-id='{{detail.id}}' wx:if='{{detail.is_praise == 2}}' data-type='{{3}}' data-status='{{1}}' bindtap='praise'></text>
+          <text class=' icon-good icomoon  icon' data-id='{{detail.id}}' style='color:{{genderTheme.main}}' wx:if='{{detail.is_praise == 1}}' data-type='{{3}}'  data-status='{{2}}' bindtap='praise'></text>
           <text class='count'>{{detail.praise_counts}}</text>
         </view>
         <view class='item-count flex align-items-center'>
           <text class='icon-intransit icomoon  icon'></text>
+          <button class='btn-share' open-type="share"></button>
         </view>
         <view class='item-count flex align-items-center'  wx:if='{{detail.is_favorite !=1}}' bindtap='like'>
           <text class='icon-star icomoon  icon'></text>
         </view>
         <view class='item-count flex align-items-center' wx:if='{{detail.is_favorite == 1 }}' bindtap='clear'>
-          <text class='icon-star icomoon  icon' style='background:red'></text>
+          <text class='icon-star-dark icomoon  icon' style='color:{{genderTheme.main}}'></text>
         </view>
-
       </view>
     </view>
 
   </view>
   <view class='comment-list-wrp'>
-    <comment_p_list comment_list="{{comment}}" bind:report='catchReport'></comment_p_list>
+    <view class='comment-wrp'>
+      <view class='item-comment-parent flex justify-content-between' wx:for="{{comment}}" wx:key="{{index}}">
+            <view class='avatar'>
+                  <image class='w100' src='{{item.member.headimg}}' mode='widthFix'></image>
+            </view>
+            <view class='content'>
+                  <view class='hd'>
+                        <view class='p-name name text-overflow1'>{{item.member.nickname}}</view>
+                        <view class='count-wrp flex  align-items-center justify-content-end  text-xs'>
+                              <view class='item-count flex align-items-center .justify-content-end' data-id="{{item.id}}" data-uid="{{item.uid}}" data-type='1' data-uname="{{item.member.nickname}}" bindtap='turnToReply'>
+                                    <text class='icon-message icomoon text-xs icon'></text>
+                                    <text class='count'>{{item.comments_counts}}</text>
+                              </view>
+                              <view class='item-count flex align-items-center'>
+                                    <text class=' icon-good-light icomoon  icon' data-id='{{item.id}}' wx:if='{{item.is_praise == 2}}' data-type='{{4}}' data-status='{{1}}' bindtap='praise'></text>
+          <text class=' icon-good icomoon  icon' style='color:{{genderTheme.main}}' data-id='{{item.id}}' wx:if='{{item.is_praise == 1}}' data-type='{{4}}'  data-status='{{2}}' bindtap='praise'></text>
+                                    <text class='count'>{{item.praise_counts}}</text>
+                              </view>
+                              <view class='item-count flex align-items-center'  data-id='{{item.id}}' bindtap='reporte'>
+                                    <text class='icon-report icomoon  icon'></text>
+                              </view>
+                        </view>
+                  </view>
+                  <view class='comment-content text-m'>{{item.content}}</view>
+                  <view wx:if="{{item.comments_counts !=0 }}" class='child-comment-tips bg-light-gray text-m' data-commenId='{{item.id}}' bindtap='turnToView'>
+                        <text class='text-blue'>{{item.comment_person}}</text>等人
+                        <text class='text-blue'>共{{item.comments_counts}}条回复 <text class="fa fa-angle-right" aria-hidden="true"></text></text>
+                  </view>
+                  <view class='create_time'>{{item.release_time}}</view>
+            </view>
+      </view>
+</view>
     <view class="weui-loadmore" wx:if="{{loading}}">
       <view class="weui-loading"></view>
       <view class="weui-loadmore__tips">正在加载</view>
     </view>
   </view>
 
-  <view class="popup report-wrp" wx:if="{{is_report}}">
+  <!-- <view class="popup report-wrp" wx:if="{{is_report}}">
     <report genderTheme="{{genderTheme}}" bind:reportCancel='catchReportCancel' bind:reportSubmit='catchReportSubmit'></report>
-  </view>
+  </view> -->
+  
+<view class="popup report-wrp" wx:if="{{bubbles}}">
+    <view class='form-report'>
+    <form bindsubmit="formSubmit">
+      <view class="text-s bold">举报原因</view>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio text-s bold" wx:for="{{reportReasonArr}}">
+          <radio value="{{item.name}}" checked="{{item.checked}}" color='#666666' />{{item.value}}
+        </label>
+      </radio-group>
+      <textarea placeholder="请输入举报原因" placeholder-class='placeholder' bindinput='textarea'/>
+      
 
+    </form>
+    <view class='btn-wrp'>
+        <button formType="submit" style="color:{{genderTheme.main}};border:1px solid {{genderTheme.main}}" bindtap='report'>提交</button>
+        <button formType="reset" style="color:{{genderTheme.main}};border:1px solid {{genderTheme.main}}" bindtap='cancel'>取消</button>
+      </view>
+  </view>
+ 
+</view> 
 </view>

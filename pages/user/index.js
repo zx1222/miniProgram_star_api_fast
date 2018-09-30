@@ -3,9 +3,9 @@ const app = getApp()
 import {
   wxRequest
 } from '../../utils/promise.js'
-const { ajax, util, common } = getApp()
+const { gets,ajax, util, common } = getApp()
 
-Page(Object.assign({}, common, {
+Page(Object.assign({}, common, gets,{
 
   /**
    * 页面的初始数据
@@ -27,6 +27,7 @@ Page(Object.assign({}, common, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
     console.log(app.globalData.is_gender_selected)
     this.setData({
       gender: app.globalData.gender,
@@ -56,7 +57,36 @@ Page(Object.assign({}, common, {
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    console.log(wx.getStorageSync('gender'))
+    if (wx.getStorageSync('gender') !== '' && wx.getStorageSync('gender')!=undefined){
+      app.globalData.is_gender_selected==1
+      this.setData({
+        is_gender_selected:1
+      })
+    }else{
+      this.setData({
+        is_gender_selected: 2
+      })
+    }
 
+    gets.userInfo().then(res => {
+      this.setData({
+        user_info:res,
+        avatar: res.headimg,
+        nickname: res.nickname
+      })
+      this.setData({
+        genderTheme: app.globalData.genderTheme[res.sex - 1]
+      })
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: this.data.genderTheme.main,
+        animation: {
+          duration: 400,
+          timingFunc: 'easeIn'
+        }
+      })
+    })
   },
   turnToMyFollow: function() {
     wx.navigateTo({
@@ -115,7 +145,8 @@ Page(Object.assign({}, common, {
     this.setData({
       gender: parseInt(e.currentTarget.dataset.id)
     })
-    wx.setStorageSync('gender', parseInt(e.currentTarget.dataset.id))
+    console.log(this.data.gender)
+   
     if (this.data.gender == 1) {
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
@@ -139,11 +170,17 @@ Page(Object.assign({}, common, {
   },
   confirmGender: function(e) {
     app.globalData.gender = this.data.gender
-    app.globalData.is_gender_selected = 1
+    app.globalData.is_gender_selected = 1;
+    wx.setStorageSync('gender', this.data.gender)
     this.setData({
       is_seletpopup_show: false,
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[this.data.gender - 1],
+    })
+    const params={
+      skin: this.data.gender
+    }
+    ajax.selectSkin(params).then(res => {
     })
   },
 

@@ -1,10 +1,21 @@
+import { sha1 } from './sha1'
+
 import apiUrl from 'parm.js'
+const appid = 'miinno.com'
+const secret = '123456'
+const version = 'api/v1'
+const timestamp = new Date().getTime()
+const a = appid + 'APPID' + secret + 'SECRET' + timestamp
+const sign = sha1(appid + 'APPID' + secret + 'SECRET' + timestamp)
+const token = sign + '.' + timestamp + '.' + version
 
 const ajaxData = (url, type = 'GET') => {
-  var defaultHeader = {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  }
-  return ((params = {}, header = defaultHeader, method = 'post') => {
+  // var defaultHeader = {
+  //   'Content-Type': 'application/x-www-form-urlencoded',
+  //     'X-Token-With': token,
+  //     'Authorization': `Miinno ${wx.getStorageSync('access_token')}`
+  // }
+  return ((params = {}, method = 'post') => {
     return new Promise((resolve, reject) => {
       const userSession = wx.getStorageSync('userSession');
       const userData = {
@@ -17,9 +28,14 @@ const ajaxData = (url, type = 'GET') => {
       wx.request({
         url: url,
         data: newdata,
-        header: header,
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          // 'X-Token-With': token,
+          // 'Authorization': `Miinno ${wx.getStorageSync('access_token')}`
+        },
         method: method === 'POST' ? 'POST' : method,
         success(res) {
+          console.log(wx.getStorageSync('access_token'))
           if (res.data.code === 0 && res.statusCode === 200) {
             resolve(res.data)
           } else {
@@ -36,6 +52,9 @@ const ajaxData = (url, type = 'GET') => {
             });
           }
         },
+        fail: function () {
+          console.log(wx.getStorageSync('access_token'));
+        }
       });
     });
   });

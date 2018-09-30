@@ -3,10 +3,15 @@ const app = getApp()
 import {
   wxRequest
 } from '../../utils/promise.js'
-import {
-  formatDate3,
-} from '../../utils/formatDate.js'
-Page({
+
+const {
+  ajax,
+  util,
+  common,
+  gets
+} = getApp()
+
+Page(Object.assign({}, common, gets, {
 
   /**
    * 页面的初始数据
@@ -18,32 +23,10 @@ Page({
     genderTheme: {},
     idol_index: 2,
     idolTheme: [],
-
-    list: [{
-        user: {
-          avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-          name: 'zx'
-        },
-        create_time: '1537088018',
-        reply_content: '这是我收到的评论内容'
-      },
-      {
-        user: {
-          avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-          name: 'zx'
-        },
-        create_time: '1537088018',
-        reply_content: '这是我收到的评论内容'
-      },
-      {
-        user: {
-          avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-          name: 'zx'
-        },
-        create_time: '1537088018',
-        reply_content: '这是我收到的评论内容'
-      }
-    ]
+    list: [],
+    isLoading: false,
+    current_page: 1,
+    count_page: 1,
   },
 
   /**
@@ -54,7 +37,6 @@ Page({
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
       idolTheme: app.globalData.idolTheme,
-      list: this.formatlist(this.data.list)
     })
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
@@ -77,82 +59,61 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      tabCurrent: 0
+    })
+    this.getNotice()
   },
   tapIndicator(e) {
     this.setData({
       tabCurrent: e.target.dataset.index
     });
     if (this.data.tabCurrent == 0) {
-      const data = [{
-          user: {
-            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-            name: 'zx'
-          },
-          create_time: '1537088018',
-          reply_content: '这是我收到的评论内容'
-        },
-        {
-          user: {
-            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-            name: 'zx'
-          },
-          create_time: '1537088018',
-          reply_content: '这是我收到的评论内容'
-        },
-        {
-          user: {
-            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-            name: 'zx'
-          },
-          create_time: '1537088018',
-          reply_content: '这是我收到的评论内容'
-        }
-      ]
-      this.setData({
-        list: this.formatlist(data)
-      })
-
+      this.getNotice();
     }
     if (this.data.tabCurrent == 1) {
-      const data = [{
-          user: {
-            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-            name: 'zx'
-          },
-          create_time: '1537088018',
-          reply_content: '恭喜你获得了参与抽奖的机会，请填写完整个人信息，以便给你邮寄礼品哦！'
-        },
-        {
-          user: {
-            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-            name: 'zx'
-          },
-          create_time: '1537088018',
-          reply_content: '恭喜你获得了参与抽奖的机会，请填写完整个人信息，以便给你邮寄礼品哦！'
-        },
-        {
-          user: {
-            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537787707649&di=89c23d2228ed35ccda59d23ceedf0a2e&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201407%2F30%2F20140730012845_tiG3J.thumb.700_0.png',
-            name: 'zx'
-          },
-          create_time: '1537088018',
-          reply_content: '恭喜你获得了参与抽奖的机会，请填写完整个人信息，以便给你邮寄礼品哦！'
-        }
-      ]
-      this.setData({
-        list: this.formatlist(data)
-      })
+      this.getMsg();
     }
   },
-  formatlist: function(list) {
-    const data = list
-    data.forEach((item) => {
-      item.create_time = formatDate3(item.create_time)
+  getNotice: function() {
+    const params = {
+      page: 1,
+      limits: 10
+    }
+    gets.getNotice(params).then(res => {
+      console.log(res)
+      if (res.items.length < params.limits) {
+        this.setData({
+          isLoading: false
+        })
+      }
+      this.setData({
+        list: res.items
+      })
     })
-    return data
   },
-
+  getMsg: function() {
+    const params = {
+      page: 1,
+      limits: 10
+    }
+    gets.getMsg(params).then(res => {
+      if (res.items.length < params.limits) {
+        this.setData({
+          isLoading: false
+        })
+      }
+      this.setData({
+        list: res.items
+      })
+    })
+  },
+  turnToView:function(e){
+    const id=e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/msgView/index?id=${id}`,
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -178,7 +139,37 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    console.log(this.data.isLoading)
+    if (this.data.isLoading) {
+      return;
+    }
+    this.data.isLoading = true;
+    if (this.data.count_page < this.data.current_page) return;
+    this.setData({
+      isLoading: true
+    })
 
+    var params = {
+      page: ++this.data.current_page
+    }
+    var that = this
+    gets.getNotice(params).then(res => {
+      console.log(res)
+      that.setData({
+        list: that.data.list.concat(res.items),
+        current_page: res._meta.currentPage,
+        count_page: res._meta.pageCount,
+      })
+
+      console.log(parseInt(that.data.current_page))
+      console.log(parseInt(that.data.count_page))
+      if (parseInt(that.data.current_page) >= parseInt(that.data.count_page)) {
+        that.setData({
+          isLoading: true,
+        })
+      }
+      console.log(this.data.isLoading)
+    })
   },
 
   /**
@@ -187,4 +178,4 @@ Page({
   onShareAppMessage: function() {
 
   }
-})
+}))

@@ -1,5 +1,6 @@
 {
       "enablePullDownRefresh": false,
+      
       "component": true,
       "usingComponents": {
             "contentSwiper": "./components/content-swiper/content-swiper",

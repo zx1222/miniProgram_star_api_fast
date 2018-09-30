@@ -32,11 +32,15 @@
 .item .avatar-wrp {
   width: 33%;
   margin-right: 2%;
+    border-radius: 50%;
+
 }
 
 .item .idol-avatar {
   width: 146rpx;
+  height: 146rpx;
   border-radius: 50%;
+  overflow: hidden;
   margin: 16rpx;
 }
 
@@ -77,9 +81,14 @@
   border-radius: 4rpx;
   font-size: 24rpx;
   line-height: 48rpx;
-  border: none;
 }
-
+.item .btn-wrp{
+    position: absolute;
+  top: 0rpx;
+  right: 14rpx;
+  width: 120rpx;
+  height: 88rpx;
+}
 .item .btn.btn-follow-yet {
   width: 114rpx;
   height: 44rpx;
@@ -96,17 +105,40 @@
 }
 
 .poster {
-  width: 91.6%;
-  height: 90%;
-  background: url('https://star.t.miinno.net/star_img/follow-poster-border.png');
+  width: 83%;
+  height: calc(85%- 80rpx);
+
+}
+.bg1{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border1.png');
   background-size: 100% 100%;
+}
+.bg2{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border2.png');
+  background-size: 100% 100%;
+}
+.bg3{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border3.png');
+  background-size: 100% 100%;
+}
+.bg4{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border4.png');
+  background-size: 100% 100%;
+}
+.bg5{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border5.png');
+  background-size: 100% 100%;
+}
+is_x .poster{
+    width: 90%;
+  height: calc(86%- 80rpx);
 }
 
 .poster-inner {
   width: 87%;
-  height: 90%;
-  margin: 7%;
-  padding: 30rpx;
+  height: 60%;
+margin:7% 4% 9% 7%;
+  padding: 26rpx;
 }
 
 .poster-inner .header {
@@ -120,7 +152,7 @@
 }
 
 .poster-inner .header .btn-audio {
-  width: 334rpx;
+  width:278rpx;
   height: 62rpx;
   background: #fff;
   font-size: 24rpx;
@@ -163,42 +195,4 @@
   width: 100%;
   text-align: center;
   bottom: 2%;
-}
-
-/* 取关 */
-
-.popup .toast-content {
-  width: 596rpx;
-  height: 392rpx;
-  color: #fff;
-  padding: 120rpx 0;
-}
-
-.popup-bg1 {
-  background: url('https://star.t.miinno.net/star_img/popup-male-bg.png');
-  background-size: 100% 100%;
-}
-
-.popup-bg2 {
-  background: url('https://star.t.miinno.net/star_img/popup-female-bg.png');
-  background-size: 100% 100%;
-}
-
-.popup .toast-content .title {
-  font-size: 52rpx;
-  letter-spacing: 2px;
-}
-
-.popup .toast-content .btn {
-  width: 160rpx;
-  height: 40rpx;
-  text-align: center;
-  border-radius: 4rpx;
-  box-shadow: 0 0 0 1px #fff;
-  line-height: 40rpx;
-  margin: 30rpx 20rpx 0 20rpx;
-}
-
-.popup .toast-content .btn-cancel {
-  background: #fff;
 }

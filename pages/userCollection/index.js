@@ -59,6 +59,9 @@ Page(Object.assign({}, common, apiUrl, gets, {
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      tabCurrent:0
+    })
     this.getData(1)
   },
 
@@ -94,7 +97,7 @@ Page(Object.assign({}, common, apiUrl, gets, {
   turnToViewVideo: function (e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `/pages/videoVIew/index?id=${id}&from=${1}`,
+      url: `/pages/videoView/index?id=${id}&from=${1}`,
     })
   },
   turnToViewNews: function (e) {
@@ -161,6 +164,12 @@ Page(Object.assign({}, common, apiUrl, gets, {
 
       console.log(this.data.isLoading)
     })
+
+  },
+
+  onPullDownRefresh: function () {
+    // this.myRecordingA(1, answerUrl);
+    wx.stopPullDownRefresh();
 
   },
   /**

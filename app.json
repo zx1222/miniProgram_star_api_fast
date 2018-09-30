@@ -1,33 +1,32 @@
 {
   "pages": [
-        "pages/leaderBoard/index",
-        "pages/index/index",
-        "pages/idolList/index",
-
-    "pages/userFollow/index",
-
-
-    "pages/user/index",
-    "pages/userForum/index",
+    "pages/index/index",
     "pages/task/index",
+    "pages/user/index",
+    "pages/idolList/index",
+    "pages/editForum/index",
+    "pages/leaderBoard/index",
+    "pages/userFollow/index",
+    "pages/userContribution/index",
+    "pages/userForum/index",
     "pages/editUserInfo/index",
     "pages/genderTheme/index",
     "pages/videoView/index",
     "pages/newsView/index",
-    "pages/replyComment/index",
     "pages/idolView/index",
     "pages/fansLeaderBoard/index",
     "pages/searchResult/index",
     "pages/forumView/index",
     "pages/commentView/index",
-    "pages/userContribution/index",
     "pages/userCollection/index",
-    "pages/userNotice/index"
+    "pages/userNotice/index",
+    "pages/msgView/index",
+    "pages/replyComment/index"
   ],
   "window": {
     "backgroundTextStyle": "#333333",
     "navigationStyle": "default",
-    "navigationBarBackgroundColor": "#e95471",
+    "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "歌姬动态",
     "enablePullDownRefresh": true
@@ -45,26 +44,26 @@
     "backgroundColor": "#fafafa",
     "list": [
       {
-        "selectedIconPath": "./images/icon-female-selected.png",
-        "iconPath": "./images/icon-female.png",
+        "selectedIconPath": "./images/icon-home-selected.png",
+        "iconPath": "./images/icon-home.png",
         "pagePath": "pages/index/index",
         "text": "歌姬动态"
       },
       {
-        "selectedIconPath": "./images/icon-female-selected.png",
-        "iconPath": "./images/icon-female.png",
+        "selectedIconPath": "./images/icon-idol-selected.png",
+        "iconPath": "./images/icon-idol.png",
         "pagePath": "pages/idolList/index",
         "text": "歌姬介绍"
       },
       {
-        "selectedIconPath": "./images/icon-female-selected.png",
-        "iconPath": "./images/icon-female.png",
+        "selectedIconPath": "./images/icon-list-selected.png",
+        "iconPath": "./images/icon-list.png",
         "pagePath": "pages/leaderBoard/index",
         "text": "排行榜"
       },
       {
-        "selectedIconPath": "./images/icon-female-selected.png",
-        "iconPath": "./images/icon-female.png",
+        "selectedIconPath": "./images/icon-user-selected.png",
+        "iconPath": "./images/icon-user.png",
         "pagePath": "pages/user/index",
         "text": "个人中心"
       }

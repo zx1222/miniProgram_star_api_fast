@@ -1,7 +1,15 @@
 .container {
   padding: 15rpx 20rpx;
 }
+.btn-share{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 40rpx;
+  height: 40rpx;
+  background: transparent
 
+}
 .avatar {
   width: 78rpx;
   height: 78rpx;
@@ -37,6 +45,7 @@
 
 .forum-wrp .content .hd .count-wrp .item-count {
   float: right;
+  position: relative;
 }
 
 .forum-wrp .content .hd .item-count {
@@ -109,16 +118,24 @@ report{
 }
 
 .comment-input-wrp .icon {
-      /* width: 28rpx; */
+      width: 30rpx;
       padding-right: 6rpx;
       color: #787878;
       font-size: 25rpx;
 }
 
-.comment-input-wrp .icon.icon-comment {
-      /* width: 24rpx; */
-}
-
 .comment-input-wrp .item-count {
-      padding-right: 16rpx;
+    margin-right: 20rpx;
+    position: relative;
+}
+.comment-input-wrp .item-count:last-child {
+      margin-right: 0rpx;
+}
+.pic-item {
+  width: 180rpx;
+  height: 180rpx;
+  overflow: hidden;
+  float: left;
+  background: #eee;
+  margin: 10rpx 10rpx 0 0;
 }

@@ -7,9 +7,23 @@
 
   /* background: pink */
 }
-.container.is_6{
-    height: 100%;
+/* .is_tab1.container{
+    height: 107%;
 }
+.is_tab1.container.is_6{
+    height: 111%;
+}
+.is_tab1.container.is_275{
+    height: 111%;
+}
+.is_tab1.container.is_3{
+     height: 110%;
+}
+*/
+ .is_tab1.container.is_x{
+  height: calc(100% - 60rpx);
+} 
+
 .tab {
   width: 100%;
   height: 60rpx;
@@ -63,18 +77,24 @@
   width: calc(100% - 80rpx);
   margin-left: 40rpx;
   border: 1px solid #000;
-  border-bottom: none;
-  padding: 26rpx 45rpx 4rpx 45rpx;
+  /* border-bottom: none; */
+  padding: 26rpx 45rpx 20rpx 45rpx;
   /* margin-bottom: 70rpx; */
   background: #fff;
 }
 .pick-wrp{
-  width: 288rpx;
+  width: 264rpx;
     height: 30rpx;
+    margin-bottom: 5px;
+}
+.pick-wrp .fa{
+  font-size: 32rpx;
+  font-weight: bold
 }
 picker{
   width: 90%;
   height: 30rpx;
+  color: #737373;
 }
 .idolBoard .item {
   padding: 6rpx 0;
@@ -89,10 +109,12 @@ picker{
 .idolBoard  .item .avatar-wrp {
   width: 33%;
   margin-right: 2%;
+    border-radius: 50%;
 }
 
 .idolBoard  .item .idol-avatar {
-  width: 106rpx;
+  width: 98rpx;
+   height: 98rpx;
   border-radius: 50%;
   margin: 16rpx;
 }
@@ -103,16 +125,16 @@ picker{
 
 .idolBoard  .item .btn-support {
   width: 116rpx;
-  height: 36rpx;
+  height: 42rpx;
   border-radius: 4rpx;
   text-align: center;
-  line-height: 36rpx;
+  line-height: 42rpx;
 }
 
 /* 歌姬列表 */
 
 .fansBoard {
-  height: calc(100% - 60rpx);
+  height: 100%;
 }
 
 .fansBoard .idol-list {
@@ -125,7 +147,7 @@ picker{
 }
 
 .fansBoard  .item-content {
-  padding: 10rpx 30rpx;
+  padding: 14rpx 30rpx;
   position: relative;
 }
 
@@ -143,7 +165,7 @@ picker{
 .fansBoard  .item .idol-avatar {
   width: 142rpx;
   border-radius: 50%;
-  margin: 16rpx;
+  margin: 12rpx;
 }
 
 .fansBoard  .item .idol-name {
@@ -185,9 +207,9 @@ picker{
   top: 18rpx;
   right: 14rpx;
   width: 156rpx;
-  height: 38rpx;
+  height: 44rpx;
   border-radius: 4rpx;
   font-size: 24rpx;
-  line-height: 38rpx;
+  line-height: 44rpx;
   border: none;
 }

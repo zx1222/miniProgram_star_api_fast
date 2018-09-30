@@ -7,19 +7,42 @@
   </view>
 
 
-  <view class='list-wrp list-wrp-reply'>
+  <view class='list-wrp list-wrp-reply' wx:if="{{tabCurrent==0}}">
     <view class='item' wx:for="{{list}}">
       <view class='hd flex align-items-center justify-content-between'>
         <view class='flex align-items-center'>
           <view class='avatar'>
-            <image class='w100' src='{{item.user.avatar}}' mode='widthFix'></image>
+            <image class='w100' src='{{item.comment.member.headimg}}' mode='widthFix'></image>
           </view>
-          <view class=' name text-overflow1'>{{item.user.name}}</view>
+          <view class=' name text-overflow1'>{{item.comment.comment_person}}</view>
         </view>
-        <view class='time text-xs '>{{item.create_time}}</view>
+        <view class='time text-xs '>{{item.created_at}}</view>
       </view>
-      <view class='reply-content'>{{item.reply_content}}</view>
+      <view class='reply-content'>{{item.comment.content}}</view>
     </view>
+  </view>
+    <view class='list-wrp list-wrp-msg' wx:if="{{tabCurrent==1}}">
+    <view class='item' wx:for="{{list}}" bindtap='turnToView' data-id="{{item.id}}">
+      <view class='hd flex align-items-center justify-content-between'>
+        <view class='flex align-items-center'>
+          <view class='avatar'>
+            <image class='w100' src='{{item.headimg}}' mode='widthFix'></image>
+          </view>
+          <view class=' name text-overflow1'>{{item.nickname}}</view>
+        </view>
+        <view class='time text-xs '>{{item.created_at}}</view>
+      </view>
+      <view class='reply-content text-overflow2'>{{item.content}}</view>
+    </view>
+  </view>
+    <view class="weui-loadmore" wx:if="{{isLoading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">加载中~</view>
+  </view>
+
+  <view class="weui-loadmore" wx:if="{{last}}">
+    <!-- <view class="weui-loading"></view> -->
+    <view class="weui-loadmore__tips">已经没有其他内容了哦~~</view>
   </view>
 </view>
 

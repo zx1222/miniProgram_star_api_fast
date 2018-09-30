@@ -12,7 +12,8 @@
                                     <text class='count'>{{item.comments_counts}}</text>
                               </view>
                               <view class='item-count flex align-items-center'>
-                                    <text class=' icomoon icon-good-light text-s icon'></text>
+                                    <text class=' icon-good-light icomoon  icon' wx:if='{{detail.is_praise == 2}}' data-type='{{3}}' data-status='{{1}}' bindtap='praise'></text>
+          <text class=' icon-good-light icomoon  icon' style='background:red' wx:if='{{detail.is_praise == 1}}' data-type='{{3}}'  data-status='{{2}}' bindtap='praise'></text>
                                     <text class='count'>{{item.praise_counts}}</text>
                               </view>
                               <view class='item-count flex align-items-center' bindtap='report'>

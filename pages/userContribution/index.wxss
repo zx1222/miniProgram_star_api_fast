@@ -29,6 +29,7 @@
 
 .item .idol-avatar {
   width: 146rpx;
+    height: 146rpx;
   border-radius: 50%;
   margin: 16rpx;
 }
@@ -75,9 +76,9 @@
   top: 14rpx;
   right: 14rpx;
   width: 166rpx;
-  height: 36rpx;
+  height: 44rpx;
   border-radius: 4rpx;
   font-size: 24rpx;
-  line-height: 36rpx;
+  line-height: 44rpx;
   border: none;
 }

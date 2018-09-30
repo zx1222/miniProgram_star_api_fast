@@ -1,12 +1,74 @@
 .container {
       width: 100%;
       height: 100%;
+        color: #585858;
 }
 .tabbar-top{
       height: 100%
 }
+/* seatchForm */
+.searchForm{
+      padding: 10rpx 34rpx;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'FZLTHJT'
+}
+.searchForm.is_6 .input-wrp .l{
+
+}
+.searchForm .avatar{
+      width: 50rpx;
+      height: 50rpx;
+      border-radius: 50%;
+      overflow: hidden;
+}
+.searchForm .input-wrp{
+      height: 50rpx;
+      width: 470rpx;
+      border-radius: 5.1%/50%;
+      background: rgba(245,245,245,.6);
+      box-sizing: border-box;
+}
+.searchForm .input-wrp .l{
+      width: 64rpx;
+      /* margin: 6rpx 0 10rpx 0; */
+      /* height: calc(100% - 20rpx); */
+      text-align: center;
+      line-height: 32rpx;
+      float: left;
+      font-size: 28rpx;
+}
+.searchForm .input-wrp .r{
+      width: calc(100% - 68rpx);
+      margin: 10rpx 0;
+      height: calc(100% - 20rpx);
+      text-align: center;
+      float: left;
+      line-height: 50rpx;
+}
+.searchForm .input-wrp .r input{
+         height:0.8rem;
+         text-align: left;
+         padding: 0 17rpx;
+         min-height:1rem;
+         font-size: 24rpx;
+         line-height: 0.8rem;
+}
 
 
+.searchForm .btn-submit{
+      width: 108rpx;
+      height: 50rpx;
+      box-shadow: 0 0  0 1px #ffffff inset;
+      border-radius: 18.18%/50%;
+      letter-spacing: 2px;
+      text-align: center;
+      color: #ffffff;
+      line-height: 50rpx;
+      font-size: 24rpx;
+}
+/* seatchForm end*/
 /* swiper */
 
  .swiper image {
@@ -269,6 +331,7 @@ page, .user-container, .footer, .content-swiper {
 .list-wrp-video .video-info .video-title {
       font-size: 24rpx;
       letter-spacing: 1px;
+    color:#707070;
 }
 
 .list-wrp-video .video-info .tag {
@@ -306,11 +369,13 @@ page, .user-container, .footer, .content-swiper {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+       color:#706f6f;
 }
 
 .list-wrp-news .news-info .news-title {
       font-size: 30rpx;
       letter-spacing: 2px;
+      color: #707070;
 }
 
 .list-wrp-news .news-info .comment-count, .list-wrp-news .news-info .date {
@@ -328,3 +393,60 @@ page, .user-container, .footer, .content-swiper {
 }
 
 /* list  end*/
+
+.searchForm{
+      padding: 10rpx 34rpx;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'FZLTHJT'
+}
+.searchForm .avatar{
+      width: 50rpx;
+      height: 50rpx;
+      border-radius: 50%;
+      overflow: hidden;
+}
+.searchForm .input-wrp{
+      height: 50rpx;
+      width: 470rpx;
+      border-radius: 5.1%/50%;
+      background: rgba(245,245,245,.6);
+      box-sizing: border-box;
+}
+.searchForm .input-wrp .l{
+      width: 64rpx;
+      margin: 10rpx 0;
+      height: calc(100% - 20rpx);
+      text-align: center;
+      line-height: calc(100% - 20rpx);
+      float: left;
+}
+.searchForm .input-wrp .r{
+      width: calc(100% - 68rpx);
+      margin: 10rpx 0;
+      height: calc(100% - 20rpx);
+      text-align: center;
+      float: left;
+}
+.searchForm .input-wrp .r input{
+         height:0.8rem;
+         text-align: left;
+         padding: 0 17rpx;
+         min-height:1rem;
+         font-size: 24rpx;
+         line-height: 0.8rem;
+}
+
+
+.searchForm .btn-submit{
+      width: 108rpx;
+      height: 50rpx;
+      box-shadow: 0 0  0 1px #ffffff inset;
+      border-radius: 18.18%/50%;
+      letter-spacing: 2px;
+      text-align: center;
+      color: #ffffff;
+      line-height: 50rpx;
+      font-size: 24rpx;
+}

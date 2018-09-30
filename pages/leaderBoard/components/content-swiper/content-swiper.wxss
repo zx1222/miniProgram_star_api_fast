@@ -1,7 +1,9 @@
 /* pages/user/component/topic-swiper/topic-swiper.wxss */
 
-page, .user-container, .footer, .content-swiper {
+page, .user-container, .footer {
   height: 100%;
+  /* min-height: 100%;
+  overflow-y: scroll; */
 }
 
 .bg1 {
@@ -50,9 +52,25 @@ page, .user-container, .footer, .content-swiper {
 }
 
 .content-swiper {
-/* height: 100%; */
-  height: calc(100% - 60rpx);
-  /* overflow-y: scroll; */
+  padding-top: 60rpx;
+height: 106%;
+  /* height: calc(110% - 60rpx); */
+  min-height: 100%;
+  overflow-y: scroll;
+}
+.content-swiper.is_6{
+  height: 110%;
+}
+.content-swiper.is_3{
+  height: 110%;
+}
+.content-swiper.is_275{
+  height: 110%;
+}
+
+.content-swiper.is_x{
+  /* height: 100%; */
+  height: calc(100% - 140rpx);
 }
 
 .swiper-indicator {
@@ -60,11 +78,13 @@ page, .user-container, .footer, .content-swiper {
   height: 60rpx;
   line-height: 60rpx;
   background: #fff;
-  position: relative;
+  position: fixed;
+  top:60rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: 'FZLTHJT';
+  z-index: 2;
 }
 
 .swiper-indicator .indicator-item {

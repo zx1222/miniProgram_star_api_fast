@@ -7,7 +7,15 @@ import {
   formatDate2,
   formatDate3
 } from '../../utils/formatDate.js'
-Page({
+const {
+  ajax,
+  util,
+  common,
+  apiUrl,
+  gets
+} = getApp()
+
+Page(Object.assign({}, common, apiUrl, gets, {
 
   /**
    * 页面的初始数据
@@ -20,76 +28,31 @@ Page({
     noData: false,
     currentPage: 1,
     pageSize: 10,
-item :{
-    id: 1,
-    user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-    user_name: '小丸子',
-    comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-    like_count: 100,
-    comment_count: 20,
-    create_time: 1537088018,
-    has_child: 1,
-    sub_name: 'sss',
-    child_count: 10,
-
-  
-},
-    comment_list: [{
-      id: 1,
-      user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-      user_name: '小丸子',
-      comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-      like_count: 100,
-      comment_count: 20,
-      create_time: 1537088018,
-      has_child: 1,
-      sub_name: 'sss',
-      child_count: 10,
-
-    },
-    {
-      id: 1,
-      user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-      user_name: '小丸子',
-      comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-      like_count: 100,
-      comment_count: 20,
-      create_time: 1537088018,
-    },
-    {
-      id: 1,
-      user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-      user_name: '小丸子',
-      comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-      like_count: 100,
-      comment_count: 20,
-      create_time: 1537088018,
-    }
-    ],
+    item: {},
+    comment_list: [],
     is_report: false
-    
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData({
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
-      comment_list: this.formatCommentData(this.data.comment_list)
+      comment_list: this.formatCommentData(this.data.comment_list),
+      commenid: options.commenid
     })
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
-      backgroundColor: this.data.genderTheme.mian,
+      backgroundColor: this.data.genderTheme.main,
       animation: {
         duration: 400,
         timingFunc: 'easeIn'
       }
     })
   },
-  formatCommentData: function (data) {
+  formatCommentData: function(data) {
     let list = data;
     list.forEach((item) => {
       item.create_time = formatDate3(item.create_time)
@@ -102,49 +65,66 @@ item :{
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function() {
+    var param = {
+      comment_id: this.data.commenid
+    }
+    gets.replyCommentList(param).then(res => {
+      this.setData({
+        firstReply: res.items,
+        childReply: res.items
+      })
+    })
   },
-
+  // 跳转回复评论
+  turnToReply: function (e) {
+    const data = {
+      id: e.currentTarget.dataset.id,
+      uid: e.currentTarget.dataset.uid,
+      type: e.currentTarget.dataset.type,
+      uname: e.currentTarget.dataset.uname
+    }
+      
+    },
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
-})
+}))

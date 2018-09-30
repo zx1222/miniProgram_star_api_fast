@@ -1,24 +1,24 @@
-<view class="container {{idol_list[item.id-1]==5?'bg5':''}} {{iphone_type=='iPhone 6'?'is_6':''}} ">
+<view wx:if="{{!isLoading}}" class="container {{idol_list[item.id-1]==5?'bg5':''}} {{iphone_type=='iPhone X'?'is_x':''}} {{tabCurrent==0?'is_tab1':''}}"  >
   <view class="tab" style=" border-bottom: 1px solid {{idolTheme[idol_index].main}};">
     <text wx:for="{{tabArr}}" wx:key="{{index}}" data-index="{{index}}" bindtap="tapIndicator" class="indicator-item" style="color:{{tabCurrent === index? idolTheme[idol_index].main : '' }};">{{item}}</text>
     <view class="slider-line" style="transform: translateX({{tabCurrent * 100}}%);">
       <view class='line-inner' style="background:{{idolTheme[idol_index].main}}"></view>
     </view>
   </view>
-  <contentSwiper wx:if="{{tabCurrent==0}}" bind:childEvent='catchChildSwiper' indicatorArr="{{indicatorArr}}" color="{{idolTheme[idol_index].main}}" idol_id="{{idol_leader_list[0].idol.id}}" swiperCurrent="{{tab_top_id}}">
+  <contentSwiper wx:if="{{tabCurrent==0}}" bind:childEvent='catchChildSwiper' indicatorArr="{{indicatorArr}}" color="{{idolTheme[idol_index].main}}" idol_id="{{idol_leader_list[0].idol.id}}" swiperCurrent="{{tab_top_id}}" iphone_type="{{iphone_type}}">
     <view class='idolBoard' slot="week">
       <view class='pick-wrp text-s flex align-item-center justify-content-between'>
         <picker bindchange="bindPickerChange" value="{{dateRange[dateRange_index].id}}" range="{{dateRange}}" range-key="{{'time'}}">
-          <view class="picker">
-            第{{dateRange[dateRange_index].batch}}期 {{dateRange[dateRange_index].time}}
+          <view class="picker bold">
+            <text decode="{{true}}">第{{dateRange[dateRange_index].batch}}期&nbsp;&nbsp; {{dateRange[dateRange_index].time}} </text>
           </view>
         </picker>
         <text class='fa fa-angle-down'></text>
       </view>
 
       <view class='list-wrp'>
-        <view class='item flex align-items-center justify-content-between' wx:for="{{idol_leader_list}}">
-          <view class='l flex align-items-center'>
+        <view class='item flex align-items-center justify-content-between' wx:for="{{idol_leader_list}}" >
+          <view class='l flex align-items-center'  data-id="{{item.idol.id}}" bindtap='turnToIdolView'>
             <view class='index bold italic'>{{index+1}}</view>
             <view class='avatar-wrp'>
               <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{item.idol.dark_skin}},0 0 0 16rpx {{item.idol.light_skin}}">
@@ -38,10 +38,10 @@
       </view>
     </view>
     <view class='idolBoard' slot="month">
-      <view class='pick-wrp text-s flex align-item-center justify-content-between'>
+      <view class='pick-wrp text-s flex align-item-center justify-content-between' style='width:240rpx;'>
         <picker bindchange="bindPickerChange" value="{{dateRange[dateRange_index].id}}" range="{{dateRange}}" range-key="{{'time'}}">
-          <view class="picker">
-            第{{dateRange[dateRange_index].batch}}期 {{dateRange[dateRange_index].time}}
+          <view class="picker bold">
+            <text decode="{{true}}">第{{dateRange[dateRange_index].batch}}期&nbsp;&nbsp;&nbsp; {{dateRange[dateRange_index].time}} </text>
           </view>
         </picker>
         <text class='fa fa-angle-down'></text>
@@ -49,7 +49,7 @@
 
       <view class='list-wrp'>
         <view class='item flex align-items-center justify-content-between' wx:for="{{idol_leader_list}}">
-          <view class='l flex align-items-center'>
+          <view class='l flex align-items-center' data-id="{{item.idol.id}}" bindtap='turnToIdolView'>
             <view class='index bold italic'>{{index+1}}</view>
             <view class='avatar-wrp'>
               <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{item.idol.dark_skin}},0 0 0 16rpx {{item.idol.light_skin}}">
@@ -69,10 +69,10 @@
       </view>
     </view>
 <view class='idolBoard' slot="year">
-      <view class='pick-wrp text-s flex align-item-center justify-content-between'>
+      <view class='pick-wrp text-s flex align-item-center justify-content-between' style='width:206rpx;'>
         <picker bindchange="bindPickerChange" value="{{dateRange[dateRange_index].id}}" range="{{dateRange}}" range-key="{{'time'}}">
-          <view class="picker">
-            第{{dateRange[dateRange_index].batch}}期 {{dateRange[dateRange_index].time}}
+          <view class="picker bold">
+            <text decode="{{true}}">第{{dateRange[dateRange_index].batch}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{dateRange[dateRange_index].time}} </text>
           </view>
         </picker>
         <text class='fa fa-angle-down'></text>
@@ -80,7 +80,7 @@
 
       <view class='list-wrp'>
         <view class='item flex align-items-center justify-content-between' wx:for="{{idol_leader_list}}">
-          <view class='l flex align-items-center'>
+          <view class='l flex align-items-center' data-id="{{item.idol.id}}" bindtap='turnToIdolView'>
             <view class='index bold italic'>{{index+1}}</view>
             <view class='avatar-wrp'>
               <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{item.idol.dark_skin}},0 0 0 16rpx {{item.idol.light_skin}}">
@@ -125,10 +125,7 @@
                 <text class='fans-count letter-sp1 bold italic' style="color:{{item.dark_skin}}">{{item.fans_num}}</text>
               </view>
             </view>
-
-
             <button class="btn-follow btn text-white" style="background:{{item.dark_skin}}" catchtap='follow' data-id="{{item.id}}" catchtap='turnToFansLeaderBoard'>粉丝贡献榜</button>
-
           </view>
         </view>
       </view>
@@ -138,3 +135,8 @@
 
   <!-- <tabbar-bottom class="w100" tab_id="{{tab_id}}" genderTheme="{{genderTheme}}"></tabbar-bottom> -->
 </view>
+
+  <view class="weui-loadmore" wx:if="{{isLoading}}" style='margin-top:50%'>
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">加载中~</view>
+  </view>

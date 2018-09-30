@@ -1,11 +1,11 @@
-<view class="container text-black">
+<view class="container text-black {{iphone_type=='iPhone X'?'is_x':''}}" wx:if="{{!isLoading}}">
   <view class='idol-list flex  flex-c justify-content-between'>
-    <view class=' w100 item ' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToView' data-index="{{item.index}}">
-      <image wx:if="{{index==0}}" src='../../images/idol-list-border1.png' class='border'></image>
-      <image wx:if="{{index==1}}" src='../../images/idol-list-border2.png' class='border'></image>
-      <image wx:if="{{index==2}}" src='../../images/idol-list-border3.png' class='border'></image>
-      <image wx:if="{{index==3}}" src='../../images/idol-list-border4.png' class='border'></image>
-      <image wx:if="{{index==4}}" src='../../images/idol-list-border5.png' class='border'></image>
+    <view class=' w100 item ' wx:for="{{list}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap='turnToView'>
+      <image wx:if="{{item.id==1}}" src='../../images/idol-list-border1.png' class='border'></image>
+      <image wx:if="{{item.id==2}}" src='../../images/idol-list-border2.png' class='border'></image>
+      <image wx:if="{{item.id==3}}" src='../../images/idol-list-border3.png' class='border'></image>
+      <image wx:if="{{item.id==4}}" src='../../images/idol-list-border4.png' class='border'></image>
+      <image wx:if="{{item.id==5}}" src='../../images/idol-list-border5.png' class='border'></image>
       <view class='item-content w100 flex justify-content-between align-items-center'>
         <view class='avatar-wrp'>
           <view class='idol-avatar' style="box-shadow:0 0 0 1px #c0c0c0,0 0 0 8rpx {{idolTheme[index].main}},0 0 0 16rpx {{idolTheme[index].sub}}">
@@ -23,10 +23,14 @@
           </view>
 
           <view class='idol-desc'>
-            <text>{{item.desc}}</text>
+            <text>{{item.short_desc}}</text>
           </view>
-          <button wx:if="{{item.isattention==2}}" class="btn-follow btn text-white" style="background:{{idolTheme[index].main}}" catchtap='follow' data-id="{{item.id}}">关注</button>
-          <button wx:if="{{item.isattention==1}}" class="btn-follow-yet btn text-white" style="border:1px solid {{idolTheme[index].main}};color:{{idolTheme[index].main}}"  data-id="{{item.id}}" catchtap='followCancel'>已关注</button>
+          <view wx:if="{{item.isattention==2}}" class='btn-wrp' data-id="{{item.id}}" catchtap='follow'>
+            <button wx:if="{{item.isattention==2}}" class="btn-follow btn text-white" style="background:{{idolTheme[index].main}}">关注</button>
+          </view>
+          <view wx:if="{{item.isattention==1}}" class='btn-wrp' data-id="{{item.id}}" catchtap='followCancel'>
+            <button  class="btn-follow-yet btn text-white" style="border:1px solid {{idolTheme[index].main}};color:{{idolTheme[index].main}}">已关注</button>
+          </view>
         </view>
       </view>
     </view>
@@ -35,22 +39,23 @@
   <!-- <tabbar-bottom class="w100" tab_id="{{tab_id}}" genderTheme="{{genderTheme}}"></tabbar-bottom> -->
 
   <!-- 关注成功popup -->
-  <view class="popup flex align-items-center justify-content-center" wx:if="{{is_show}}">
-    <view class='poster text-white'>
+  <!-- <view>{{idol_index}}</view> -->
+  <view class="popup flex align-items-center justify-content-center" wx:if="{{is_show}}" bindtap='closePopup'>
+    <view class="poster text-white  {{idol_index==0?'bg1':''}} {{idol_index==1?'bg2':''}} {{idol_index==2?'bg3':''}} {{idol_index==3?'bg4':''}} {{idol_index==4?'bg5':''}}" catchtap='openPopup'>
       <view class='poster-inner flex flex-c justify-content-between' style="background:{{idolTheme[idol_index].main}}">
         <view class='header text-center 100 letter-sp1'>
           <view>关注成功！</view>
-          <view>您是第123456位粉丝</view>
+          <view>您是第{{poster_info.attention_num}}位粉丝</view>
           <view class='btn-wrp flex justify-content-between'>
-            <view class='btn-audio'>{{this.data.list[idol_index].name}}对你说的悄悄话</view>
-            <view class='btn-support letter-sp2' style='color:{{idolTheme[idol_index].main}}' bindtap='turnToSupport'>为他应援</view>
+            <view class='btn-audio'>{{this.data.list[idol_index].name}}对你说的悄悄话<text class=''></text></view>
+            <view class='btn-support letter-sp2' style='color:{{idolTheme[idol_index].main}}' bindtap='turnToSupport'>为她应援</view>
           </view>
         </view>
-        <image src='../../images/follow-poster.png' class='poster-img w100' mode='widthFix'></image>
+        <image src='{{poster_info.poster}}' class='poster-img w100' mode='widthFix'></image>
       </view>
     </view>
-    <text class='text-s text-white tips'>长按图片进行保存，分享到朋友圈</text>
-    <image bindtap='closePopup' class='btn-close' src='../../images/icon-close.png' mode='widthFix'></image>
+    <text class='text-s text-white tips'>海报已保存到您的相册,去发朋友圈吧~</text>
+    <image  class='btn-close' src='../../images/icon-close.png' mode='widthFix'></image>
   </view>
 
   <!-- <view class='popup flex align-items-center justify-content-center' wx:if="{{is_toast_show}}">
@@ -58,14 +63,17 @@
       </view> -->
 </view>
 
+<!-- 取关弹窗 -->
 <view class='popup unfollow flex align-items-center justify-content-center' wx:if="{{is_followcancel_show}}">
-  <view class="toast-content {{gender==1?'popup-bg1':'popup-bg2'}}">
+  <view class="toast-content {{idol_index==0?'popup-idol-bg1':''}} {{idol_index==1?'popup-idol-bg2':''}} {{idol_index==2?'popup-idol-bg3':''}} {{idol_index==3?'popup-idol-bg4':''}} {{idol_index==4?'popup-idol-bg5':''}}">
     <view class='title  text-center'>不再关注{{list[idol_index].nickname}}了么</view>
     <view class='btn-wrp flex align-items-center justify-content-center'>
       <view class='btn-confirm btn text-s' catchtap='catchConfirm'>是</view>
-      <view class='btn-cancel btn text-s' style="color:{{genderTheme.main}}" catchtap='catchCancel'>否</view>
+      <view class='btn-cancel btn text-s' style="color:{{idolTheme[idol_index].main}}" catchtap='catchCancel'>否</view>
     </view>
-
   </view>
-
+</view>
+<view class="weui-loadmore" wx:if="{{isLoading}}" style='margin-top:50%'>
+  <view class="weui-loading"></view>
+  <view class="weui-loadmore__tips">加载中~</view>
 </view>

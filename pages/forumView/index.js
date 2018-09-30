@@ -7,7 +7,9 @@ import {
   formatDate2,
   formatDate3
 } from '../../utils/formatDate.js'
-Page({
+const { ajax, util, common, gets } = getApp()
+
+Page(Object.assign({}, common, gets, {
 
   /**
    * 页面的初始数据
@@ -23,48 +25,8 @@ Page({
     currentPage: 1,
     pageSize: 10,
 
-    item:{
-      id: 1,
-      user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-      user_name: '小丸子',
-      content: '大量的马路对面发明家佛为废五金覅我分解为完',
-      like_count: 100,
-      comment_count: 20,
-      create_time: '2天前',
-      imgs: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg']
-    },
-    comment_list: [{
-      id: 1,
-      user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-      user_name: '小丸子',
-      comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-      like_count: 100,
-      comment_count: 20,
-      create_time: 1537088018,
-      has_child: 1,
-      sub_name: 'sss',
-      child_count: 10,
-
-    },
-    {
-      id: 1,
-      user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-      user_name: '小丸子',
-      comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-      like_count: 100,
-      comment_count: 20,
-      create_time: 1537088018,
-    },
-    {
-      id: 1,
-      user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-      user_name: '小丸子',
-      comment_content: '真的好燃好赞啊!!多谢up主  感动哇!!!',
-      like_count: 100,
-      comment_count: 20,
-      create_time: 1537088018,
-    }
-    ],
+    item:{},
+    comment_list: [],
     is_report: false
   },
 
@@ -72,30 +34,42 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(app.globalData.genderTheme)
     this.setData({
       gender: app.globalData.gender,
-      genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
-      comment_list: this.formatCommentData(this.data.comment_list)
+      genderTheme: app.globalData.genderTheme[ app.globalData.gender - 1],
+      id: options.id
     })
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: this.data.genderTheme.main,
-      animation: {
-        duration: 400,
-        timingFunc: 'easeIn'
-      }
-    })
+    if (options.from)
+      this.setData({
+        from: options.from,
+        gender: app.globalData.gender,
+        genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
+        idol_index: app.globalData.idol_index,
+        idolTheme: app.globalData.idolTheme,
+        id: options.id
+      })
+    if (this.data.from == 1) {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: this.data.genderTheme.main,
+        animation: {
+          duration: 400,
+          timingFunc: 'easeIn'
+        }
+      })
+    } else {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: this.data.genderTheme.main,
+        animation: {
+          duration: 400,
+          timingFunc: 'easeIn'
+        }
+      })
+    }
   },
-  formatCommentData: function (data) {
-    let list = data;
-    list.forEach((item) => {
-      item.create_time = formatDate3(item.create_time)
-      // item.child_comment_list.forEach((item)=>{
-      //       item.create_time = formatDate3(item.create_time)
-      // })
-    })
-    return list
-  },
+
   focusChange: function () {
     this.setData({
       is_focus: true
@@ -135,6 +109,76 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var param = {
+      id:this.data.id
+    }
+
+    gets.forumdetail(param).then(res => {
+      this.setData({
+        detail:res
+      })
+    })
+  },
+
+  clear: function () {
+    var param = {
+      id: this.data.id,
+      status: 2,
+      type: 1,
+    }
+    ajax.favorite(param).then(res => {
+      this.onShow()
+    })
+  },
+  // 收藏成功
+  like: function () {
+    var param = {
+      id: this.data.id,
+      status: 1,
+      type: 1,
+    }
+    ajax.favorite(param).then(res => {
+      this.onShow()
+    })
+  },
+
+  // 点赞
+  praise: function (e) {
+    console.log(e.currentTarget.dataset.status)
+    var status = e.currentTarget.dataset.status
+    var type = e.currentTarget.dataset.type
+    var param = {
+      type: type,
+      id: this.data.id,
+      status: status
+    }
+
+    ajax.praise(param).then(res => {
+      console.log(res)
+      this.onShow()
+    })
+  },
+  blurChange:function(e){
+    this.setData({
+      text:e.detail.value
+    })
+  },
+  // 发布评论
+  submit:function(e){
+    console.log("发布评论")
+    var param = {
+      content: this.data.text,
+      id: e.currentTarget.dataset.id,
+      type: e.currentTarget.dataset.type,
+    }
+    var that = this
+    ajax.writeComment(param).then(res => {
+      that.setData({
+        value: ''
+      })
+      console.log(this.data.placeholder)
+      that.onShow()
+    })
 
   },
 
@@ -170,6 +214,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    if (res.from === 'button') {
+    }
+    return {
+      title: 'star',
+      path: `/pages/forumView/index?id=${this.data.id}`,
+      imageUrl: ''
+    }
   }
-})
+}))

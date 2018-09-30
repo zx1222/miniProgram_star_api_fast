@@ -36,43 +36,70 @@ Page(Object.assign({}, common, apiUrl, gets,{
     //图片宽度 
     imgwidth: 750,
     
-    is_report: false
+    text:'',
+    is_report: false,
+    bubbles:false,
+    reportId:'',
+    reportReasonArr: [{
+      name: '1',
+      value: '广告'
+    },
+    {
+      name: '2',
+      value: '人身攻击'
+    },
+    {
+      name: '3',
+      value: '违法违规'
+    },
+    {
+      name: '4',
+      value: '其他'
+    },
+    ],
+    reason: 0,
+    desc: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
-    
-    // let comment_list = this.data.comment_list;
-
     this.setData({
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
-      // comment_list: this.formatCommentData(this.data.comment_list),
       id: options.id
     })
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: this.data.genderTheme.main,
-      animation: {
-        duration: 400,
-        timingFunc: 'easeIn'
-      }
-    })
-
+    if (options.from)
+      this.setData({
+        from: options.from,
+        gender: app.globalData.gender,
+        genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
+        idol_index: app.globalData.idol_index,
+        idolTheme: app.globalData.idolTheme,
+        id: options.id
+      })
+    if (this.data.from == 1) {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: this.data.genderTheme.main,
+        animation: {
+          duration: 400,
+          timingFunc: 'easeIn'
+        }
+      })
+    } else {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: this.data.genderTheme.main,
+        animation: {
+          duration: 400,
+          timingFunc: 'easeIn'
+        }
+      })
+    }
   },
-  // formatCommentData: function(data) {
-  //   let list = data;
-  //   list.forEach((item) => {
-  //     item.create_time = formatDate3(item.create_time)
-  //     // item.child_comment_list.forEach((item)=>{
-  //     //       item.create_time = formatDate3(item.create_time)
-  //     // })
-  //   })
-  //   return list
-  // },
+
   focusChange: function() {
     this.setData({
       is_focus: true
@@ -112,26 +139,26 @@ Page(Object.assign({}, common, apiUrl, gets,{
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // var that = this
-    // wx.request({
-    //   url: apiUrl.mediaDetail, //仅为示例，并非真实的接口地址
-    //   data: {
-    //     id: this.data.id,
-    //   },
-    //   method: 'GET',
-    //   header: {
-    //     'content-type': 'application/json' // 默认值
-    //   },
-    //   success(res) {
-    //     that.setData({
-    //       detail: res.data
-    //     })
-    //     console.log(res)
-    //   }
-    // })
+    var that = this
+    wx.request({
+      url: apiUrl.mediaDetail, //仅为示例，并非真实的接口地址
+      data: {
+        id: this.data.id,
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        that.setData({
+          detail: res.data
+        })
+        console.log(res)
+      }
+    })
 
     var param = {
-      id: 10,
+      id: this.data.id,
     }
 
     gets.mediaDetail(param).then(res => {
@@ -139,7 +166,6 @@ Page(Object.assign({}, common, apiUrl, gets,{
       this.setData({
         detail: res
       })
-
     })
 
     gets.comment(param).then(result => {
@@ -156,6 +182,121 @@ Page(Object.assign({}, common, apiUrl, gets,{
         })
       }
     })
+  },
+  bindTextChange: function (e) {
+    this.setData({
+      text: e.detail.value
+    })
+  },
+  // 发布评论
+  comment: function (e) {
+    console.log("发布评论")
+    var param = {
+      content: this.data.text,
+      id: e.currentTarget.dataset.id,
+      pid: e.currentTarget.dataset.pid,
+      type: e.currentTarget.dataset.type,
+    }
+    var that = this
+    ajax.writeComment(param).then(res => {
+      that.setData({
+        text: ''
+      })
+      console.log(this.data.placeholder)
+      that.onShow()
+    })
+  },
+
+  // 取消收藏
+  clear: function () {
+    var param = {
+      id: this.data.id,
+      status: 2,
+      type: 3,
+    }
+    ajax.favorite(param).then(res => {
+      this.onShow()
+    })
+  },
+  // 收藏成功
+  like: function () {
+    var param = {
+      id: this.data.id,
+      status: 1,
+      type: 3,
+    }
+    ajax.favorite(param).then(res => {
+      this.onShow()
+    })
+  },
+
+  // 点赞
+  praise: function (e) {
+    console.log(e.currentTarget.dataset.status)
+    var status = e.currentTarget.dataset.status
+    var type = e.currentTarget.dataset.type
+    const id = e.currentTarget.dataset.id
+    var param = {
+      type: type,
+      id: id,
+      status: status
+    }
+
+    ajax.praise(param).then(res => {
+      console.log(res)
+      this.onShow()
+    })
+  },
+
+  // 举报内容选择
+
+  radioChange: function (e) {
+    this.setData({
+      reason: e.detail.value
+    })
+  },
+
+  // 举报文本
+  textarea: function (e) {
+    this.setData({
+      desc: e.detail.value
+    })
+  },
+  
+  // 举报弹窗
+  reporte: function (e) {
+    console.log(e.currentTarget.dataset.id)
+    this.setData({
+      reportId: e.currentTarget.dataset.id
+    })
+    if (this.data.bubbles) {
+      this.setData({
+        bubbles: false
+      })
+    } else {
+      this.setData({
+        bubbles: true
+      })
+    }
+  },
+
+  // 提交举报
+  report: function () {
+    var param = {
+      reason: this.data.reason,
+      desc: this.data.desc,
+      id: this.data.reportId,
+      type: 2
+    }
+
+    ajax.report(param).then(res => {
+      console.log(res)
+      this.onShow()
+      this.setData({
+        bubbles: false
+      });
+    })
+
   },
 
   /**
@@ -246,6 +387,12 @@ Page(Object.assign({}, common, apiUrl, gets,{
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    if (res.from === 'button') {
+    }
+    return {
+      title: 'star',
+      path: `/pages/newsView/index?id=${this.data.id}`,
+      imageUrl: ''
+    }
   }
 }))

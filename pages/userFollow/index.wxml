@@ -1,6 +1,9 @@
 <view class="container">
+<view wx:if="{{list.length==0}}" class='w100 text-center no-follow text-s bold'>
+<text>您还没有关注的歌姬，快去关注吧</text><text class='fa fa-angle-right icon'></text>
+</view>
   <view class='follow-list flex  flex-c '>
-    <view class=' w100 item ' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToView' data-index="{{ item.id}}">
+    <view class=' w100 item' wx:if="{{list.length!=0}}" wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToView' data-id="{{item.idol_id}}">
       <image wx:if="{{item.idol_id=='1'}}" src='../../images/idol-list-border1.png' class='border'></image>
       <image wx:if="{{item.idol_id=='2'}}" src='../../images/idol-list-border2.png' class='border'></image>
       <image wx:if="{{item.idol_id=='3'}}" src='../../images/idol-list-border3.png' class='border'></image>

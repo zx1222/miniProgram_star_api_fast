@@ -45,17 +45,18 @@ export function login() {
                         throw new Error('用户登录失败。' + res.errMsg);
                   } else {
                         const params = {
-                              appid: 'wxdc41a6ac2e1bcd06',
+                          appid: 'wxf309d55a5d5b3aae',
                               grant_type: 'authorization_code',
                               js_code: res.code,
-                              secret: '85369ef07a115a9a2adea00534d30316'
+                          secret: '071e802f4e321d37d013e1384ba98512'
                         }
                         return loginServer(params)
                               .then((res) => {
                                     console.log(res)
                                     console.log('login server success')
                                     wx.setStorageSync('access_token', res.data.member);
-                                    wx.setStorageSync('is_first', res.data.is_first);
+                                console.log(res.data.member)
+                                console.log(wx.getStorageSync('access_token'));
                                     console.log(wx.getStorageSync('is_first'))
                               })
                   }

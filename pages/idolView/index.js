@@ -8,6 +8,7 @@ import {
   formatDate2
 } from '../../utils/formatDate.js'
 const {
+  gets,
   ajax,
   util,
   common
@@ -22,7 +23,7 @@ Page({
     tabCurrent: 0,
     // 动态tab
     indicatorArr: ['直播', '动画', 'PV', 'MV', '短视频', '事件'],
-    
+
     swiperCurrent: 0,
     // 判断是首页还是歌姬详情
     p_swiper: 1,
@@ -30,147 +31,46 @@ Page({
     // 关注成功popup显示
     is_show: false,
     // 取关弹窗
-    is_followcancel_show:false,
+    is_followcancel_show: false,
     idolTheme: [],
     idol_index: 0,
-    idolInfo: [{
-        hd_desc: '除了祖国的命令，只有游戏才能让她动起来的萝莉',
-        fans: 100,
-        hot: 400,
-        rank: 1,
-        is_follow: 2,
-        image: '../../images/idol1.png',
-        bg: 'https://star.t.miinno.net/star_img/idol-brief-inro_bg1.png',
-        country: '../../images/idol-country1.png',
-        name: '卡缇娅·乌拉诺娃',
-        short_name: '卡缇娅',
-        birthdaty: '6月6日',
-        age: '14',
-        flower: '晚香玉',
-        sub_desc: '外表激萌小女孩，内心痴汉偶像宅；平时三无没干劲，肝起游戏来不要命。'
-      },
-      {
-        hd_desc: '认真努力的摇滚少女',
-        fans: 100,
-        hot: 400,
-        rank: 1,
-        is_follow: 1,
-        image: '../../images/idol2.png',
-        bg: 'https://star.t.miinno.net/star_img/idol-brief-inro_bg2.png',
-        country: '../../images/idol-country2.png',
-        name: '罗兹·巴蕾特',
-        short_name: '罗兹',
-        birthdaty: '4月16日',
-        age: '16',
-        flower: '玫瑰',
-        sub_desc: '敢想敢做的摇滚女孩，正直的她总承担着吐槽团队中其他人奇怪行为的责任。'
-      },
-      {
-        hd_desc: '神秘优雅的大家闺秀',
-        fans: 100,
-        hot: 400,
-        rank: 1,
-        is_follow: 2,
-        image: '../../images/idol3.png',
-        bg: 'https://star.t.miinno.net/star_img/idol-brief-inro_bg3.png',
-        country: '../../images/idol-country3.png',
-        name: '李清歌',
-        short_name: '清歌',
-        birthdaty: '12月22日',
-        age: '15',
-        flower: '茉莉',
-        sub_desc: '端庄优雅的大家闺秀，平时总给人一种雾里看花的感觉，但到关键时刻却能以坚定的信念带领着大家前进。'
-      },
-      {
-        hd_desc: '青春活泼的超级乐天派',
-        fans: 100,
-        hot: 400,
-        rank: 1,
-        is_follow: 2,
-        image: '../../images/idol4.png',
-        bg: 'https://star.t.miinno.net/star_img/idol-brief-inro_bg4.png',
-        country: '../../images/idol-country4.png',
-        name: '伊莎贝拉·霍利',
-        short_name: '伊莎贝拉',
-        birthdaty: '7月17',
-        age: '16',
-        flower: '向日葵',
-        sub_desc: '活泼可爱的美国女孩，平时虽然大大咧咧，但却非常会照顾人，跟她在一起总有种安心的感觉。'
-      },
-      {
-        hd_desc: '自称妖狐转世的中二少女',
-        fans: 100,
-        hot: 400,
-        rank: 1,
-        is_follow: 2,
-        image: '../../images/idol5.png',
-        bg: 'https://star.t.miinno.net/star_img/idol-brief-inro_bg5.png',
-        country: '../../images/idol-country5.png',
-        name: '神宫司玉藻',
-        short_name: '玉藻',
-        birthdaty: '11月11日',
-        age: '15',
-        flower: '樱花',
-        sub_desc: '自称是狐神转世的妹子，外表看起来端庄乖巧，但不知道为啥一开口就让人有一种“这是中二病吧？”的感觉。'
-      }
-    ],
+    idol_info: {},
 
     // 动态变量
     resultData: {},
     loading: false,
     tab_top_id: 0,
-    list: [{
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        tag: '直播',
-        date: 1537088018
-      },
-      {
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        tag: '直播',
-        date: 1537088018
-      },
-      {
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        tag: '直播',
-        date: 1537088018
-      },
-      {
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        tag: '直播',
-        date: 1537088018
-      }
-    ],
+    list: [],
 
     // 后援会
     // 规则 显示与否
     is_rules_show: false,
-    forum_list: [{
-        id: 1,
-        user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-        user_name: '小丸子',
-        content: '啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦!!!',
-        like_count: 100,
-        comment_count: 20,
-        create_time: '25天前',
-        cover: '../../images/video-poster-default.png'
-      },
-      {
-        id: 1,
-        user_avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537173935576&di=1a4d9cfa47850ba062b0e622f9bd5d75&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F13%2F20160713114847_KcAJz.jpeg',
-        user_name: '小丸子',
-        content: '啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦!!!',
-        like_count: 100,
-        comment_count: 20,
-        create_time: '25天前',
-        cover: '../../images/video-poster-default.png'
-      },
-    ],
+    forum_list: [],
     // 发布类型与否
     is_post_show: false,
+
+    // 后援会帖子
+    forum_page: 1,
+    bubbles:false,
+    reportId:'',
+    reportReasonArr: [{
+      name: '1',
+      value: '广告'
+    },
+    {
+      name: '2',
+      value: '人身攻击'
+    },
+    {
+      name: '3',
+      value: '违法违规'
+    },
+    {
+      name: '4',
+      value: '其他'
+    },
+    ],
+    poster_info: {}
   },
 
   /**
@@ -179,29 +79,23 @@ Page({
   onLoad: function(options) {
     console.log(options)
     this.setData({
-      idol_index: options.index,
+      idol_index: app.globalData.idol_index,
       idolTheme: app.globalData.idolTheme,
-      list: this.formatlist1(this.data.list)
+      gender: app.globalData.gender,
+      genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
     })
-    console.log()
-    wx.setNavigationBarTitle({
-      title: this.data.idolInfo[this.data.idol_index].name,
-    })
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: this.data.idolTheme[this.data.idol_index].main,
-      animation: {
-        duration: 400,
-        timingFunc: 'easeIn'
-      }
-    })
+    if(options.tab){
+      this.setData({
+        tabCurrent: options.tab
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    this.getIdolInfo();
   },
 
   /**
@@ -210,15 +104,16 @@ Page({
   onShow: function() {
     this.getIndex(1)
     this.banner(1)
+    this.getForumList()
   },
-  _tapIndicator: function (e) {
+  _tapIndicator: function(e) {
     console.log(e)
     var types = e.currentTarget.dataset.index
     this.setData({
       swiperCurrent: types,
       banner: [],
       list: [],
-      tab_id: parseInt(types)+1,
+      tab_id: parseInt(types) + 1,
       page: 1
     })
     // this.getIndex(types)
@@ -226,13 +121,11 @@ Page({
 
   },
   // 请求首页内容**********
-  getIndex: function (type) {
+  getIndex: function(type) {
     var params = {
       type: type,
       page: 1
-
     }
-
     ajax.getIndex(params).then(res => {
       console.log(res)
       this.setData({
@@ -241,22 +134,43 @@ Page({
         count_page: res._meta.pageCount,
         type: type
       })
-
       if (parseInt(this.data.current_page) + 1 > this.data.count_page) {
         this.setData({
           isLoading: true,
         })
       }
-      console.log(this.data.isLoading)
+    })
+  },
+  // 获取歌姬信息
+  getIdolInfo: function() {
+    console.log(this.data.idol_index)
+    const params = {
+      idol_id: this.data.idol_index + 1
+    }
+    gets.getIdolInfo(params).then(res => {
+      this.setData({
+        idol_info: res
+      })
+      wx.setNavigationBarTitle({
+        title: res.fullname
+      })
+      const index = parseInt(res.id) - 1
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: this.data.idolTheme[index].main,
+        animation: {
+          duration: 400,
+          timingFunc: 'easeIn'
+        }
+      })
     })
   },
 
   // 请求轮播图
-  banner: function (type) {
+  banner: function(type) {
     var params = {
       type: type,
       page: 1
-
     }
     ajax.banner(params).then(res => {
       console.log(res)
@@ -266,10 +180,12 @@ Page({
       })
     })
   },
+
   // tab切换  数据变化*************
-  _tapIndicator: function (e) {
+  _tapIndicator: function(e) {
     console.log(e.currentTarget.dataset.index)
-    var types = e.currentTarget.dataset.index  
+    var types = e.currentTarget.dataset.index
+    console.log(this.data.swiperCurrent)
     this.setData({
       swiperCurrent: types,
       banner: [],
@@ -277,32 +193,112 @@ Page({
       tab_id: types,
       page: 1
     })
-    this.getIndex(parseInt(types)+1  )
-    this.banner(parseInt(types) + 1 )
-
+    this.getIndex(parseInt(types) + 1)
+    this.banner(parseInt(types) + 1)
   },
 
-  // 去详情
-  turnToViewVideo: function (e) {
+  // 去视频详情
+  turnToViewVideo: function(e) {
     console.log(e)
     var id = e.currentTarget.dataset.id
     var from = e.currentTarget.dataset.from
-
     wx.navigateTo({
-      url: `/pages/videoVIew/index?id=${id}&from=${from}`,
+      url: `/pages/videoView/index?id=${id}&from=${from}`,
     })
   },
 
-  todetail: function (e) {
+  todetail: function(e) {
     console.log(e)
     var id = e.currentTarget.dataset.id
-
-
+    var from = e.currentTarget.dataset.from
     wx.navigateTo({
-      url: `/pages/newsView/index?id=${id}`,
+      url: `/pages/newsView/index?id=${id}&&from=${from}`,
     })
   },
 
+  getForumList: function() {
+    const params = {
+      page: this.data.forum_page,
+      idol_id: this.data.idol_index + 1
+    }
+    gets.getIdolForums(params).then(res => {
+      this.setData({
+        forum_list: res.items
+      })
+    })
+  },
+  // 去帖子详情
+  turnToViewForum: function(e) {
+    const id=e.currentTarget.dataset.id
+    var from = e.currentTarget.dataset.from
+    wx.navigateTo({
+      url: `/pages/forumView/index?id=${id}&&from=${from}`,
+    })
+  },
+  // 点赞帖子
+  praise: function(e) {
+    console.log(e.currentTarget.dataset.status)
+    var status = e.currentTarget.dataset.status
+    const  index= e.currentTarget.dataset.index
+    const id = e.currentTarget.dataset.id
+    var param = {
+      type: 1,
+      id: id,
+      status: status
+    }
+    ajax.praise(param).then(res => {
+      this.getForumList();
+    })
+  },
+
+  radioChange: function (e) {
+    this.setData({
+      reason: e.detail.value
+    })
+  },
+    // 举报文本
+  textarea:function(e){
+    this.setData({
+      desc: e.detail.value
+    })
+  },
+  // 举报弹窗
+  reporte: function (e) {
+    console.log(e.currentTarget.dataset.id)
+    this.setData({
+      reportId: e.currentTarget.dataset.id
+    })
+    if (this.data.bubbles) {
+      this.setData({
+        bubbles: false
+      })
+    } else {
+      this.setData({
+        bubbles: true
+      })
+    }
+  },
+  cancel:function(){
+    this.setData({
+      bubbles: false
+    })
+  },
+  // 提交举报
+  report: function () {
+    var param = {
+      reason: this.data.reason,
+      desc: this.data.desc,
+      id: this.data.reportId,
+      type: 1
+    }
+    ajax.report(param).then(res => {
+      console.log(res)
+      this.getForumList();
+      this.setData({
+        bubbles: false
+      });
+    })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -334,94 +330,76 @@ Page({
   onReachBottom: function() {
 
   },
-  getDataList: function() {
-    if (this.data.tab_top_id == 0) {
-      this.setData({
-        resultData: {
-          banners: [
-            '../../images/banner.jpg',
-            '../../images/banner.jpg',
-            '../../images/banner.jpg',
-          ]
-        }
-      })
-    }
-  },
+
   tapIndicator(e) {
     this.setData({
       'tabCurrent': e.target.dataset.index
     });
-    const data = this.data.tabCurrent
-    this.triggerEvent('childEvent', data, {
-      bubbles: false
-    });
-    this.getDataList();
+    if (this.data.tabCurrent == 0 || this.data.tabCurrent == 2) {
+      this.getIdolInfo();
+      console.log(this.data.idol_info)
+    }
   },
-  catchChildSwiper: function(e) {
-    this.setData({
-      tab_top_id: e.detail
-    })
-    console.log(this.data.tab_top_id)
-    if (this.data.tab_top_id == 0) {
-      this.setData({
-        resultData: {
-          banners: ['../../images/banner.jpg',
-            '../../images/banner.jpg',
-            '../../images/banner.jpg',
-          ]
-        }
-      })
-    }
-    if (this.data.tab_top_id == 1) {
-      this.setData({
-        resultData: {
-          banners: ['../../images/banner.jpg',
-            '../../images/banner.jpg',
-            '../../images/banner.jpg',
-          ]
-        }
-      })
-    }
 
-    if (this.data.tab_top_id == 6) {
-      const data = [{
-        poster: '../../images/video-poster-default.png',
-        title: '卡缇娅视频',
-        comment_count: 77,
-        date: 1537088018
-      }]
-      this.setData({
-        list: this.formatlist2(data)
-      })
-      console.log(this.data.list)
+
+  // 关注
+  follow: function(e) {
+    const params = {
+      idol_id: this.data.idol_info.id,
     }
-  },
-  formatlist1: function(list) {
-    const data = list
-    data.forEach((item) => {
-      item.date = formatDate1(item.date)
-    })
-    return data
-  },
-  formatlist2: function(list) {
-    const data = list
-    data.forEach((item) => {
-      item.date = formatDate2(item.date)
-    })
-    return data
-  },
-  follow: function() {
-    let idolInfo = this.data.idolInfo
-    idolInfo[this.data.idol_index].is_follow = 1
-    console.log(idolInfo)
-    this.setData({
-      is_show: true,
-    })
-    setTimeout(() => {
+    const idol_info = this.data.idol_info
+    gets.follow(params).then(res => {
+      idol_info.is_attention = 1
       this.setData({
-        idolInfo: idolInfo
+        is_show: true,
+        idol_info: idol_info,
+        poster_info:res
       })
-    }, 300)
+      wx.getSetting({
+        success: (res) => {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success: (res) => {
+              this.downloadFile()
+            },
+            fail: function () {
+              wx.openSetting({
+                success: (res) => {
+                  if (!res.authSetting["scope.writePhotosAlbum"] || !res.authSetting["scope.writePhotosAlbum"]) { }
+                }
+              })
+            }
+          })
+        }
+      })　　
+    })
+  },
+  downloadFile: function () {
+    var imgUrl = this.data.poster_info.poster;
+    //图片地址
+    wx.downloadFile({
+      url: imgUrl,
+      success: function (res) {
+        // 下载成功后再保存到本地
+        wx.saveImageToPhotosAlbum({
+          //返回的临时文件路径，下载后的文件会存储到一个临时文件
+          filePath: res.tempFilePath,
+          success: function (res) {
+            wx.showToast({
+              title: '成功保存图片',
+            })
+          }
+        })
+      }
+    })
+  },
+
+  // 取关
+  followCancel: function(e) {
+    this.setData({
+      // idol_index: parseInt(e.currentTarget.dataset.id) - 1,
+      is_followcancel_show: true
+    })
   },
   closePopup: function() {
     this.setData({
@@ -431,9 +409,28 @@ Page({
     })
   },
   turnToSupport: function() {
-    console.log('ss')
     wx.navigateTo({
       url: '/pages/task/index',
+    })
+  },
+  // 取消取关
+  catchCancel: function(e) {
+    this.setData({
+      is_followcancel_show: false
+    })
+  },
+  // 确定取关
+  catchConfirm: function(e) {
+    const params = {
+      idol_id: this.data.idol_index + 1
+    }
+    const idol_info = this.data.idol_info
+    idol_info.is_attention = 2
+    gets.followCancel(params).then(res => {
+      this.setData({
+        is_followcancel_show: false,
+        idol_info: idol_info
+      })
     })
   },
   // 选择发布类型
@@ -452,6 +449,11 @@ Page({
     console.log(e.detail)
     this.setData({
       is_post_show: e.detail
+    })
+  },
+  turnToPost: function() {
+    wx.navigateTo({
+      url: '/pages/editForum/index',
     })
   },
   /**

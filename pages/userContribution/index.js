@@ -3,7 +3,15 @@ const app = getApp()
 import {
   wxRequest
 } from '../../utils/promise.js'
-Page({
+const {
+  ajax,
+  util,
+  common,
+  apiUrl,
+  gets
+} = getApp()
+
+Page(Object.assign({}, common, {
 
   /**
    * 页面的初始数据
@@ -20,48 +28,13 @@ Page({
     genderTheme: {},
     idol_index: 2,
     idolTheme: [],
-    list: [{
-      index: 0,
-      avatar: '../../images/idol-avatar1.png',
-      fans: 100,
-      name: '卡缇娅',
-      contribution: 100,
-    },
-    {
-      index: 1,
-      avatar: '../../images/idol-avatar2.png',
-      fans: 100,
-      name: '罗兹',
-      contribution: 100,
-    },
-    {
-      index: 2,
-      avatar: '../../images/idol-avatar3.png',
-      fans: 100,
-      name: '清歌',
-      contribution: 100,
-    },
-      {
-        index: 3,
-        avatar: '../../images/idol-avatar4.png',
-        fans: 100,
-        name: '伊莎贝拉',
-        contribution: 100,
-      },
-      {
-        index: 4,
-        avatar: '../../images/idol-avatar5.png',
-        fans: 100,
-        name: '玉藻',
-        contribution: 100,
-      }
-    ],
+    list: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData({
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
@@ -80,56 +53,59 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
-  turnToLeaderBoard:function(e){
-    const index=e.currentTarget.dataset.index
+  turnToLeaderBoard: function(e) {
+    const index =parseInt(e.currentTarget.dataset.id)-1
     app.globalData.idol_index = index
     wx.navigateTo({
-      url:  `/pages/fansLeaderBoard/index`,
+      url: `/pages/fansLeaderBoard/index`,
     })
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function() {
+    this.setData({
+      
+    })
+    this.getData();
   },
-
+  getData: function() {
+    gets.getContributionList('').then(res => {
+      this.setData({
+        list: res
+      })
+      console.log(this.data.list)
+    })
+  },
+  turnToView:function(e){
+    app.globalData.idol_index==parseInt(e.currentTarget.dataset.id)-1
+    wx.navigateTo({
+      url: '/pages/idolView/index?tab=0',
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
-})
+}))

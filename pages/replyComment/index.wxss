@@ -1,1 +1,19 @@
-/* pages/replyComment/index.wxss */
+.container{
+  width: 100%;
+  height: 100%;
+}
+textarea {
+  width: 100%;
+  padding: 14rpx 20rpx;
+  height: 200rpx;
+  font-size: 28rpx;
+    margin: 14rpx 0;
+}
+.btn-send {
+  margin: 40rpx 20rpx 0 20rpx;
+  width: 160rpx;
+  height: 50rpx;
+  border-radius: 4rpx;
+  line-height: 50rpx;
+  background: #fff;
+}

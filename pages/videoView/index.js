@@ -8,10 +8,15 @@ import {
   formatDate3
 } from '../../utils/formatDate.js'
 
-const { ajax, util, common, apiUrl, gets} = getApp()
+const {
+  ajax,
+  util,
+  common,
+  apiUrl,
+  gets
+} = getApp()
 
-Page(Object.assign({}, common, apiUrl, gets,{
-
+Page(Object.assign({}, common, apiUrl, gets, {
   /**
    * 页面的初始数据
    */
@@ -31,7 +36,26 @@ Page(Object.assign({}, common, apiUrl, gets,{
 
     is_report: false,
     // 首页1 歌姬2
-    from: 1
+    from: 1,
+    placeholder: '我也来说一句...',
+    bubbles: false,
+    reportReasonArr: [{
+        name: '1',
+        value: '广告'
+      },
+      {
+        name: '2',
+        value: '人身攻击'
+      },
+      {
+        name: '3',
+        value: '违法违规'
+      },
+      {
+        name: '4',
+        value: '其他'
+      },
+    ],
   },
 
   /**
@@ -41,17 +65,15 @@ Page(Object.assign({}, common, apiUrl, gets,{
     const item = this.data.item;
 
     console.log(options)
-    if (options)
-      // item.date = formatDate2(item.date)
-    this.setData({
-      from: options.from,
-      // item: item,
-      gender: app.globalData.gender,
-      genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
-      idol_index: app.globalData.idol_index,
-      idolTheme: app.globalData.idolTheme,
-      id: options.id
-    })
+    if (options.from)
+      this.setData({
+        from: options.from,
+        gender: app.globalData.gender,
+        genderTheme: app.globalData.genderTheme[app.globalData.gender - 1],
+        idol_index: app.globalData.idol_index,
+        idolTheme: app.globalData.idolTheme,
+        id: options.id
+      })
     if (this.data.from == 1) {
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
@@ -71,7 +93,6 @@ Page(Object.assign({}, common, apiUrl, gets,{
         }
       })
     }
-
   },
   catchReport: function(e) {
     this.setData({
@@ -92,11 +113,38 @@ Page(Object.assign({}, common, apiUrl, gets,{
     console.log(e.detail)
   },
 
-// 发布评论
-  comment:function(e){
-    console.log(e)
-    const data=e.detail.value
+  // 发布评论
+  comment: function(e) {
+    console.log("发布评论")
+    var param = {
+      content: this.data.text,
+      id: e.currentTarget.dataset.id,
+      pid: e.currentTarget.dataset.pid,
+      type: e.currentTarget.dataset.type,
+    }
+    var that = this
+    ajax.writeComment(param).then(res => {
+      that.setData({
+        value: ''
+      })
+      console.log(this.data.placeholder)
+      that.onShow()
+    })
+  },
 
+  // 跳转回复评论
+  turnToReply: function(e) {
+    const data = {
+      id: e.currentTarget.dataset.id,
+      uid: e.currentTarget.dataset.uid,
+      type: e.currentTarget.dataset.type,
+      uname: e.currentTarget.dataset.uname
+    }
+    console.log(data)
+    wx.navigateTo({
+      url: `/pages/replyComment/index?id=${data.id}&&uid=${
+    data.uid}&&type=${data.type}&&uname=${data.uname}`,
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -110,26 +158,23 @@ Page(Object.assign({}, common, apiUrl, gets,{
    */
   onShow: function() {
     var param = {
-      id:this.data.id,
+      id: this.data.id,
     }
-    
-    
+
     gets.mediaDetail(param).then(res => {
       console.log()
       this.setData({
-          detail: res,
-          
-        })
-
+        detail: res,
+        placeholder: '我也来说一句...'
+      })
     })
 
     var params = {
-      id: 10,
-      page:1
+      id: this.data.id,
+      page: 1
     }
 
     gets.comment(params).then(result => {
-      console.log(result)
       this.setData({
         comment: result.items,
         current_page: result._meta.currentPage,
@@ -141,57 +186,116 @@ Page(Object.assign({}, common, apiUrl, gets,{
         })
       }
     })
-    // var that = this
-    // wx.request({
-    //   url: apiUrl.mediaDetail, //仅为示例，并非真实的接口地址
-    //   data: {
-    //     id: this.data.id,
-    //   },
-    //   method:'GET',
-    //   header: {
-    //     'content-type': 'application/json' // 默认值
-    //   },
-    //   success(res) {
-    //     that.setData({
-    //       detail: res.data
-    //     })
-    //     console.log(res)
-    //   }
-    // })
-
-    // console.log(ajax)
   },
 
   // 取消收藏
-  clear:function(){
+  clear: function() {
     var param = {
-      id:this.data.id,
-      status:2,
-      type:3,
+      id: this.data.id,
+      status: 2,
+      type: 3,
     }
-
-
-    
-    ajax.favorite(param).then(res =>{
-      console.log('取消收藏')
+    ajax.favorite(param).then(res => {
       this.onShow()
     })
   },
-  like: function () {
+  // 收藏成功
+  like: function() {
     var param = {
       id: this.data.id,
       status: 1,
       type: 3,
     }
-
-
-
     ajax.favorite(param).then(res => {
-      console.log('收藏成功')
       this.onShow()
     })
   },
 
+  // 点赞
+  praise: function(e) {
+    console.log(e.currentTarget.dataset.status)
+    var status = e.currentTarget.dataset.status
+    var type = e.currentTarget.dataset.type
+    var id = e.currentTarget.dataset.id
+    var param = {
+      type: type,
+      id: id,
+      status: status
+    }
+
+    ajax.praise(param).then(res => {
+      console.log(res)
+      this.onShow()
+    })
+  },
+
+  // 举报弹窗
+  reporte: function(e) {
+    console.log(e.currentTarget.dataset.id)
+    this.setData({
+      reportId: e.currentTarget.dataset.id
+    })
+
+    if (this.data.bubbles) {
+      this.setData({
+        bubbles: false
+      })
+    } else {
+      this.setData({
+        bubbles: true
+      })
+    }
+  },
+
+
+  // 提交举报
+  report: function() {
+    var param = {
+      reason: this.data.reason,
+      desc: this.data.desc,
+      id: this.data.reportId,
+      type: 2
+    }
+
+    ajax.report(param).then(res => {
+      console.log(res)
+      this.onShow()
+      this.setData({
+        bubbles: false
+      });
+    })
+
+  },
+
+  // 取消举报
+  cancel: function() {
+
+    this.setData({
+      bubbles: false
+    });
+  },
+
+  // 举报内容选择
+
+  radioChange: function(e) {
+    this.setData({
+      reason: e.detail.value
+    })
+  },
+
+  // 举报文本
+  textarea: function(e) {
+    this.setData({
+      desc: e.detail.value
+    })
+  },
+  // 评论列表
+  turnToView: function(e) {
+    var commenid = e.currentTarget.dataset.commenid
+    wx.navigateTo({
+      url: `/pages/commentView/index?commenid=${commenid}`,
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -214,9 +318,9 @@ Page(Object.assign({}, common, apiUrl, gets,{
   },
 
   /**
-  * 页面上拉触底事件的处理函数
-  */
-  onReachBottom: function () {
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
     console.log(this.data.isLoading)
     if (this.data.isLoading) {
       return;
@@ -248,20 +352,26 @@ Page(Object.assign({}, common, apiUrl, gets,{
           isLoading: true,
         })
       }
-
       console.log(this.data.isLoading)
     })
 
   },
-  focusChange: function() {
+  focusChange: function(e) {
     this.setData({
       is_focus: true
     })
     console.log(this.data.is_focus)
   },
-  blurChange: function() {
+  blurChange: function(e) {
+    console.log(e.detail.value)
     this.setData({
-      is_focus: false
+      is_focus: false,
+      text: e.detail.value
+    })
+  },
+  bindTextChange: function(e) {
+    this.setData({
+      text: e.detail.value
     })
   },
   // 获取播放进度
@@ -276,6 +386,12 @@ Page(Object.assign({}, common, apiUrl, gets,{
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    if (res.from === 'button') {
+    }
+    return {
+      title: 'star',
+      path: `/pages/videoView/index?id=${this.data.id}`,
+      imageUrl: ''
+    }
   }
 }))

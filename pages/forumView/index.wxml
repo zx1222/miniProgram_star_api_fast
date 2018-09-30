@@ -1,45 +1,45 @@
 <view class="container">
   <view class='forum-wrp flex justify-content-between'>
     <view class='avatar'>
-      <image class='w100' src='{{item.user_avatar}}' mode='widthFix'></image>
+      <image class='w100' src='{{detail.member.headimg}}' mode='widthFix'></image>
     </view>
     <view class='content'>
-      <view class='hd flex justify-content-between align-items-center'>
+      <!-- <view class='hd flex justify-content-between align-items-center'>
         <view class='flex flex-c' style='width:50%;color:#939393'>
-          <view class='p-name name text-overflow1 text-gray text-s'>{{item.user_name}}</view>
-          <view class='create_time text-xs text-graay'>{{item.create_time}}</view>
+          <view class='p-name name text-overflow1 text-gray text-s'>{{detail.member.nickname}}</view>
+          <view class='create_time text-xs text-graay'>{{detail.created_at}}</view>
         </view>
         <view class='count-wrp flex  align-items-center justify-content-end  text-xs'>
           <view class='item-count flex align-items-center .justify-content-end'>
             <text class='icon-message icomoon text-xs icon'></text>
-            <text class='count'>{{item.comment_count}}</text>
+            <text class='count'>{{detail.comments_counts}}</text>
           </view>
           <view class='item-count flex align-items-center'>
             <text class=' icomoon icon-good-light text-s icon'></text>
-            <text class='count'>{{item.like_count}}</text>
+            <text class='count'>{{detail.praise_counts}}</text>
           </view>
           <view class='item-count flex align-items-center' bindtap='report'>
             <text class='icon-report icomoon  text-s icon'></text>
           </view>
         </view>
-      </view>
+      </view> -->
       <view class='main-content'>
-        <view class='forum-content'> {{item.content}}</view>
-        <view class='imgs w100'>
-          <view class='img-wrp' wx:for="{{item.imgs}}">
-            <image src='{{item}}' mode='widthFix'></image>
+        <view class='forum-content'> {{detail.content}}</view>
+          <view class='forum-pic-wrp' >
+            <view class='pic-item flex align-items-center'  wx:for="{{detail.forumPicture}}">
+              <image src='{{item}}' class=' w100' mode='widthFix'></image>
+            </view>
           </view>
-        </view>
       </view>
     </view>
   </view>
-  <view class='comment-list-wrp'>
+  <!-- <view class='comment-list-wrp'>
     <comment_p_list comment_list="{{comment_list}}" bind:report='catchReport'></comment_p_list>
     <view class="weui-loadmore" wx:if="{{loading}}">
       <view class="weui-loading"></view>
       <view class="weui-loadmore__tips">正在加载</view>
     </view>
-  </view>
+  </view> -->
 
 
 
@@ -48,21 +48,28 @@
   </view>
 </view>
   <view class='comment-input-wrp w100 flex justify-content-between align-items-center'>
-    <input class="{{is_focus?'cover':''}}" placeholder="我也说一句..." placeholder-class=' text-s text-blue bold letter-sp2' bindfocus="focusChange" bindblur='blurChange' focus="{{false}}" confirm-type='send' />
+    <input class="{{is_focus?'cover':''}}" value='{{value}}' placeholder="我也说一句..." placeholder-class=' text-s text-blue bold letter-sp2' bindfocus="focusChange" bindinput='blurChange' focus="{{false}}" confirm-type='send' data-type='{{2}}'  data-id='{{detail.id}}' bindconfirm='submit'/>
     <view class="{{is_focus?'hidden':''}}  count-wrp flex  align-items-center justify-content-end  text-s">
       <view class='item-count flex align-items-center justify-content-end'>
         <text class='icon icomoon icon-message'></text>
-        <text class='count'>{{item.comment_count}}</text>
+        <text class='count'>{{detail.comments_counts}}</text>
       </view>
       <view class='item-count flex align-items-center'>
-        <text class='icon icomoon icon-good-light'></text>
-        <text class='count'>{{item.like_count}}</text>
+         <text class=' icon-good-light icomoon  icon' wx:if='{{detail.is_praise == 2}}' data-type='{{1}}' data-status='{{1}}' bindtap='praise'></text>
+          <text class=' icon-good icomoon  icon' style='color:{{genderTheme.main}}' wx:if='{{detail.is_praise == 1}}' data-type='{{1}}'  data-status='{{2}}' bindtap='praise'></text>
+        <text class='count'>{{detail.praise_counts}}</text>
       </view>
       <view class='item-count flex align-items-center'>
         <text class='icon icomoon icon-intransit'></text>
+           <button class='btn-share' open-type="share"></button>
       </view>
       <view class='item-count flex align-items-center'>
-        <text class='icon icomoon icon-star'></text>
+         <view class='item-count flex align-items-center'  wx:if='{{detail.is_favorite !=1}}' bindtap='like'>
+          <text class='icon-star icomoon  icon'></text>
+        </view>
+        <view class='item-count flex align-items-center' wx:if='{{detail.is_favorite == 1 }}' bindtap='clear'>
+          <text class='icon-star-dark icomoon  icon' style='color:{{genderTheme.main}}'></text>
+        </view>
       </view>
     </view>
   </view>

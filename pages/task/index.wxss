@@ -3,7 +3,26 @@
   height: 100%;
   padding: 65rpx 46rpx;
 }
-
+.bg1{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border1.png');
+  background-size: 100% 100%;
+}
+.bg2{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border2.png');
+  background-size: 100% 100%;
+}
+.bg3{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border3.png');
+  background-size: 100% 100%;
+}
+.bg4{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border4.png');
+  background-size: 100% 100%;
+}
+.bg5{
+  background: url('https://star.t.miinno.net/star_img/follow-poster-border5.png');
+  background-size: 100% 100%;
+}
 .idol-info {
   /* height: 40rpx; */
 }
@@ -86,8 +105,6 @@
 .poster {
       width: 91.6%;
       height: 90%;
-      background: url('https://star.t.miinno.net/star_img/follow-poster-border.png');
-      background-size: 100% 100%;
 }
 
 .poster-inner {
@@ -143,8 +160,6 @@
 .popup .poster {
       width: 91.6%;
       height: 90%;
-      background: url('https://star.t.miinno.net/star_img/follow-poster-border.png');
-      background-size: 100% 100%;
 }
 .popup .poster-inner {
       width: 87%;
@@ -190,4 +205,11 @@
       top: 2%;
       right: 4%;
       width: 32rpx;
+}
+
+.popup .toast-content {
+padding:100rpx 0;
+}
+.sign-success.popup .toast-content {
+padding:110rpx 0;
 }

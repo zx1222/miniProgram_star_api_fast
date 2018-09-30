@@ -1,10 +1,10 @@
 <view class="container user">
       <view class='header flex'>
             <view class='avatar' style='box-shadow:0 0 0 1px  #bfbfc0,0 0 0 10rpx {{genderTheme.main}},0 0 0 18rpx {{genderTheme.sub}}'>
-                  <image class='w100' src='{{userInfo.avatar}}' mode='widthFix'></image>
+                  <image class='w100' src='{{avatar}}' mode='widthFix'></image>
             </view>
             <view class="name-wrp flex flex-c justify-content-center">
-                  <view class='nickname text-m bold letter-sp2' style='color:{{genderTheme.main}}'>{{userInfo.nickname}}</view>
+                  <view class='nickname text-m bold letter-sp2' style='color:{{genderTheme.main}}'>{{nickname}}</view>
                   <view class='btn-modify letter-sp1 text-s text-center' style='background:{{genderTheme.main}}' bindtap='turnToEditInfo'>编辑信息</view>
             </view>
       </view>
@@ -37,11 +37,12 @@
                   </view>
                   <text class='fa fa-angle-right r' style='color:{{genderTheme.main}}'></text>
             </view>
-            <view class='item user-focus flex align-item-center justify-content-between' bindtap='turnToMyNotice'>
+            <view class='item user-focus flex align-item-center justify-content-between' bindtap='turnToMyNotice' style='position:relative'>
                   <view class='l flex align-item-center'>
                         <text class='icomoon icon-message-plus icon' style='color:{{genderTheme.main}}'></text>
-                        <text class='item-name bold text-s'>我的消息</text>
+                        <text class='item-name bold text-s'>通知消息</text>
                   </view>
+                  <view wx:if="{{user_info.information_counts!=0}}" class='notice-count'>{{user_info.information_counts}}</view>
                   <text class='fa fa-angle-right r' style='color:{{genderTheme.main}}'></text>
             </view>
       </view>

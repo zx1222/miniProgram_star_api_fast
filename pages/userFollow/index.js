@@ -41,6 +41,14 @@ Page(Object.assign({}, common, {
       url: '/pages/task/index',
     })
   },
+  turnToView:function(e){
+    app.globalData.idol_index = parseInt(e.currentTarget.dataset.id) - 1
+    const index = app.globalData.idol_index
+    console.log(index)
+    wx.navigateTo({
+      url: `/pages/idolView/index?index=${index}`,
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

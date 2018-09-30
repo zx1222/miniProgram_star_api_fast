@@ -114,3 +114,50 @@
   padding-right: 9rpx;
   font-size: 26rpx;
 }
+
+/* 主贴 */
+
+.left {
+  margin-left: 37rpx;
+  /* margin-right: 30rpx; */
+  width:94rpx;
+  
+}
+.day {
+  font-size: 34rpx;
+  color:#000;
+  margin-top: 42rpx;
+  
+}
+
+.month {
+  color: #858585;
+  font-size: 20rpx;
+  margin-top: 13rpx;
+}
+
+.right{
+  width:650rpx;
+  margin-top: 35rpx;
+  padding-bottom: 34rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+ 
+}
+
+      
+.rightTitle{
+  font-size: 30rpx;
+  color:#585858;
+  margin-top: 17rpx;
+}
+.forum-pic-wrp{
+  overflow: hidden;
+}
+.pic-item {
+  width: 180rpx;
+  height: 180rpx;
+  overflow: hidden;
+  float: left;
+  background: #eee;
+  margin: 10rpx 10rpx 0 0;
+}

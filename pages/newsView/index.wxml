@@ -1,4 +1,4 @@
-<view class="container  {{is_report?'overflow-y-hidden':''}}">
+<view class="container  {{bubbles?'overflow-y-hidden':''}}" >
   <!-- <view class='swiper'>
     <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange" circular="{{circular}}" style="height:{{imgheights[current]}}rpx;" class="{{iphone_type=='iPhone X'?'pt60':''}}">
       <block wx:for='{{banners}}' wx:key="{{index}}">
@@ -23,39 +23,95 @@
       <view class='content text-s letter-sp1 bold'>{{item.content}}</view>
     </view>
   </view> -->
+
   <view style='padding:20rpx'>
-  <rich-text nodes='{{detail.content}}'></rich-text>
-  </view>
-  
-  <view class='comment-list-wrp'>
-    <comment_p_list comment_list="{{comment}}" bind:report='catchReport'></comment_p_list>
-    <view class="weui-loadmore" wx:if="{{loading}}">
-      <view class="weui-loading"></view>
-      <view class="weui-loadmore__tips">正在加载</view>
-    </view>
+  <view class='bold text-l letter-sp2'>{{detail.title}}</view>
+    <view class='bold text-s text-pink'>{{detail.detail_time}}</view>
+    <rich-text nodes='{{detail.content}}'></rich-text>
   </view>
 
 
   <view class='comment-input-wrp w100 flex justify-content-between align-items-center'>
-    <input class="{{is_focus?'cover':''}}" placeholder="我也说一句..." placeholder-class=' text-s text-blue bold letter-sp2' bindfocus="focusChange" bindblur='blurChange' focus="{{false}}" confirm-type='send' />
+    <input class="{{is_focus?'cover':''}}" placeholder="我也说一句..." placeholder-class=' text-s text-blue bold letter-sp2' bindfocus="focusChange" bindblur='blurChange' focus="{{false}}" confirm-type='send' bindconfirm='comment' bindinput='bindTextChange' value='{{text}}'
+      data-type='{{1}}' data-id='{{detail.id}}' data-pid='{{0}}' />
     <view class="{{is_focus?'hidden':''}}  count-wrp flex  align-items-center justify-content-end  text-s">
       <view class='item-count flex align-items-center justify-content-end'>
         <text class='icon icomoon icon-message'></text>
-        <text class='count'>{{item.comment_count}}</text>
+        <text class='count'>{{detail.comments_counts}}</text>
       </view>
       <view class='item-count flex align-items-center'>
-        <text class='icon icomoon icon-good-light'></text>
-        <text class='count'>{{item.like_count}}</text>
+        <text class=' icon-good-light icomoon  icon' wx:if='{{detail.is_praise == 2}}' data-type='{{3}}' data-status='{{1}}' bindtap='praise'  data-id="{{detail.id}}"></text>
+        <text class=' icon-good icomoon  icon' style='color:{{genderTheme.main}}' wx:if='{{detail.is_praise == 1}}' data-type='{{3}}' data-status='{{2}}' bindtap='praise' data-id="{{detail.id}}"></text>
+        <text class='count'>{{detail.praise_counts}}</text>
       </view>
       <view class='item-count flex align-items-center'>
         <text class='icon icomoon icon-intransit'></text>
+                  <button class='btn-share' open-type="share"></button>
       </view>
       <view class='item-count flex align-items-center'>
-        <text class='icon icomoon icon-star'></text>
+        <view class='item-count flex align-items-center' wx:if='{{detail.is_favorite !=1}}' bindtap='like'>
+          <text class='icon-star icomoon  icon'></text>
+        </view>
+        <view class='item-count flex align-items-center' wx:if='{{detail.is_favorite == 1 }}' bindtap='clear'>
+          <text class='icon-star-dark icomoon  icon' style='color:{{genderTheme.main}}'></text>
+        </view>
       </view>
     </view>
   </view>
-  <view class="popup report-wrp" wx:if="{{is_report}}">
-    <report genderTheme="{{genderTheme}}" bind:reportCancel='catchReportCancel' bind:reportSubmit='catchReportSubmit'></report>
+
+  <view class='comment-list-wrp'>
+    <view class='comment-wrp'>
+      <view class='item-comment-parent flex justify-content-between' wx:for="{{comment}}" wx:key="{{index}}">
+        <view class='avatar'>
+          <image class='w100' src='{{item.member.headimg}}' mode='widthFix'></image>
+        </view>
+        <view class='content'>
+          <view class='hd'>
+            <view class='p-name name text-overflow1'>{{item.member.nickname}}</view>
+            <view class='count-wrp flex  align-items-center justify-content-end  text-xs'>
+              <view class='item-count flex align-items-center .justify-content-end'>
+                <text class='icon-message icomoon text-xs icon'></text>
+                <text class='count'>{{item.comments_counts}}</text>
+              </view>
+              <view class='item-count flex align-items-center'>
+                <text class=' icon-good-light icomoon  icon' data-id='{{item.id}}' wx:if='{{item.is_praise == 2}}' data-type='{{4}}' data-status='{{1}}' bindtap='praise'></text>
+                <text class=' icon-good icomoon  icon' style='color:{{genderTheme.main}}' data-id='{{item.id}}' wx:if='{{item.is_praise == 1}}' data-type='{{4}}' data-status='{{2}}' bindtap='praise'></text>
+                <text class='count'>{{item.praise_counts}}</text>
+              </view>
+              <view class='item-count flex align-items-center' data-id='{{item.id}}' bindtap='reporte'>
+                <text class='icon-report icomoon  icon'></text>
+              </view>
+            </view>
+          </view>
+          <view class='comment-content text-m'>{{item.content}}</view>
+          <view wx:if="{{item.comments_counts !=0 }}" class='child-comment-tips bg-light-gray text-m' data-commenId='{{item.id}}' bindtap='turnToView'>
+            <text class='text-blue'>{{item.comment_person}}</text>等人
+            <text class='text-blue'>共{{item.comments_counts}}条回复 <text class="fa fa-angle-right" aria-hidden="true"></text></text>
+          </view>
+          <view class='create_time'>{{item.release_time}}</view>
+        </view>
+      </view>
+    </view>
+    </view>
+
+<view class="popup report-wrp" wx:if="{{bubbles}}">
+    <view class='form-report'>
+    <form bindsubmit="formSubmit">
+      <view class="text-s bold">举报原因</view>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio text-s bold" wx:for="{{reportReasonArr}}">
+          <radio value="{{item.name}}" checked="{{item.checked}}" color='#666666' />{{item.value}}
+        </label>
+      </radio-group>
+      <textarea placeholder="请输入举报原因" placeholder-class='placeholder' bindinput='textarea'/>
+      
+
+    </form>
+    <view class='btn-wrp'>
+        <button formType="submit" style="color:{{genderTheme.main}};border:1px solid {{genderTheme.main}}" bindtap='report'>提交</button>
+        <button formType="reset" style="color:{{genderTheme.main}};border:1px solid {{genderTheme.main}}" bindtap='cancel'>取消</button>
+      </view>
   </view>
-</view>
+ 
+</view> 
+  </view>

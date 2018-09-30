@@ -12,7 +12,7 @@ const {
   apiUrl,
   gets
 } = getApp()
-Page({
+Page(Object.assign({}, common, gets, {
 
   /**
    * 页面的初始数据
@@ -38,25 +38,23 @@ Page({
     dateRange: [],
     dateRange_index: 0,
     batch: 0,
+    isLoading:true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(app.globalData.iphone_type)
     this.setData({
-      tabCurrent:0,
       iphone_type: app.globalData.iphone_type,
       idol_index: app.globalData.idol_index,
       idolTheme: app.globalData.idolTheme,
       gender: app.globalData.gender,
       genderTheme: app.globalData.genderTheme[app.globalData.gender - 1]
     })
-    this.getWeekDateRange();
-
-
-    if (this.data.tab_top_id == 0) {
-
+    if (app.globalData.idol_list.length == 0) {
+      this.getIdolInfoList();
     }
   },
 
@@ -64,14 +62,24 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    this.getWeekDateRange();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (this.data.tabCurrent == 0) {
+      if (this.data.tab_top_id == 0) {
+        this.getWeekRankList(this.data.batch);
+      }
+      if (this.data.tab_top_id == 1) {
+        this.getMonthRankList(this.data.batch);
+      }
+      if (this.data.tab_top_id == 2) {
+        this.getYearRankList(this.data.batch);
+      }
+    }
   },
 
   /**
@@ -92,7 +100,7 @@ Page({
       dateRange_index: e.detail.value,
       batch: this.data.dateRange[e.detail.value].batch
     })
-    if (this.data.tab_top_id == 0) {
+    if (this.data.tabCurrent == 0) {
       if (this.data.tab_top_id == 0) {
         this.getWeekRankList(this.data.batch);
       }
@@ -103,8 +111,17 @@ Page({
         this.getYearRankList(this.data.batch);
       }
     }
-
   },
+  // 获取idolList
+  getIdolInfoList: function () {
+    gets.getIdolList('').then(res => {
+      this.setData({
+        idol_list: res
+      })
+      app.globalData.idol_list = this.data.idol_list
+    })
+  },
+
   // 获取周榜期数
   getWeekDateRange: function() {
     gets.getWeekDateRange('').then(res => {
@@ -141,6 +158,9 @@ Page({
       batch: batch
     }
     gets.getWeekRankList(params).then(res => {
+      this.setData({
+        isLoading:false
+      })
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
         backgroundColor: res[0].idol.dark_skin,
@@ -162,6 +182,9 @@ Page({
       batch: batch
     }
     gets.getMonthRankList(params).then(res => {
+      this.setData({
+        isLoading: false
+      })
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
         backgroundColor: res[0].idol.dark_skin,
@@ -183,6 +206,9 @@ Page({
       batch: batch
     }
     gets.getYearRankList(params).then(res => {
+      this.setData({
+        isLoading: false
+      })
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
         backgroundColor: res[0].idol.dark_skin,
@@ -218,7 +244,7 @@ Page({
       }
     }
     if (this.data.tabCurrent == 1) {
-      this.getIdolList();
+      this.getIdolInfoList();
     }
   },
   catchChildSwiper: function(e) {
@@ -235,15 +261,9 @@ Page({
       this.getYearDateRange();
     }
   },
-  getIdolList: function() {
-    gets.getIdolList('').then(res => {
-      this.setData({
-        idol_list: res
-      })
-    })
-  },
   turnToSupport: function(e) {
     app.globalData.idol_index = parseInt(e.currentTarget.dataset.id) - 1
+    console.log(parseInt(e.currentTarget.dataset.id) - 1)
     this.setData({
       idol_index: app.globalData.idol_index
     })
@@ -277,4 +297,4 @@ Page({
   onShareAppMessage: function() {
 
   }
-})
+}))

@@ -36,7 +36,6 @@ image {
 .italic {
       font-style: italic;
 }
-
 /* flex start*/
 
 .flex {
@@ -67,6 +66,9 @@ image {
 .justify-content-end {
       justify-content: flex-end;
 }
+.justify-content-start{
+      justify-content: flex-start
+}
 
 /* bg */
 
@@ -94,6 +96,9 @@ image {
 
 .text-pink {
       color: #e95471;
+}
+.text-red{
+  color: red
 }
 
 .text-white {
@@ -234,4 +239,62 @@ image {
             transform: translate3d(0, 0, 0);
             opacity: 1;
       }
+}
+
+
+/* 取关 */
+
+.popup .toast-content {
+  width: 596rpx;
+  height: 392rpx;
+  color: #fff;
+  padding: 120rpx 0;
+}
+
+.popup-bg1 {
+  background: url('https://star.t.miinno.net/star_img/popup-male-bg.png');
+  background-size: 100% 100%;
+}
+
+.popup-bg2 {
+  background: url('https://star.t.miinno.net/star_img/popup-female-bg.png');
+  background-size: 100% 100%;
+}
+.popup-idol-bg1{
+  background: url('https://star.t.miinno.net/star_img/popup-bg1.png');
+  background-size: 100% 100%;
+}
+.popup-idol-bg2{
+  background: url('https://star.t.miinno.net/star_img/popup-bg2.png');
+  background-size: 100% 100%;
+}
+.popup-idol-bg3{
+  background: url('https://star.t.miinno.net/star_img/popup-bg3.png');
+  background-size: 100% 100%;
+}
+.popup-idol-bg4{
+  background: url('https://star.t.miinno.net/star_img/popup-bg4.png');
+  background-size: 100% 100%;
+}
+.popup-idol-bg5{
+  background: url('https://star.t.miinno.net/star_img/popup-bg5.png');
+  background-size: 100% 100%;
+}
+.popup .toast-content .title {
+  font-size: 52rpx;
+  letter-spacing: 2px;
+}
+
+.popup .toast-content .btn {
+  width: 160rpx;
+  height: 40rpx;
+  text-align: center;
+  border-radius: 4rpx;
+  box-shadow: 0 0 0 1px #fff;
+  line-height: 40rpx;
+  margin: 30rpx 20rpx 0 20rpx;
+}
+
+.popup .toast-content .btn-cancel {
+  background: #fff;
 }

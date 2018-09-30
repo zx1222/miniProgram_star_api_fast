@@ -22,6 +22,10 @@ Component({
     swiperCurrent:{
       type: 'number',
       value: '',
+    },
+    iphone_type:{
+      type: 'string',
+      value: '',
     }
 
   },

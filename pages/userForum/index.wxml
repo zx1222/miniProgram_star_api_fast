@@ -7,40 +7,84 @@
   </view>
 
   <!-- 主贴 -->
-  <view class="tabCurrent==0">
+  <view class="tabCurrent==0" wx:if='{{tabCurrent==0}}'>
+    <view class='flex' wx:for='{{list}}'>
+      <view class='left'>
+        <view class='day'>{{item.days}}</view>
+        <view class='month'>{{item.month}}</view>
+      </view>
+      <view style='margin-top:15rpx'>
+
+        <view class='right' wx:for='{{item.data}}' data-id='{{item.id}}' bindtap='todetail'>
+          <view class='month'>{{item.member.nickname}}</view>
+          <view class='rightTitle'>{{item.content}}</view>
+          <view class='forum-pic-wrp'>
+            <view class='pic-item flex align-items-center' wx:for='{{item.forumPicture}}'>
+              <image src='{{item}}' class=' w100' mode='widthFix'></image>
+            </view>
+          </view>
+          <!-- <view class='pics'>
+        <block wx:for='{{item.forumPicture}}'>
+          <image  src='{{item}}'></image>
+        </block>
   
-  
+        </view> -->
+
+          <view class='count-wrp flex  align-items-center   text-xs' style='position: relative;' style='margin-top:16rpx'>
+            <view class='item-count flex align-items-center .justify-content-end' style=' position: absolute;left:0rpx;z-index:10; opacity: 0;'>
+              <button open-type='share' style='width:80rpx;height:40rpx;background:red'></button>
+            </view>
+
+            <view class='item-count flex align-items-center .justify-content-end'>
+              <!-- <text class='icon-message icomoon  icon'></text> -->
+              <text class='icon icomoon icon-intransit'></text>
+              <text class='count text-xs'>分享</text>
+            </view>
+            <view class='item-count flex align-items-center .justify-content-end'>
+              <text class='icon-message icomoon  icon'></text>
+              <text class='count text-xs'>{{item.comments_counts}}</text>
+            </view>
+            <view class='item-count flex align-items-center'>
+              <text class=' icon-good-light icomoon  icon' wx:if='{{item.is_praise == 2}}' data-id='{{item.id}}' data-type='{{1}}' data-status='{{1}}' catchtap='praise'></text>
+              <text class=' icon-good icomoon  icon' style='color:{{genderTheme.main}}' data-id='{{item.id}}' wx:if='{{item.is_praise == 1}}' data-type='{{1}}' data-status='{{2}}' catchtap='praise'></text>
+              <text class='count text-xs'>{{item.praise_counts}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
   <!-- 回复 -->
-  <view class="tabCurrent==1">
+  <view class="tabCurrent==1" wx:if='{{tabCurrent==1}}'>
     <view class='list-wrp list-wrp-reply'>
       <view class='item' wx:for="{{list}}">
         <view class='hd'>
           <view class='avatar'>
-            <image class='w100' src='{{item.user.avatar}}' mode='widthFix'></image>
+            <image class='w100' src='{{item.member.headimg}}' mode='widthFix'></image>
           </view>
           <view class='hd-r flex flex-c justify-content-center '>
-            <view class=' name text-overflow1  text-m'>{{item.user.name}}</view>
-            <view class='time text-xs '>{{item.create_time}}</view>
+            <view class=' name text-overflow1  text-m'>{{item.member.nickname}}</view>
+            <view class='time text-xs '>{{item.forum_time}}</view>
           </view>
         </view>
         <view class='reply-content'>
-          <text class='text-m letter-sp1'>回复: {{item.reply_content}}</text>
-          <view class='time text-xs '>{{item.create_time}}</view>
+          <text class='text-m letter-sp1'>回复: {{item.comment.content}}</text>
+          <view class='time text-xs '>{{item.created_at}}</view>
         </view>
         <view class='forum-content  '>
-          <text class=' letter-sp1 bold text-m text-black'>原贴: {{item.forum_title}}</text>
+          <text class=' letter-sp1 bold text-m text-black' wx:if='{{item.comment.type ==2}}'>原贴: {{item.comment.forum}}</text>
+          <text class=' letter-sp1 bold text-m text-black' wx:if='{{item.comment.type ==1}}'>原贴: {{item.comment.media}}</text>
         </view>
         <view class='count-wrp flex  align-items-center justify-content-end  text-xs'>
           <view class='item-count flex align-items-center .justify-content-end'>
             <text class='icon-message icomoon  icon'></text>
-            <text class='count text-xs'>{{item.comment_count}}</text>
+            <text class='count text-xs'>{{item.comments_counts}}</text>
           </view>
           <view class='item-count flex align-items-center'>
             <text class=' icomoon icon-good-light  icon'></text>
-            <text class='count text-xs'>{{item.like_count}}</text>
+            <text class='count text-xs'>{{item.praise_counts}}</text>
           </view>
-          <view class='item-count flex align-items-center' bindtap='report'>
+          <view class='item-count flex align-items-center' data-id="{{item.id}}" bindtap='delete'>
             <text class='fa fa-trash-o icon'></text>
           </view>
         </view>

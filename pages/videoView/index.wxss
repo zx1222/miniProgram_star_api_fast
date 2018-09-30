@@ -1,5 +1,5 @@
 .container {
-      padding: 28rpx;
+      padding: 28rpx;   
 }
 
 .item {
@@ -23,7 +23,7 @@
       line-height: 1.6;
 }
 .icon{
-      font-size: 25rpx;
+      font-size: 30rpx;
       color: #787878;
 }
 .video .video-title {
@@ -35,7 +35,7 @@
       box-sizing: border-box;
       padding-bottom: 20rpx;
       width: 98%;
-      margin: 0 8rpx;
+      margin: 0 12rpx;
       border-bottom: 1px solid #787878;
 }
 
@@ -90,7 +90,7 @@
 
 .comment-input-wrp .icon {
       /* width: 28rpx; */
-      padding-right: 6rpx;
+     padding-right: 10rpx;
 }
 
 .comment-input-wrp .icon.icon-comment {
@@ -98,7 +98,17 @@
 }
 
 .comment-input-wrp .item-count {
-      padding-right: 16rpx;
+      margin-right: 18rpx;
+      position: relative;
+}
+.btn-share{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 40rpx;
+  height: 40rpx;
+  background: transparent
+
 }
 
 .comment-input-wrp .item-count:last-child {
@@ -112,4 +122,48 @@
 report{
   position: absolute;
   bottom:0
+} 
+
+.create_time {
+      font-size: 24rpx;
+      color: #585858;
+      padding-top: 8rpx;
 }
+
+/* .form-report {
+  padding: 33rpx 100rpx;
+  background: #fff;
+  color: #000;
+  margin-top: 850rpx;
+}
+
+.placeholder{
+  font-size: 24rpx;
+  color: #979797;
+  font-weight: bold;
+}
+
+textarea{
+  background: #f4f4f4;
+  border-radius: 8rpx;
+box-shadow: 0 0 0 1px #d9d9d9;
+margin-top: 26rpx;
+padding: 14rpx 18rpx;
+height: 124rpx;
+margin-bottom: 24rpx;
+}
+.btn-wrp{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.btn-wrp button{
+  width: 160rpx;
+  height: 38rpx;
+  border-radius: 4rpx;
+  margin: 0 14rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  background: #ffffff;
+} */

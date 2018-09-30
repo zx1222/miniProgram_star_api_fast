@@ -1,24 +1,51 @@
 <view class="container">
-<search-form bg="{{genderTheme}}" bind:search='search'></search-form>
+<view class="searchForm" style='background:{{genderTheme.sub}}'>
+      <view class='avatar' style='box-shadow:0 0 0 1px {{genderTheme.main}}'>
+             <image src='{{userinfo.headimg}}' mode='widthFix' class='w100'></image>
+      </view>
+      <view class='input-wrp'>
+            <view class='l' style='border-right:1px solid {{genderTheme.main}}'><text class="fa fa-search" aria-hidden="true" style='color:{{genderTheme.main}}'></text></view>
+            <view class='r'>
+            <input type="text" value='{{text}}' placeholder='战斗吧歌姬' placeholder-style='color:{{genderTheme.main}}' confirm-type="search" bindconfirm="submit" bindinput='bindKeyInput' style='color:{{genderTheme.main}}'></input></view>
+      </view>
+      <view class='btn-submit text-white' catchtap='submit' style='color:{{genderTheme.mian}}'>搜索</view>
+</view>
 <view  class='list-wrp list-wrp-video '>
-      <view class='item video-item' wx:for="{{list}}" wx:key="{{index}}" bindtap='turnToViewVideo'>
+      <view class='item video-item' wx:for="{{list}}" wx:key="{{index}}"  data-id='{{item.id}}'  bindtap='turnToViewVideo'>
             <view class='poster-wrp w100'>
                   <image class='poster-border w100' src='https://star.t.miinno.net/star_img/video-border.png' mode='widthFix'></image>
-                  <image class='poster w100' src='{{item.poster}}' mode='widthFix'></image>
+                  <image class='poster w100' src='{{item.cover_picture}}' mode='widthFix'></image>
             </view>
             <view class='video-info'>
                   <view class='video-title bold text-overflow1'>{{item.title}}</view>
                   <view class='flex align-items-center row justify-content-between'>
                         <view class='flex'>
-                              <view class='tag text-pink'>{{item.tag}}</view>
-                              <view class='date text-pink icon-ellipsis'>{{item.date}}</view>
+                              <view class='tag text-pink'>{{mediaType[item.type-1]}}</view>
+                              <view class='date text-pink icon-ellipsis'>{{item.list_time}}</view>
                         </view>
                         <view>
-                              <text class="fa fa-ellipsis-v text-s"></text>
+                              <!-- <text class="fa fa-ellipsis-v text-s"></text> -->
                         </view>
                   </view>
             </view>
       </view>
+      <view wx:if='{{search}}'>
+        <view class='flex align-items-center justify-content-between'>
+          <view style='font-size:28rpx'>搜索历史</view>
+          <view  bindtap='clear'>
+            <image src='/images/delite.png' style='width:30rpx;height:30rpx'></image>
+          </view>
+        </view>
+        
+        <view></view>
+        <view style='display:flex;flex-wrap:wrap' >
+        <block wx:for='{{history}}'>
+        <view style='font-size:26rpx;padding:5rpx  15rpx 5rpx 15rpx;border:1rpx solid #333;border-radius: 100rpx;margin-top:20rpx;margin-right:20rpx' bindtap='searchHistory' data-query="{{item}}">{{item}}</view>
+        </block>
+          
+        </view>
+      </view>
+      <view wx:if='{{fail}}' style='margin-top:450rpx;width:690rpx;text-align: center'>抱歉，暂无搜索结果~</view>
       <view class="weui-loadmore" wx:if="{{loading}}">
             <view class="weui-loading"></view>
             <view class="weui-loadmore__tips">正在加载</view>

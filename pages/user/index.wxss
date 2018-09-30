@@ -48,6 +48,7 @@
 
 .user .item .icon {
       font-size: 32rpx;
+      width:38rpx;
 }
 
 .user .item .icon.icon-light {
@@ -130,4 +131,19 @@
       line-height: 50rpx;
       margin-top: 122rpx;
       border-radius: 4rpx;
+}
+
+
+.notice-count{
+  position: absolute;
+  right: 12%;
+  width: 40rpx;
+  height: 40rpx;
+  background: red;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  color: #ffffff;
+
 }

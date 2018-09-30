@@ -41,13 +41,49 @@
 				{
 					"id": 0,
 					"name": "0-5详情",
-					"pathName": "pages/videoVIew/index",
-					"query": ""
+					"pathName": "pages/videoView/index",
+					"query": "id=1&from=1"
 				},
 				{
 					"id": 1,
 					"name": "我的收藏",
 					"pathName": "pages/userCollection/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的帖子",
+					"pathName": "pages/userForum/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "事件详情",
+					"pathName": "pages/newsView/index",
+					"query": "id=8"
+				},
+				{
+					"id": -1,
+					"name": "帖子详情",
+					"pathName": "pages/forumView/index",
+					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "编辑信息",
+					"pathName": "pages/editUserInfo/index",
+					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/user/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "搜索页面",
+					"pathName": "pages/searchResult/index",
 					"query": ""
 				}
 			]

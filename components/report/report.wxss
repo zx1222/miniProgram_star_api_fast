@@ -16,34 +16,7 @@
   color: #979797;
   font-weight: bold;
 }
-/* radio-group label{
-  padding-right: 24rpx;
-}
-radio{
-  border-radius: 50%;
-  width: 16rpx;
-  height: 16rpx;
-  border: 2rpx solid #666;
-  font-size: 0;
-  padding-right: 24rpx;
-}
-radio .wx-radio-input{
-   border-radius: 50%;
-   width: 16rpx;
-   height: 16rpx; 
-   border: none;
-}
 
-radio .wx-radio-input.wx-radio-input-checked::before{
-   border-radius: 50%;
-   width: 10rpx; 
-   height: 10rpx; 
-   text-align: center;
-   font-size:0rpx; 
-   background-color: #666; 
-   transform:translate(-50%, -50%) scale(1);
-   -webkit-transform:translate(-50%, -50%) scale(1);
-} */
 
 textarea{
   background: #f4f4f4;

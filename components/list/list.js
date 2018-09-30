@@ -92,7 +92,7 @@ Component({
             turnToViewVideo: function(e) {
               const from=e.currentTarget.dataset.from
                   wx.navigateTo({
-                        url: `/pages/videoView/index?${this.data.id}&&from=${from}`,
+                        url: `/pages/videoVIew/index?${this.data.id}&&from=${from}`,
                   })
             },
             turnToViewNews: function() {

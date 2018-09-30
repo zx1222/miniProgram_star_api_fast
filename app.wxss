@@ -8,8 +8,15 @@ page {
   font-family: 'FZLTHJT';
 }
 
+.flex {
+  display: flex;
+}
+
 view {
   box-sizing: border-box;
+}
+swiper{
+  height: auto;
 }
 
 /* * {
@@ -142,3 +149,122 @@ tabbar-bottom {
   position: fixed;
   bottom: 0;
 }
+
+
+
+/* 评论列表 */
+.comment-wrp {
+      padding: 25rpx 0;
+}
+
+.comment-wrp .avatar {
+      width: 78rpx;
+      height: 78rpx;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px #e1e1e2;
+      overflow: hidden;
+      margin-top: 20rpx;
+}
+
+.comment-wrp .content {
+      width: calc(100% - 102rpx);
+      border-bottom: 1px solid #eee;
+      padding: 20rpx 0;
+}
+
+.comment-wrp .content .hd {
+      /* padding-left: 24rpx; */
+      overflow: hidden;
+}
+
+.comment-wrp .content .hd .name {
+      width: 58%;
+      color: #696969;
+      font-size: 26rpx;
+      float: left;
+}
+
+.comment-wrp .content .hd .count-wrp {
+      color: #585858;
+      float: right;
+      width: 40%;
+}
+
+.comment-wrp .content .hd .count-wrp .item-count {
+      float: right;
+}
+
+.comment-wrp .content .hd .item-count {
+      padding-right: 20rpx;
+}
+
+.comment-wrp .content .hd .icon {
+      padding-right: 6rpx;
+      font-size: 30rpx;
+}
+
+.comment-wrp .content .hd .icon-like, .comment-wrp .content .hd .icon-report {
+}
+
+.comment-wrp .content .child-comment-tips {
+      padding:14rpx 18rpx;
+      margin: 12rpx 0;
+}
+.comment-content {
+      color: #050505;
+      padding-top: 4rpx;
+}
+
+.comment-wrp .create_time {
+      font-size: 24rpx;
+      color: #585858;
+      padding-top: 8rpx;
+}
+
+.comment-wrp .form-report {
+  padding: 33rpx 100rpx;
+  background: #fff;
+  color: #000;
+  margin-top: 850rpx;
+}
+/* 评论列表 end*/
+
+/* 举报 */
+.form-report {
+  padding: 33rpx 100rpx;
+  background: #fff;
+  color: #000;
+  margin-top: 850rpx;
+}
+
+.report-wrp .placeholder{
+  font-size: 24rpx;
+  color: #979797;
+  font-weight: bold;
+}
+
+ .report-wrp textarea{
+  background: #f4f4f4;
+  border-radius: 8rpx;
+box-shadow: 0 0 0 1px #d9d9d9;
+margin-top: 26rpx;
+padding: 14rpx 18rpx;
+height: 124rpx;
+margin-bottom: 24rpx;
+}
+.report-wrp .btn-wrp{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.report-wrp .btn-wrp button{
+  width: 160rpx;
+  height: 38rpx;
+  border-radius: 4rpx;
+  margin: 0 14rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  background: #ffffff;
+}
+/* 举报  end*/

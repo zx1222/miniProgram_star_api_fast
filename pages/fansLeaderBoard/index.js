@@ -37,11 +37,11 @@ Page(Object.assign({}, common, {
       idol_list: app.globalData.idol_list
     })
     wx.setNavigationBarTitle({
-      title: `${this.data.idol_list[this.data.idol_index].short_name}粉丝贡献榜` //页面标题为路由参数
+      title: `${this.data.idol_list[this.data.idol_index].fullname}粉丝贡献榜` //页面标题为路由参数
     })
-    console.log(this.data.idolTheme)
+    console.log(this.data.idol_list)
     console.log(app.globalData.idol_index)
-    this.getList()
+  
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
       backgroundColor: this.data.idolTheme[this.data.idol_index].main,
@@ -63,7 +63,7 @@ Page(Object.assign({}, common, {
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getList()
   },
 
   /**
@@ -82,7 +82,7 @@ Page(Object.assign({}, common, {
 
   getList: function() {
     const params={
-      id:this.data.idol_index+1
+      id:app.globalData.idol_index+1
     }
     gets.getContributionRankList(params).then(res => {
       console.log(res)

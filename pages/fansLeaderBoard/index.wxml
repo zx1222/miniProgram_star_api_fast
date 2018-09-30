@@ -7,15 +7,15 @@
         <image wx:if="{{index==2}}" src='../../images/icon-bronze.png' mode='widthFix' class='' class='icon'></image>
         <view wx:if="{{index!=0&&index!=1&&index!=2}}" class="ranking bold italic">{{index+1}}</view>
         <view class="avatar-wrp {{item.member.sex==1?'bg1':'bg2'}} ">
-          <image src='{{item.member.headimg}}' mode='widthFix' class="avatar {{item.sex==1?'border1':'border2'}}"></image>
+          <image src='{{item.member.headimg}}' mode='widthFix' class="avatar {{item.member.sex=='1'?'border1':'border2'}}"></image>
         </view>
         <view class='name bold' wx:if="{{item.member.sex==1}}" style="color:{{idolTheme[0].main}}">{{item.member.nickname}}
         </view>
-        <view class='name bold' wx:if="{{item.member.sex==2}}" style="color:{{idolTheme[1].main}}">{{item.name}}
+        <view class='name bold' wx:if="{{item.member.sex==2}}" style="color:{{idolTheme[1].main}}">{{item.member.nickname}}
         </view>
       </view>
 
-      <view class='text-black'>
+      <view >
         <text class='text-xs bold'>贡献值：</text>
         <text class="text-s">{{item.point}}</text>
       </view>
@@ -32,13 +32,13 @@
       <view class="avatar-wrp {{selfRank.sex==1?'bg1':'bg2'}}">
         <image src='{{selfRank.headimg}}' mode='widthFix' class="avatar {{selfRank.sex==1?'border1':'border2'}}"></image>
       </view>
-      <view class='name bold' wx:if="{{selfRank.sex==1}}" style="color:{{idolTheme[0].main}}">{{selfRank.name}}
+      <view class='name bold' wx:if="{{selfRank.sex==1}}" style="color:{{idolTheme[0].main}}">{{selfRank.nickname}}
       </view>
-      <view class='name bold' wx:if="{{selfRank.sex==2}}" style="color:{{idolTheme[1].main}}">{{selfRank.name}}
+      <view class='name bold' wx:if="{{selfRank.sex==2}}" style="color:{{idolTheme[1].main}}">{{selfRank.nickname}}
       </view>
     </view>
 
-    <view class='text-black'>
+    <view >
       <text class='text-xs bold'>贡献值：</text>
       <text class="text-s">{{selfRank.point}}</text>
     </view>

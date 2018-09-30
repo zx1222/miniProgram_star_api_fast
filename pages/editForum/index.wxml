@@ -1,0 +1,22 @@
+<view class="container">
+<input name="title" type="text" placeholder="帖子标题..."  bindinput="bindTitleInput" placeholder-class='placeholder'></input>
+  <textarea name="forum" placeholder="来吧,尽情发挥吧..." placeholder-class='placeholder' bindinput="bindContentInput" ></textarea>
+  <view class='pic-wrp w100  '>
+    <view class="pic-item flex align-items-center" wx:for="{{pic_path_arr}}">
+    <image  class="pic" src="{{item}}" mode='widthFix'></image>
+    <view class='icon-wrp' bindtap='delete' data-index="{{index}}">
+        <text class="fa fa-trash-o icon "></text>
+        </view>
+    </view>
+  </view>
+  <view class="w100">
+    <view class='add-pic flex align-items-center justify-content-center' bindtap='upload'>
+      <text class="fa fa-plus icon "></text>
+    </view>
+  </view>
+
+  <view class='flex justify-content-center w100'>
+   <button class='btn-cancel text-s bold' style="color:{{idolTheme[idol_index].main}};border:1px solid {{idolTheme[idol_index].main}}" bindtap='cancel'>取消</button>
+    <button class='btn-submit text-s bold' style="color:{{idolTheme[idol_index].main}};border:1px solid {{idolTheme[idol_index].main}}" bindtap='submit'>发布</button>
+  </view>
+</view>
