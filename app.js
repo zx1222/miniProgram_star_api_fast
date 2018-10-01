@@ -82,13 +82,13 @@ App({
     //   .catch(() => {
     //     wx.setStorageSync('isReady', false)
         // wx.removeStorageSync('access_token')
-        Login.login()
-              .then(() => {
-                    wx.setStorageSync('isReady', true)
-                    if (this.readyCallback) {
-                          this.readyCallback();
-                    }
-              });
+        // Login.login()
+        //       .then(() => {
+        //             wx.setStorageSync('isReady', true)
+        //             if (this.readyCallback) {
+        //                   this.readyCallback();
+        //             }
+        //       });
       // })
 
     // 获取用户信息

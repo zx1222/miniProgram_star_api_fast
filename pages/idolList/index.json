@@ -3,7 +3,5 @@
       "enablePullDownRefresh": false,
       "component": true,
       "usingComponents": {
-            "tabbar-bottom": "../../../components/tabbar-bottom/tabbar-bottom",
-            "popup": "../../../components/popup/popup"
       }
 }

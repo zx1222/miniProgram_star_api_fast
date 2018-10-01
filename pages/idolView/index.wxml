@@ -15,14 +15,14 @@
     </view>
   </view>
   <!-- 轮播图-->
-  <view wx:if="{{tabCurrent==1}}" class="swiper">
+  <view wx:if="{{tabCurrent==1}}" class="swiper" style='margin-top:120rpx'>
     <swiper indicator-dots="false" vertical="{{vertical}}" autoplay="true" duration="500" interval='2000' circular="{{circular}}" style="height:{{imgheights[current]}}rpx;" class="{{iphone_type=='iPhone X'?'pt60':''}}">
       <block wx:for='{{banner}}' wx:key="{{index}}">
-        <navigator url="{{(swiperCurrent!=6&&p_swiper==1)||(swiperCurrent!=5&&p_swiper==2)?'/pages/videoView/index':'/pages/newsView/index'}}" hover-class='none'>
+        <!-- <navigator url="{{(swiperCurrent!=6&&p_swiper==1)||(swiperCurrent!=5&&p_swiper==2)?'/pages/videoView/index':'/pages/newsView/index'}}" hover-class='none'> -->
           <swiper-item>
-            <image src="{{item.banner_url}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad" data-url="{{banner_path[index]}}?index={{index}}" />
+            <image src="{{item.banner_url}}" data-from='1'  data-id='{{item.id}}' class="slide-image" mode="widthFix" bindload="imageLoad" data-url="{{banner_path[index]}}?index={{index}}" bindtap='turnToViewVideo'/>
           </swiper-item>
-        </navigator>
+        <!-- </navigator> -->
       </block>
     </swiper>
     <view class="dots">
@@ -112,7 +112,7 @@
   </view>
 
   <!--动态-->
-  <view wx:if="{{swiperCurrent!=5&&p_swiper==1&&tabCurrent==1}}" class='list-wrp list-wrp-video' style='margin-top:120rpx'>
+  <view wx:if="{{swiperCurrent!=5&&p_swiper==1&&tabCurrent==1}}" class='list-wrp list-wrp-video'>
     <block wx:for="{{list}}" wx:key="{{index}}">
       <view class='item video-item' data-from='2' data-id='{{item.id}}' bindtap='turnToViewVideo'>
         <view class='poster-wrp w100'>
@@ -140,7 +140,7 @@
 
 
   <!-- list news -->
-  <view wx:if="{{swiperCurrent==5&&p_swiper==1&&tabCurrent==1}}" class='list-wrp list-wrp-news ' style='margin-top:120rpx'>
+  <view wx:if="{{swiperCurrent==5&&p_swiper==1&&tabCurrent==1}}" class='list-wrp list-wrp-news ' >
     <view class='item news-item flex' wx:for="{{list}}" wx:key="{{index}}" data-id='{{item.id}}' bindtap='todetail' data-from='2'>
       <view class='news-info flex'>
         <view class='news-title bold text-overflow2'>{{item.title}}</view>

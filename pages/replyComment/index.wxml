@@ -1,5 +1,5 @@
 <view>
-<textarea name="reply" bindblur='blur' placeholder='{{placeholder}}'  cursor-spacing="10"></textarea>
+<textarea name="reply"  placeholder='{{placeholder}}'  cursor-spacing="10" bindinput='bindKeyInput'></textarea>
   <view class='flex justify-content-center w100'>
    <button class='btn-send text-s bold' style="color:{{genderTheme.main}};border:1px solid {{genderTheme.main}}" bindtap='send'>发送</button>
   </view>

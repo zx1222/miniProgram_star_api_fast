@@ -17,10 +17,9 @@ Page(Object.assign({}, common, gets,{
     is_seletpopup_show: true,
     genderThemeArr: [],
     genderTheme: {},
-    userInfo: {
-      avatar: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1788562038,3472846301&fm=26&gp=0.jpg',
-      nickname: '战斗吧歌姬'
-    },
+    user_info:{
+      information_counts:0
+    }
   },
 
   /**

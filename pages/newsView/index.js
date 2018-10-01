@@ -298,6 +298,28 @@ Page(Object.assign({}, common, apiUrl, gets,{
     })
 
   },
+  // 评论列表
+  turnToView: function (e) {
+    var commenid = e.currentTarget.dataset.commenid
+    wx.navigateTo({
+      url: `/pages/commentView/index?commenid=${commenid}`,
+    })
+  },
+
+  // 跳转回复评论
+  turnToReply: function (e) {
+    const data = {
+      id: e.currentTarget.dataset.id,
+      uid: e.currentTarget.dataset.uid,
+      type: e.currentTarget.dataset.type,
+      uname: e.currentTarget.dataset.uname
+    }
+    console.log(data)
+    wx.navigateTo({
+      url: `/pages/replyComment/index?id=${data.id}&&uid=${
+        data.uid}&&type=${data.type}&&uname=${data.uname}`,
+    })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

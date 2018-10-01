@@ -387,6 +387,7 @@ Page(Object.assign({}, common, apiUrl, gets, {
    */
   onShareAppMessage: function() {
     if (res.from === 'button') {
+      
     }
     return {
       title: 'star',

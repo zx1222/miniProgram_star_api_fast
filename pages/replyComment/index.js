@@ -60,7 +60,8 @@ Page(Object.assign({}, common, gets, {
   onShow: function() {
 
   },
-  blur: function(e) {
+
+  bindKeyInput:function(e){
     this.setData({
       reply_content: e.detail.value
     })

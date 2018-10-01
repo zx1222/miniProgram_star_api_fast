@@ -70,7 +70,15 @@ Page({
       value: '其他'
     },
     ],
-    poster_info: {}
+    poster_info: {},
+    // banner
+    imgheights: [],
+    indicatorDots: false,
+    autoplay: true,
+    interval: 2000,
+    duration: 1000,
+    circular: true,
+    current:0
   },
 
   /**
@@ -105,6 +113,28 @@ Page({
     this.getIndex(1)
     this.banner(1)
     this.getForumList()
+  },
+  imageLoad: function (e) {
+    //获取图片真实宽度
+    var imgwidth = e.detail.width,
+      imgheight = e.detail.height,
+      //宽高比
+      ratio = imgwidth / imgheight;
+    //计算的高度值
+    var viewHeight = 750 / ratio;
+    var imgheight = viewHeight
+    var imgheights = this.data.imgheights
+    //把每一张图片的高度记录到数组里
+    imgheights.push(imgheight)
+    this.setData({
+      imgheights: imgheights,
+    })
+    console.log(this.data.imgheights)
+  },
+  bindchange: function (e) {
+    this.setData({
+      current: e.detail.current
+    })
   },
   _tapIndicator: function(e) {
     console.log(e)
@@ -196,16 +226,23 @@ Page({
     this.getIndex(parseInt(types) + 1)
     this.banner(parseInt(types) + 1)
   },
-
-  // 去视频详情
-  turnToViewVideo: function(e) {
+  // 去详情
+  turnToViewVideo: function (e) {
     console.log(e)
     var id = e.currentTarget.dataset.id
     var from = e.currentTarget.dataset.from
-    wx.navigateTo({
-      url: `/pages/videoView/index?id=${id}&from=${from}`,
-    })
+    console.log(this.data.swiperCurrent)
+    if (this.data.swiperCurrent != 5) {
+      wx.navigateTo({
+        url: `/pages/videoView/index?id=${id}&from=${from}`,
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/newsView/index?id=${id}&from=${from}`,
+      })
+    }
   },
+
 
   todetail: function(e) {
     console.log(e)

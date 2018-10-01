@@ -52,7 +52,7 @@
     <block wx:for='{{banner}}' wx:key="{{index}}">
       <!-- <navigator url="{{(tab_id!=6&&p_swiper==1)||(tab_id!=5&&p_swiper==2)?'/pages/videoVIew/index':'/pages/newsView/index'}}" hover-class='none' > -->
         <swiper-item>
-          <image src="{{item.banner_url}}" data-id='{{index}}' class="slide-image w100" mode="widthFix" bindload="imageLoad" data-url="{{banner_path[index]}}?index={{index}}" data-from='1'  data-id='{{item.id}}'   bindtap='turnToViewVideo'/>
+          <image src="{{item.banner_url}}"  class="slide-image w100" mode="widthFix" bindload="imageLoad" data-url="{{banner_path[index]}}?index={{index}}" data-from='1'  data-id='{{item.id}}'   bindtap='turnToViewVideo'/>
         </swiper-item>
       <!-- </navigator> -->
     </block>

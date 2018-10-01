@@ -62,6 +62,12 @@ Page(Object.assign({}, common, gets, {
     this.getIndex(0)
     this.banner('')
     this.getGenderSkin()
+    gets.userInfo().then(res => {
+          app.globalData.userinfo = res
+          this.setData({
+            userinfo: res
+          })
+        })
     // if (wx.getStorageSync('isReady')) {
     //   // this.initActivity();
     //   app.readyCallback = () => {
@@ -148,9 +154,6 @@ Page(Object.assign({}, common, gets, {
         iphone_type: app.globalData.iphone_type
       })
     })
-
-
-
   },
   imageLoad: function(e) {
     //获取图片真实宽度
